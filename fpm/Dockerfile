@@ -33,7 +33,8 @@ RUN apt-get update && apt-get install -y \
         sockets \
         pcntl \
         pdo_pgsql \
-    && pecl install redis-5.3.7 memcached \
+    && pecl install redis \
+    && pecl install memcached \
     && docker-php-ext-enable redis memcached
 
 # Установка Composer (более надёжный способ)
