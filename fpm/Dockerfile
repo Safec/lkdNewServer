@@ -33,10 +33,17 @@ RUN apt-get update && apt-get install -y \
         sockets \
         pcntl \
         pdo_pgsql \
-    && pecl channel-update pecl.php.net \
-    && pecl install redis \
+    && git clone --depth 1 --branch 6.2.0 https://github.com/phpredis/phpredis.git /tmp/phpredis \
+    && cd /tmp/phpredis \
+    && phpize \
+    && ./configure \
+    && make -j"$(nproc)" \
+    && make install \
+    && docker-php-ext-enable redis \
+    && cd / \
+    && rm -rf /tmp/phpredis \
     && pecl install memcached \
-    && docker-php-ext-enable redis memcached
+    && docker-php-ext-enable memcached
 
 # Установка Composer (более надёжный способ)
 RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php \
