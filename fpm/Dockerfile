@@ -33,6 +33,7 @@ RUN apt-get update && apt-get install -y \
         sockets \
         pcntl \
         pdo_pgsql \
+    && pecl channel-update pecl.php.net \
     && pecl install redis \
     && pecl install memcached \
     && docker-php-ext-enable redis memcached
