@@ -1,0 +1,84 @@
+{% set months = {
+    'January': 'января',
+    'February': 'февраля',
+    'March': 'марта',
+    'April': 'апреля',
+    'May': 'мая',
+    'June': 'июня',
+    'July': 'июля',
+    'August': 'августа',
+    'September': 'сентября',
+    'October': 'октября',
+    'November': 'ноября',
+    'December': 'декабря'
+} %}
+
+{% extends 'designer/_layout.html.twig' %}
+
+{% block content %}
+
+    <div class="main__content">
+        <div class="contacts event" style="display: block">
+                {% if event.isPublished|default %}
+                    <div class="contacts__contact">
+                        <div class="arrow_mobile mb-5">
+                            <a href="{{ path('designer.events') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+                                    <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="contacts__contact__name">{{ event.title|default }}</div>
+                        <div class="">
+                            <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+                                {% if event.location|default %}
+                                    <div class="contacts__contact__wrap__location">
+                                        <i class="mask-icon mask-icon--location"></i>
+                                        {{ event.location }}
+                                    </div>
+                                {% endif %}
+                                {% if event.date|default %}
+                                    <div class="contacts__contact__wrap__date">
+                                        <i class="mask-icon mask-icon--calendar"></i>
+                                        {% set date = event.date|date('d F Y H:i') %}
+                                        {% set date_parts = date|split(' ') %}
+                                        {{ date_parts[0] }} {{ months[date_parts[1]] }} {{ date_parts[2] }}  {{ date_parts[3] }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            {% if event.coverImage|default %}
+                                <div style="float: left; margin-right: 20px; margin-bottom: 20px;"><img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ event.coverImage|trim('/') ~ '?fit=crop') }}" alt=""></div>
+                            {% else %}
+                                <img src="{{ asset('/build/images/missing-image--small.svg') }}" alt="">
+                            {% endif %}
+                            <div class="mb-5">{{ event.mainText | linkify | nl2br | raw }}</div>
+                        </div>
+                        <div class="mt-5">
+
+                                {% if event.speakerImage|default %}
+                                    <div style="float: left; margin-right: 20px; margin-bottom: 20px;">
+                                        <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ event.speakerImage|trim('/') ~ '?fit=crop') }}" alt="">
+                                    </div>
+                                {% else %}
+
+                                {% endif %}
+                            <div class="speakerName">{{ event.speakerName|default }}</div>
+                            <div class="speakerText">{{ event.speakerText | linkify | nl2br | raw }}</div>
+                        </div>
+                        {% if event.isRegistrationOpen %}
+                            <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+                                <div class="w-full">
+                                    <a href="{{ path('designer.event.write', {'id': event.id}) }}" class="button button--primary w-full">Записаться</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+        </div>
+
+    </div>
+
+{% endblock %}

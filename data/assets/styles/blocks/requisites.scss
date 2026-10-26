@@ -1,0 +1,74 @@
+.requisites {
+    &__header {
+        @apply relative mb-10 mob:mb-5;
+
+        overflow: hidden;
+        height: 32px;
+        max-width: 890px;
+
+        &--designer {
+            & > div {
+                position: absolute;
+
+                &.position-1 {
+                    left: 0;
+                }
+
+                &.position-2 {
+                    left: 60%;
+                    transform: translateX(-60%);
+                }
+
+                &.position-3 {
+                    right: 0;
+                }
+            }
+        }
+
+        &--admin {
+            max-width: 1142px;
+
+            & > div {
+                position: absolute;
+
+                &.position-1 {
+                    left: 0;
+                }
+
+                &.position-2 {
+                    left: 40%;
+                    transform: translateX(-40%);
+                }
+
+                &.position-3 {
+                    left: 80%;
+                    transform: translateX(-80%);
+                }
+
+                &.position-4 {
+                    right: 0;
+                }
+            }
+        }
+
+        &__title {
+            @apply text-xl mob:text-lg font-black whitespace-nowrap text-mine-shaft;
+
+            &.disabled {
+                @apply text-dark-silver;
+            }
+        }
+    }
+
+    &__content {
+        @apply bg-white rounded-lg p-10 mob:p-5;
+    }
+
+    &__form {
+        @apply w-full max-w-[596px];
+
+        &--documents {
+            @apply w-full max-w-full;
+        }
+    }
+}

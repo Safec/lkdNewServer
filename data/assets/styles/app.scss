@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "mixins.scss";
+@import "screens.scss";
+@import "fonts.css";
+@import "colors.css";
+@import "icons.scss";
+@import "misc.scss";
+
+@import "elements/text.scss";
+@import "elements/mask-icon.scss";
+@import "elements/input.scss";
+@import "elements/link.scss";
+@import "elements/button.scss";
+@import "elements/tabs.scss";
+@import "elements/uploader.scss";
+@import "elements/notification.scss";
+@import "elements/form.scss";
+@import "elements/tom-select.scss";
+@import "elements/alert.scss";
+@import "elements/switch.scss";
+
+@import "blocks/unit.scss";
+@import "blocks/menu-profile.scss";
+@import "blocks/profile.scss";
+@import "blocks/sidebar.scss";
+@import "blocks/side-menu.scss";
+@import "blocks/side-helper.scss";
+@import "blocks/conditions.scss";
+@import "blocks/requests.scss";
+@import "blocks/portfolio.scss";
+@import "blocks/draft.scss";
+@import "blocks/project.scss";
+@import "blocks/product.scss";
+@import "blocks/main.scss";
+@import "blocks/profile-page.scss";
+@import "blocks/requisites.scss";
+@import "blocks/contacts.scss";
+@import "blocks/submenu.scss";
+@import "blocks/popup.scss";
+@import "blocks/error-404.scss";
+
+@import "landing.scss";
+@import "landing/askona-design.scss";
+@import "landing/konkurs.scss";
+
+:root {
+    --screen-height: calc(100vh - 20px * 2);
+
+    @include mobile {
+        --screen-height: calc(100vh - 8px * 2);
+    }
+}
+
+html {
+    @apply scroll-smooth;
+}
+
+.img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.unit {
+    @apply flex flex-col p-5;
+
+    &__title {
+
+    }
+
+    &__element {
+        @apply mt-2;
+
+        &--shrink {
+            @apply self-start;
+        }
+    }
+
+    &__content {
+        @apply mt-5;
+    }
+}
+
+.back {
+    @apply inline-flex text-nobel text-base items-center cursor-pointer;
+
+    &:hover {
+        @apply text-mine-shaft;
+    }
+
+    &::before {
+        @include mask-icon;
+        @apply block bg-current w-5 h-5 mr-1.5;
+
+        --url: var(--icon-back);
+        content: "";
+    }
+
+    &--left {
+        &::before {
+            --url: var(--icon-left);
+            width: 8px;
+            margin-right: 12px;
+        }
+    }
+}
+
+.image-control {
+    @apply relative;
+
+    &__img {
+        @apply rounded-lg object-cover h-full;
+    }
+
+    &__delete {
+        @apply absolute bottom-2 right-2 w-6 h-6 rounded bg-white/[0.6];
+
+        & .mask-icon {
+            -webkit-mask-size: 20px 20px;
+            mask-size: 20px 20px;
+        }
+    }
+}
+

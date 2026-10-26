@@ -1,0 +1,12 @@
+<div class="category-container">
+    <ul class="category-list">
+        {% for category in categories %}
+            <li><a href="#" data-action-name="onChangeCategory" data-category-id="{{ category.id }}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="subcategory-container">
+    <ul id="subcategories" class="category-list">
+        <!-- Подкатегории будут динамически загружаться здесь -->
+    </ul>
+</div>

@@ -1,0 +1,83 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% block main %}
+
+    <div class="main__container">
+
+        <div class="main-header main__header main__header--controls">
+            {% include 'designer/_header.html.twig' with {'class': 'main-header__profile'} %}
+            {% block header_action %}{% endblock %}
+        </div>
+
+        <div id="project" class="project main__content">
+
+            {% if draft_products|default %}
+                <div class="tab-panel project__tabs">
+                    <a href="#project" class="tab-panel__switcher active">Проект</a>
+                    <a href="#products" class="tab-panel__switcher">Товары</a>
+                </div>
+            {% endif %}
+
+            <div class="project-gallery">
+                {% if draft.images|default %}
+                    {% for image in draft.images %}
+                        <img class="img project-gallery__image" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ image ~ '?h=1080') }}" alt="">
+                    {% endfor %}
+                {% else %}
+                    <img class="img project-gallery__image" src="{{ asset('build/images/missing-image.svg') }}" alt="">
+                {% endif %}
+            </div>
+
+            {% if draft_products|default %}
+                <div id="products" class="products-list project__products">
+                    {% for product in draft_products %}
+                        <a href="{{ product.url }}" target="_blank" class="products-item">
+                            <img class="products-item__img" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ product.images|first ~ '?h=480') }}" alt="">
+                            <div class="products-item__content">
+                                <p class="products-item__about">{{ product.name }}</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <aside class="side-helper profile-page__helper profile-page__helper--project">
+        <div class="project-about side-helper__content">
+            <a class="back project-about__back" href="{{ path('designer.drafts') }}">К проектам</a>
+
+            <h1 class="h1 project-about__title">{{ draft.title|default }}</h1>
+            <p class="project-about__specs">{{ draft.subtitle|default }}</p>
+            <p class="project-about__description">{{ draft.description|default|nl2br }}</p>
+        </div>
+
+        {% if draft.id|default and app.user.id|default and app.user.id == draft.author.id|default %}
+            <div class="project-about side-helper__content--link">
+                <label for="project-link">Ссылка на проект</label>
+                <div class="text-control--copied mt-2">
+                    <input id="project-link" type="text" readonly class="input input--primary w-full !bg-white !text-mine-shaft"
+                           value="{{ url('public.draft', {'slug': draft.slug})|replace({'https://': '', 'http://': ''}) }}"
+                    >
+                    <span class="mask-icon mask-icon--copy" onclick="App.UI.Input.copyToClipboard(document.getElementById('project-link'), 'Ссылка скопирована в буфер обмена.')"></span>
+                </div>
+            </div>
+
+            <div class="side-helper-controls side-helper__controls side-helper__controls--project">
+                <a href="{{ path('designer.draft.edit', {'slug': draft.slug}) }}" class="button button--primary side-helper-controls__action">
+                    <div class="mask-icon mask-icon--edit button__icon"></div>
+                    Редактировать
+                </a>
+                <a onclick="document.getElementById('popup-delete').classList.remove('!hidden')" class="button button--additional side-helper-controls__action">
+                    <div class="mask-icon mask-icon--delete button__icon"></div>
+                    Удалить
+                </a>
+            </div>
+
+            {% import '_popup.html.twig' as popup %}
+            {{ popup.question('popup-delete', 'Вы уверены, что хотите удалить проект?', path('designer.draft.delete', {'id': draft.id})) }}
+        {% endif %}
+    </aside>
+
+{% endblock %}

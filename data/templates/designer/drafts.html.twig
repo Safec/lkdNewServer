@@ -1,0 +1,47 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% block header_action %}
+    <a href="{{ path('designer.draft.new') }}" class="button button--primary button--sm main-header__action">
+        <i class="mask-icon mask-icon--add mr-2"></i>
+        Новый проект
+    </a>
+{% endblock %}
+
+{% block content %}
+    {% if drafts|default %}
+
+        <div class="draft main__content">
+            <div class="projects-list main__content">
+
+                {% for draft in drafts %}
+                    <a href="{{ path('designer.draft.view', {'slug': draft.slug}) }}" class="projects-item">
+                        {% if draft.images %}
+                            {% if draft.cover and draft.cover in draft.images %}
+                                <img class="projects-item__preview" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ draft.cover ~ '?h=1024') }}" alt="">
+                            {% else %}
+                                <img class="projects-item__preview" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ draft.images|first ~ '?h=1024') }}" alt="">
+                            {% endif %}
+                        {% else %}
+                            <img class="projects-item__preview" src="{{ asset('build/images/missing-image.svg') }}" alt="">
+                        {% endif %}
+                        <div class="projects-item__about">
+                            <p class="h3 projects-item__name">{{ draft.title }}</p>
+                            <p class="projects-item__specs">{{ draft.subtitle }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    {% else %}
+
+        <div class="main__placeholder">
+            <div class="main-placeholder">
+                <div class="mask-icon mask-icon--design main-placeholder__icon"></div>
+                <p>У вас пока нет проектов.</p>
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}

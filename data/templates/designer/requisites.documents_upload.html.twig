@@ -1,0 +1,29 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% block content %}
+    <div class="requisites requisites__content main__content">
+        <div class="requisites__header requisites__header--designer">
+            <div class="position-3">
+                <div class="flex flex-row gap-10 min-w-full max-w-full">
+                    {% if back %}
+                        <div class="requisites__header__title disabled">1. Форма юридического лица</div>
+                        <div class="requisites__header__title disabled">2. Личные данные</div>
+                    {% else %}
+                        <div>
+                            <a href="{{ path('designer.requisites.legal_entity') }}" class="requisites__header__title disabled">1. Форма юридического лица</a>
+                        </div>
+                        <div>
+                            <a href="{{ path('designer.requisites.personal_data') }}" class="requisites__header__title disabled">2. Личные данные</a>
+                        </div>
+                    {% endif %}
+                    <div>
+                        <a href="{{ path('designer.requisites.documents_upload') }}" class="requisites__header__title">3. Загрузка документов</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include '_common/_requisites.documents_upload.form.html.twig' with {'form': form} %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<nav class="sidebar__nav {% if open_menu|default(false) %}{% else %}hiddenMobile{% endif %}">
+    <div class="close-icon" id="closeMenu">✖</div>
+    <ul class="side-menu sidebar__menu">
+        {% for menu_item in menu|default %}
+            {% if menu_item.role is not defined or is_granted(menu_item.role) %}
+                <li class="side-menu__item {{ menu_item.class|default(false) }}">
+                    <a class="side-menu-link side-menu__link {% if menu_item.disabled|default(false) %}side-menu-link--disabled{% endif %} {% if app.request.pathinfo starts with menu_item.path %}active{% endif %}"
+                       href="{{ menu_item.path }}"
+                    >
+                        <div class="mask-icon mask-icon--{{ menu_item.icon }} side-menu-link__icon"></div>
+                        <p class="side-menu-link__text">{{ menu_item.title }}</p>
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        <li class="">
+            <a class="side-menu-link side-menu-link--logout side-menu__link" href="{{ path('auth.logout') }}">
+                <div class="mask-icon mask-icon--exit side-menu-link__icon"></div>
+                <p class="side-menu-link__text">Выйти</p>
+            </a>
+        </li>
+        <li class="banner_menu_to_konkurs">
+            <a href="/landing/konkurs" target="_blank">
+                <img src="/build/images/landing/konkurs/banner/banner2.jpg" alt="Конкурс Askona">
+            </a>
+        </li>
+        <li class="contactDBlock">
+            <div class="contactDHeader">Контакты</div>
+            <div class="contactD contactEmail"><a href="mailto:askona_design@askona.ru" target="_blank">askona_design@askona.ru</a></div>
+            <div class="contactD contactTelega"><a href="https://t.me/AskonaDesign" target="_blank">t.me/AskonaDesign</a></div>
+            <div class="contactD contactPhone"><a href="https://max.ru/u/f9LHodD0cOKpQt8xYdtLaau3eJChFPrpDZQydIHZPa6LqwT2mr_9osOacds" target="_blank">+7 906 616-39-44</a></div>
+        </li>
+    </ul>
+</nav>

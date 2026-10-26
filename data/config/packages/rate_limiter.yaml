@@ -1,0 +1,22 @@
+framework:
+  rate_limiter:
+    send_sms_code:
+      policy: '%rate_limiter.policy%'
+      limit: 1
+      interval: '%rate_limiter.sms_send_code.interval%'
+    send_sms_code_without_captcha:
+      policy: '%rate_limiter.policy%'
+      limit: 3
+      interval: '60 minutes'
+    authenticate:
+      policy: '%rate_limiter.policy%'
+      limit: 3
+      interval: '10 seconds'
+    authenticate_without_captcha:
+      policy: '%rate_limiter.policy%'
+      limit: 3
+      interval: '60 seconds'
+    dadata_suggest:
+      policy: '%rate_limiter.policy%'
+      limit: 10
+      interval: '60 seconds'

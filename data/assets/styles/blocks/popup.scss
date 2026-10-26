@@ -1,0 +1,27 @@
+.popup {
+    @apply fixed inset-0 flex items-center justify-center z-[999];
+
+    &__screen {
+        @apply bg-black bg-opacity-50 absolute inset-0;
+    }
+
+    &__window {
+        @apply relative z-[+1] bg-white px-4 py-10 w-[320px] rounded-lg;
+
+        &__close {
+            @apply absolute top-2 right-2 mask-icon mask-icon--close cursor-pointer;
+        }
+
+        &__title {
+            @apply h5 mb-4;
+        }
+
+        &__text {
+            @apply text-base font-bold text-mine-shaft mb-4;
+        }
+
+        &__buttons {
+            @apply flex gap-2 justify-evenly;
+        }
+    }
+}

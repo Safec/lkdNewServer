@@ -1,0 +1,140 @@
+<div class="project-modal" id="projectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Стать участником</h5>
+            </div>
+
+            <div class="modal-body">
+                <form id="projectForm">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ФИО</label>
+                            <input type="text" name="name" placeholder="Иванов Иван Иванович">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="text" name="phone" placeholder="+7(___)___-__-__" data-mask="+{7} (000) 000-00-00" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="email" placeholder="mail@example.com" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Номинация</label>
+                            <select name="nomination">
+                                <option value="" disabled selected hidden>Выберите номинацию</option>
+                                <option value="Квартира в аренду">Квартира в аренду</option>
+                                <option value="Дофаминовый интерьер">Дофаминовый интерьер</option>
+                                <option value="Проект студии">Проект студии</option>
+                                <option value="Дизайн детской комнаты">Дизайн детской комнаты</option>
+                                <option value="Уютная спальня с текстилем и декором от Аскона">Уютная спальня с текстилем и декором от Аскона</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ссылка на проект</label>
+                        <textarea name="url" placeholder="Отправьте ссылку на проект, загруженный в любое облако (Google Диск, Яндекс.Диск, Облако Mail.ru"></textarea>
+                    </div>
+
+                    <div class="policy">
+                        Отправляя свои работы я соглашаюсь с <a href="https://www.askona.ru/pokupatelyam/policy/" target="_blank">Политикой обработки персональных данных</a> и <a href="/build/images/landing/konkurs/Конкурс_дизайна_интерьера_«Идеальная_комната_с_Аскона»_2026.pdf" target="_blank">Правилами конкурса</a>
+                    </div>
+
+
+                    <button type="submit" class="btn-submit" disabled>
+                        Отправить проект
+                    </button>
+
+                    <div class="alertQ alert-success d-none" id="projectSuccess">
+                        Проект успешно отправлен
+                    </div>
+
+                    <div class="alertQ alert-danger d-none" id="projectError"></div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script defer>
+    document.getElementById('projectForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const form = this;
+        const success = document.getElementById('projectSuccess');
+        const error = document.getElementById('projectError');
+
+        success.classList.add('d-none');
+        error.classList.add('d-none');
+
+        fetch('/landing/konkurs/project', {
+            method: 'POST',
+            body: new FormData(form)
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    success.classList.remove('d-none');
+                    form.reset();
+                } else {
+                    error.textContent = data.error;
+                    error.classList.remove('d-none');
+                }
+            })
+            .catch(() => {
+                error.textContent = 'Ошибка отправки';
+                error.classList.remove('d-none');
+            });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('projectForm');
+        const nameInput = form.querySelector('[name="name"]');
+        const phoneInput = form.querySelector('[name="phone"]');
+        const emailInput = form.querySelector('[name="email"]');
+        const nominationInput = form.querySelector('[name="nomination"]');
+        const urlInput = form.querySelector('[name="url"]');
+        const submitBtn = form.querySelector('.btn-submit');
+
+        function isValid() {
+            const nameValid = nameInput.value.trim().length > 1;
+            const phoneDigits = phoneInput.value.replace(/\D/g, '');
+            const phoneValid = phoneDigits.length === 11;
+            const urlValid = urlInput.value.trim().length > 5;
+
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+            const nominationValid = nominationInput.value !== ''; // placeholder = ""
+
+            return nameValid && phoneValid && urlValid && emailValid && nominationValid;
+        }
+
+        function toggleButton() {
+            if (isValid()) {
+                submitBtn.disabled = false;
+                submitBtn.classList.add('active');
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.remove('active');
+            }
+        }
+
+        [nameInput, phoneInput, urlInput, emailInput, nominationInput].forEach(input => {
+            input.addEventListener('input', toggleButton);
+            input.addEventListener('change', toggleButton);
+        });
+    });
+
+</script>

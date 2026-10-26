@@ -1,0 +1,7 @@
+<div {{ attributes }}>
+    <select class="contacts__contact__select" data-model="user.status" title="">
+        <option value="{{ constant('App\\Entity\\User::STATUS_NEW') }}">Неактивный</option>
+        <option value="{{ constant('App\\Entity\\User::STATUS_MODERATE') }}">В работе</option>
+        <option value="{{ constant('App\\Entity\\User::STATUS_ACTIVE') }}">Активный</option>
+    </select>
+</div>

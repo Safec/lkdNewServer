@@ -1,0 +1,60 @@
+{% extends 'auth/_layout.html.twig' %}
+
+{% block content %}
+    <h4>Войдите или зарегистрируйтесь</h4>
+
+    {% set errors = app.flashes('error') %}
+    {% set successes = app.flashes('success') %}
+
+    <form id="auth" action="{{ path('auth.send_code') }}" method="post" class="symfony-form mt-5">
+        <input type="hidden" name="{{ options.csrf_parameter|default("_csrf_token") }}" value="{{ csrf_token(options.csrf_token_id|default("auth.auth")) }}">
+
+        <div>
+            {% if use_captcha|default(false) and h_captcha.enabled|default(false) %}
+                <div>
+                    <div id="h-captcha"></div>
+                    <!--suppress JSUnresolvedReference -->
+                    <script type="text/javascript">
+                        function h_captcha_onload() {
+                            const covered = document.querySelectorAll(".captcha-cloak");
+                            covered.forEach(el => el.classList.add("hidden"));
+
+                            hcaptcha.render("h-captcha", {
+                                "sitekey": {{ h_captcha.sitekey|json_encode|raw }},
+                                "callback": function () {
+                                    covered.forEach(el => el.classList.remove("hidden"));
+                                }
+                            });
+                        }
+                    </script>
+                    <script src="https://js.hcaptcha.com/1/api.js?recaptchacompat=off&onload=h_captcha_onload" async defer></script>
+                </div>
+            {% else %}
+                <input type="hidden" name="{{ options.captcha_csrf_parameter|default('_captcha_csrf_token') }}"
+                       value="{{ csrf_token(options.captcha_csrf_token_id|default('_captcha')) }}"/>
+            {% endif %}
+
+            <div class="captcha-cloak">
+                <label for="_phone">Телефон</label>
+                <input id="_phone" name="{{ options.phone_parameter|default("_phone") }}" value="{{ last_phone|default }}" type="text"
+                       placeholder="+7(___)___-__-__" data-mask="+{7} (000) 000-00-00" required
+                       class="w-full {% if errors|default %}is-invalid !pr-8{% endif %}"
+                />
+            </div>
+
+            {% for error in errors|default([]) %}
+                <div class="error mt-1 text-xs text-rose">{{ error|trans }}</div>
+            {% endfor %}
+
+            {% for success in successes|default([]) %}
+                <div class="success mt-1 text-xs text-primary">{{ success|trans }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="text-xs mt-2">
+            Нажимая «Получить код», Вы подтверждаете ознакомление с <a class="text-primary hover:text-primary-hover" href="https://www.askona.ru/pokupatelyam/policy/" target="_blank">Политикой обработки персональных данных</a>
+        </div>
+
+        <button type="submit" class="w-full mt-2 captcha-cloak" data-form-required>Получить код</button>
+    </form>
+{% endblock %}

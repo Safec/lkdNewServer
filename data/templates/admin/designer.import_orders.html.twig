@@ -1,0 +1,16 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% block content %}
+    <h4 class="mt-5 mb-5">Загрузка заказов</h4>
+
+    <div class="main__content">
+        {{ form_start(form) }}
+        {{ form_row(form.file) }}
+        {{ form_row(form.submit) }}
+        {{ form_end(form) }}
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+{% endblock %}

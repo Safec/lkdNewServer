@@ -1,0 +1,97 @@
+.conditions {
+  &__content {
+    @apply flex flex-row tab:flex-col mob:items-center gap-10;
+
+    &__left-column {
+      /*@apply w-[400px];*/
+    }
+
+    &__right-column {
+      @apply w-full /*max-w-[596px]*/;
+
+      .question {
+        &__question-item {
+          @apply p-5 mb-5 rounded-lg bg-white;
+          transition: all 0.3s ease;
+
+          &__zagolovok {
+            @apply text-lg font-bold flex justify-between items-center cursor-pointer;
+
+            .arrow {
+              @apply inline-block transition-transform duration-300 ease-in-out float-right rotate-180;
+              .arrow-svg {
+                fill: #828282;
+              }
+            }
+          }
+
+          &.active .question__question-item__answer {
+            @apply block;
+          }
+
+          &.menu-open .question__question-item__answer {
+            @apply block;
+          }
+
+          &__answer {
+            @apply hidden mb-5 mt-5 text-nobel;
+
+            label {
+              @apply pt-5 pb-1 border-b border-solid block;
+              border-bottom-width: 1px;
+              border-color: rgb(var(--color-diamond));
+            }
+
+            /*label {
+              @apply pt-5 pb-2 relative;
+            }
+
+            label::after {
+              content: '';
+              @apply absolute left-0 bottom-0 w-full h-[1px];
+              background-color: rgb(var(--color-diamond));
+            }*/
+
+            .snoska {
+              @apply mt-5 mb-5 text-sm;
+              .ul_dop {
+                @apply font-bold list-disc pl-5;
+                li {
+                  @apply mb-2;
+                }
+              }
+            }
+
+            .fweight {
+              @apply mt-5 mb-5 font-bold;
+            }
+
+            .form-row {
+              @apply m-5 flex;
+
+              @media (max-width: 599px) {
+                @apply ml-0 mr-0;
+              }
+            }
+
+            &__custom-list {
+              @apply list-none p-0;
+
+              li {
+                @apply flex items-center mb-5;
+
+                .circle {
+                  @apply flex justify-center items-center min-w-[32px] w-8 h-8 bg-[#E5F8F9] rounded-full text-primary font-bold mr-2;
+                }
+              }
+            }
+          }
+
+          &.active .arrow {
+            @apply transform rotate-0;
+          }
+        }
+      }
+    }
+  }
+}

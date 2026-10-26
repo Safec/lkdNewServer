@@ -1,0 +1,63 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block header_action %}
+    {% include 'admin/_header_action.html.twig' with {'href': path('admin.catalog.model_new'), 'caption': 'Добавить модель'} %}
+{% endblock %}
+
+{% block content %}
+
+    {% import '_popup.html.twig' as popup %}
+
+    <div class="main__content">
+
+        <div class="contacts">
+            <h1>Список моделей</h1>
+            {% if models is not empty %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Платформа</th>
+                    <th>Рендер</th>
+                    <th>Предпросмотр</th>
+                    <th>URL</th>
+                    <th>Подкатегория</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for model in models %}
+                    <tr>
+                        <td>{{ model.id }}</td>
+                        <td>{{ model.name }}</td>
+                        <td>{{ model.platform }}</td>
+                        <td>{{ model.render }}</td>
+                        <td>
+                            {% if model.previewImage %}
+                                <img src="{{ asset(model.previewImage) }}" alt="{{ model.name }}" width="100">
+                            {% else %}
+                                Нет изображения
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ model.url }}" target="_blank">{{ model.url }}</a></td>
+                        <td>{{ model.subcategory.name }}</td>
+                        <td>
+                            <a href="{{ path('admin.catalog.model_edit', {'id': model.id}) }}" class="button button--additional w-full">Редактировать</a>
+                            <a onclick="document.getElementById('popup-delete-{{ model.id }}').classList.remove('!hidden')" class="button button--additional w-full !text-rose">Удалить</a>
+                        </td>
+                    </tr>
+                    {{ popup.question('popup-delete-' ~ manager.id, 'Вы уверены, что хотите удалить аккаунт менеджера?', path('admin.manager.delete', {'id': manager.id})) }}
+
+                {% endfor %}
+                </tbody>
+            </table>
+                {% else %}
+                    <p>No models found.</p>
+                {% endif %}
+
+         </div>
+
+    </div>
+
+{% endblock %}

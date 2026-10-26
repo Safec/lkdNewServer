@@ -1,0 +1,70 @@
+.main {
+    @apply flex relative;
+
+    @apply tab:flex-col;
+
+    &__header {
+        @apply tab:mb-5;
+
+        @apply tab:fixed tab:top-0 tab:left-0 tab:right-0 tab:bg-white;
+
+        &--controls {
+            @apply mb-0;
+        }
+    }
+
+    &__container {
+        @apply flex flex-col w-full;
+    }
+
+    &__header {}
+
+    &__content {
+        &--pad {
+            @apply bg-white rounded-lg p-5;
+
+            @apply tab:p-0;
+        }
+    }
+
+    &__header + &__content {
+        @apply tab:pt-20;
+    }
+
+    &__placeholder {
+        @apply m-auto absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2;
+    }
+
+    .sidebar ~ & {
+        @apply tab:pb-20;
+
+        @apply mob:pb-[4.25rem];
+    }
+}
+
+.main-header {
+    @apply flex gap-2 items-center;
+
+    @apply tab:p-5 tab:z-[100] tab:rounded-b-lg;
+
+    @apply mob:box-content mob:max-h-[40px];
+
+    &__profile {
+        @apply hidden;
+
+        @apply tab:flex;
+    }
+
+    &__action {
+        @apply ml-auto whitespace-nowrap mb-5 tab:mb-0;
+    }
+}
+
+.main-placeholder {
+    @apply flex flex-col items-center text-base text-nobel text-center font-bold w-max;
+    @apply mob:w-auto #{!important};
+
+    &__icon {
+        @apply mb-5;
+    }
+}

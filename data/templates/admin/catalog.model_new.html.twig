@@ -1,0 +1,155 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% import '_common/_upload_document.html.twig' as macros %}
+
+{% block content %}
+    <div class="requests__content __content add_edit_model">
+        <div class="">
+            <div class="question__question-item__request">
+                <div class="project-edit main__content main__content--pad requests-block">
+                    <div class="arrow_mobile">
+                        <a href="{{ path('admin.catalog') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <h4 class="mt-5">Загрузка модели</h4>
+
+                    {{ form_start(form) }}
+                    <div class="mt-5">{{ form_row(form.name, {
+                            'label_attr': {'class': 'h5 unit__title'}
+                        }) }}
+                    </div>
+                    <div class="form-row">
+                        <div class="w-1/2">
+                            {{ form_row(form.category, {
+                                'label_attr': {'class': 'h5 unit__title'}
+                            }) }}
+                        </div>
+                        <div class="w-1/2">
+                            {{ form_row(form.subcategory, {
+                                'label_attr': {'class': 'h5 unit__title'}
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        {{ macros.single_document_uploader(form.previewImage, 'Файл модели', 'Загрузить') }}
+                    </div>
+                    <div class="form-row mt-5">
+                        <div class="w-1/2">
+                            {{ form_row(form.platform, {
+                                'label_attr': {'class': 'h5 unit__title'}
+                            }) }}
+                        </div>
+                        <div class="w-1/2">
+                            {{ form_row(form.render, {
+                                'label_attr': {'class': 'h5 unit__title'}
+                            }) }}
+                        </div>
+                    </div>
+
+                        {% set uploader_index = form.images|length > 0 ? form.images|last.vars.name + 1 : 0 %}
+
+                        {% set uploader_prototype %}
+                            <label class="ui-project-uploader uploader empty">
+                                {{ form_widget(form.images.vars.prototype.path) }}
+                                {{ form_widget(form.images.vars.prototype.file, {'attr': {'onchange': 'App.UI.ProjectUploader.onChangeFile(this.parentNode)'}}) }}
+                                <span class="project-edit-gallery__uploader">
+                                    <span class="uploader__title">Загрузить</span>
+                                    <span class="uploader__limits">{{ form_help(form.images.vars.prototype)|nl2br }}</span>
+                                </span>
+                                <label for="cover-__name__" class="ui-cover !hidden">
+                                    <input type="radio" class="!hidden" name="{{ form.cover.vars.full_name }}" id="cover-__name__" value="__name__">
+                                    <span class="image-control__cover">
+                                        <span class="mask-icon mask-icon--cover"></span>
+                                    </span>
+                                </label>
+                                <button type="button" class="image-control__delete ui-delete !hidden" onclick="App.UI.ProjectUploader.onDeleteFile(this.parentNode);">
+                                    <span class="mask-icon mask-icon--delete"></span>
+                                </button>
+                            </label>
+                        {% endset %}
+
+                        <label class="mt-5 h5 unit__title" for="catalog_render">{{ 'Изображения для превью (не более 7)' }}</label>
+                        <div class="project-edit-gallery unit__content--full"
+                             data-index="{{ uploader_index }}"
+                             data-prototype="{{ uploader_prototype|e('html_attr') }}">
+
+                            {% for upload_form in form.images %}
+                                {% set upload = upload_form.vars.value %}
+                                <label class="ui-project-uploader uploader !border-none {% if not upload.path %}!hidden{% endif %}">
+                                    {{ form_widget(upload_form.path) }}
+                                    {{ form_widget(upload_form.file, {'attr': {'onchange': 'App.UI.ProjectUploader.onChangeFile(this.parentNode)'}}) }}
+                                    <span class="project-edit-gallery__uploader">
+                                        <span class="uploader__title">Загрузить</span>
+                                        <span class="uploader__limits">{{ form_help(upload_form)|nl2br }}</span>
+                                    </span>
+                                    <label for="cover-{{ upload_form.vars.name }}" class="ui-cover">
+                                        <input type="radio" class="!hidden" name="{{ form.cover.vars.full_name }}" id="cover-{{ upload_form.vars.name }}"
+                                               value="{{ upload_form.vars.name }}" {% if form.cover.vars.value == upload_form.path.vars.value %}checked{% endif %}
+                                        >
+                                        <span class="image-control__cover">
+                                            <span class="mask-icon mask-icon--cover"></span>
+                                        </span>
+                                    </label>
+                                    <button type="button" class="image-control__delete ui-delete" onclick="App.UI.ProjectUploader.onDeleteFile(this.parentNode);">
+                                        <span class="mask-icon mask-icon--delete"></span>
+                                    </button>
+                                    <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ upload.path|trim('/') ~ '?w=466&h=352&fit=crop') }}" alt="">
+                                </label>
+                            {% endfor %}
+
+                            {{ uploader_prototype|replace({'__name__': uploader_index})|raw }}
+
+                        </div>
+                    <div class="mt-5">{{ form_row(form.url, {
+                            'label_attr': {'class': 'h5 unit__title'}
+                        }) }}
+                    </div>
+                    {{ form_row(form.save, {'label': 'form.save.label', 'attr': {'data-form-required': ''}}) }}
+                    <div class="mt-5">
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Когда изменяется категория
+            var categorySelect = document.getElementById('{{ form.category.vars.id }}');
+            var subCategorySelect = document.getElementById('{{ form.subcategory.vars.id }}');
+
+            categorySelect.addEventListener('change', function() {
+                var categoryId = this.value;
+
+                // Очистить текущие подкатегории
+                subCategorySelect.innerHTML = '<option value="">Загрузка...</option>';
+
+                if (categoryId) {
+                    fetch('{{ path("admin.catalog.get_subcategories") }}?category_id=' + categoryId)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Очистить подкатегории
+                            subCategorySelect.innerHTML = '<option value="">Выберите подкатегорию</option>';
+
+                            // Заполнить select подкатегорий
+                            data.subcategories.forEach(subcategory => {
+                                var option = document.createElement('option');
+                                option.value = subcategory.id;
+                                option.textContent = subcategory.name;
+                                subCategorySelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Ошибка при загрузке подкатегорий:', error);
+                        });
+                } else {
+                    subCategorySelect.innerHTML = '<option value="">Сначала выберите категорию</option>';
+                }
+            });
+        });
+    </script>
+{% endblock %}

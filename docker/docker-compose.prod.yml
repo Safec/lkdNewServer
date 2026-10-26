@@ -1,0 +1,27 @@
+services:
+  nginx:
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../data:/var/www/html
+      - /mnt/data/public:/mnt/data/public:ro     # public uploads only, read-only
+      - ../nginx/hosts/prod.conf:/etc/nginx/conf.d/default.conf:ro
+    # /mnt/data/uploads (private) NOT mounted here
+
+  php-fpm:
+    restart: always
+    volumes:
+      - ../data:/var/www/html
+      - /mnt/data:/mnt/data                        # всё, включая приватные
+    environment:
+      - APP_ENV=prod
+
+  database:
+    restart: always
+    volumes:
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
+
+  redis:
+    restart: always

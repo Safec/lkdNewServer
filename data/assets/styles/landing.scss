@@ -1,0 +1,66 @@
+.askona-button {
+    @apply inline-flex justify-center font-bold text-base text-mine-shaft text-center bg-sunglow rounded-lg;
+    @apply border-2 border-solid border-sunglow py-[10px] px-[22px] cursor-pointer;
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: #ffc20d;
+            border-color: #ffbf00;
+        }
+    }
+
+    &:active {
+        box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    }
+
+    &--secondary {
+        @apply text-dim bg-white border-silver;
+
+        @media (hover: hover) {
+            &:hover {
+                @apply bg-inherit border-dim;
+            }
+        }
+    
+        &:active {
+            box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+        }
+    }
+}
+
+.askona-link {
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+}
+
+.askona-footer {
+    @apply bg-wild-sand px-10;
+
+    @media (max-width: 1023px) {
+        @apply px-4;
+    }
+
+    &__content {
+        @apply flex justify-between items-center h-[104px] max-w-[944px] mx-auto;
+
+        @media (max-width: 1023px) {
+            @apply flex-col text-center h-auto py-6;
+        }
+    }
+
+    &__phone {
+        @apply font-black text-xl text-dark-silver whitespace-nowrap pl-5;
+
+        @media (max-width: 1023px) {
+            @apply text-base pl-0 mt-2;
+        }
+    }
+}
+
+.askona-footer-technical {
+    @apply flex flex-col text-sm;
+
+    &__policy {
+        @apply text-dim mt-2;
+    }
+}

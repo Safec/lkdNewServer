@@ -1,0 +1,9 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% set active_link = '' %}
+
+{% block content %}
+    <div class="requests__content">
+        {% include 'designer/_contacts_menu.html.twig' with {'active_link': active_link} %}
+    </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% block content %}
+    <div class="view_model" data-loading="addClass(opacity-60)">
+        <div class="">
+            <div class="model-item">
+                <div class="project-edit main__content main__content--pad requests-block">
+                    <div class="arrow_mobile">
+                        <a href="{{ path('designer.catalog') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="flex flex-row justify-between">
+                        <div>
+                            <div class="mt-3 text--bold">
+                                {% if model.name|default %}
+                                    {{ model.name }}
+                                {% else %}
+                                    <span class="text-dim">Нет данных</span>
+                                {% endif %}
+                            </div>
+                            <div class="mt-3">
+                                Платформа:
+                                {% if model.platform|default %}
+                                    {{ model.platform }}
+                                {% else %}
+                                    <span class="text-dim">Нет данных</span>
+                                {% endif %}
+                            </div>
+                            <div class="">
+                                Рендер:
+                                {% if model.render|default %}
+                                    {{ model.render }}
+                                {% else %}
+                                    <span class="text-dim">Нет данных</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <a href="{{ path('designer.catalog.model_download', { 'id': model.id }) }}" target="_blank" class="button button--primary w-full">Скачать</a>
+                            </div>
+                            {% if model.url|default %}
+                                <div class="w-full mt-3">
+                                    <a href="{{ model.url }}" target="_blank" class="button button--secondary w-full">Смотреть на сайте</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="contacts__contact__cover">
+                        <div class="carousel">
+                            <div class="carousel__inner">
+                                {% if model.images %}
+                                    {% for model_image in model.images %}
+                                        <div class="carousel__item"><img class="models-item__preview" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ model_image ~ '?h=600') }}" alt=""></div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="carousel__item"><img class="models-item__preview" src="{{ asset('build/images/missing-image.svg') }}" alt=""></div>
+                                {% endif %}
+                            </div>
+                            <!-- Стрелки для навигации -->
+                                <button class="carousel__nav carousel__nav--prev">&#10094;</button>
+                                <button class="carousel__nav carousel__nav--next">&#10095;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

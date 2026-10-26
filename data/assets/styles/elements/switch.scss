@@ -1,0 +1,53 @@
+.switch {
+    @apply inline-block relative w-[36px] h-[14px] rounded-[7px] cursor-pointer;
+
+    & > input[type="checkbox"] {
+        @apply hidden;
+
+        & + span {
+            @apply absolute left-0 top-0 right-0 bottom-0 rounded-[7px];
+            transition: background-color 0.3s;
+
+            & > span {
+                @apply absolute right-0 rounded-full w-[20px] h-[20px] top-1/2 transform -translate-y-1/2 shadow;
+                transition: background-color 0.3s;
+            }
+        }
+
+        &:checked + span {
+            background-color: rgba(0, 185, 191, 0.56);
+
+            & > span {
+                @apply right-0 bg-primary;
+            }
+        }
+
+        &:not(:checked) + span {
+            @apply bg-nobel;
+
+            & > span {
+                @apply left-0 bg-white;
+            }
+        }
+
+        &:disabled:checked + span {
+            @apply bg-whisper;
+
+            & > span {
+                background-color: #86C5C8;
+            }
+        }
+
+        &:disabled:not(:checked) + span {
+            @apply bg-silver;
+
+            & > span {
+                @apply bg-gallery;
+            }
+        }
+    }
+
+    &:hover > input[type="checkbox"]:checked + span > span {
+        @apply bg-primary-hover;
+    }
+}

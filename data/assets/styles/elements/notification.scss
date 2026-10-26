@@ -1,0 +1,16 @@
+.tooltip {
+    @apply block relative bg-white rounded-lg py-5 px-6 shadow-xl mb-8;
+
+    &::before {
+        @apply absolute bg-white w-4 h-4 -bottom-2 -ml-2 left-1/2 right-1/2 rotate-45;
+        content: ' ';
+    }
+
+    &--warning {
+        @apply bg-dandelion;
+
+        &::before {
+            @apply bg-dandelion;
+        }
+    }
+}

@@ -1,0 +1,139 @@
+<div class="modal fade question-modal" id="questionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Задать вопрос</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    Закрыть
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="questionForm">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Имя*</label>
+                            <input type="text" name="name" placeholder="Иванов Иван">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Телефон *</label>
+                            <input type="text" name="phone" placeholder="+7(___)___-__-__" data-mask="+{7} (000) 000-00-00" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Вопрос*</label>
+                        <textarea name="question" placeholder="Текст вашего вопроса"></textarea>
+                    </div>
+
+                    <div class="policy">
+                        Нажимая «Отправить вопрос», вы подтверждаете ознакомление
+                        с <a href="https://www.askona.ru/pokupatelyam/policy/" target="_blank">Политикой обработки персональных данных</a>
+                    </div>
+
+
+                    <button type="submit" class="btn-submit" disabled>
+                        Отправить вопрос
+                    </button>
+
+                    <div class="alertQ alert-success d-none" id="questionSuccess">
+                        Вопрос успешно отправлен
+                    </div>
+
+                    <div class="alertQ alert-danger d-none" id="questionError"></div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('questionForm');
+        const nameInput = form.querySelector('[name="name"]');
+        const phoneInput = form.querySelector('[name="phone"]');
+        const questionInput = form.querySelector('[name="question"]');
+        const submitBtn = form.querySelector('.btn-submit');
+
+        const success = document.getElementById('questionSuccess');
+        const error = document.getElementById('questionError');
+
+        // Проверка валидности формы
+        function isValid() {
+            const nameValid = nameInput.value.trim().length > 1;
+            const phoneDigits = phoneInput.value.replace(/\D/g, '');
+            const phoneValid = phoneDigits.length === 11;
+            const questionValid = questionInput.value.trim().length > 5;
+
+            return nameValid && phoneValid && questionValid;
+        }
+
+        // Включение/отключение кнопки
+        function toggleButton() {
+            if (isValid()) {
+                submitBtn.disabled = false;
+                submitBtn.classList.add('active');
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.remove('active');
+            }
+        }
+
+        [nameInput, phoneInput, questionInput].forEach(input => {
+            input.addEventListener('input', toggleButton);
+        });
+
+        // Обработка отправки
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            success.classList.add('d-none');
+            error.classList.add('d-none');
+
+            fetch('/landing/askona_design/question', {
+                method: 'POST',
+                body: new FormData(form)
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        success.classList.remove('d-none');
+                        form.reset();
+                        toggleButton(); // отключаем кнопку после reset
+
+                        const modalEl = document.getElementById('questionModal');
+                        const modal = bootstrap.Modal.getInstance(modalEl); // берем существующий
+
+                        if (modal) {
+                            setTimeout(() => {
+                                modal.hide();
+
+                                // на всякий случай убираем overlay и класс body
+                                modalEl.addEventListener('hidden.bs.modal', () => {
+                                    document.body.classList.remove('modal-open');
+                                    document.body.style.overflow = '';
+                                    document.body.style.paddingRight = '';
+                                    const backdrop = document.querySelector('.modal-backdrop');
+                                    if (backdrop) backdrop.remove();
+                                });
+                            }, 2000);
+                        }
+
+                    } else {
+                        error.textContent = data.error || 'Ошибка отправки';
+                        error.classList.remove('d-none');
+                    }
+                })
+                .catch(() => {
+                    error.textContent = 'Ошибка отправки';
+                    error.classList.remove('d-none');
+                });
+        });
+    });
+</script>

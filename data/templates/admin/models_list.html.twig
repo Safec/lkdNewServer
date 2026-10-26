@@ -1,0 +1,36 @@
+{% import '_popup.html.twig' as popup %}
+{% for model in models %}
+
+    <div class="contacts__contact">
+
+        <div class="contacts__contact__cover">
+            {% if model.images %}
+                {% if model.cover and model.cover in model.images %}
+                    <img class="models-item__preview" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ model.cover ~ '?h=170') }}" alt="">
+                {% else %}
+                    <img class="models-item__preview" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ model.images|first ~ '?h=170') }}" alt="">
+                {% endif %}
+            {% else %}
+                <img class="models-item__preview" src="{{ asset('build/images/missing-image.svg') }}" alt="">
+            {% endif %}
+        </div>
+        <div class="contacts__contact__name mt-3">
+            {% if model.name|default %}
+                {{ model.name }}
+            {% else %}
+                <span class="text-dim">Нет данных</span>
+            {% endif %}
+        </div>
+        <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+            <div class="w-full">
+                <a onclick="document.getElementById('popup-delete-{{ model.id }}').classList.remove('!hidden')" class="button button--additional w-full">Удалить</a>
+            </div>
+            <div class="w-full">
+                <a href="{{ path('admin.catalog.model_edit', {'id': model.id}) }}" class="button button--secondary w-full">Изменить</a>
+            </div>
+        </div>
+    </div>
+
+    {{ popup.question('popup-delete-' ~ model.id, 'Вы уверены, что хотите удалить модель?', path('admin.catalog.model_delete', {'id': model.id})) }}
+
+{% endfor %}

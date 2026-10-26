@@ -1,0 +1,97 @@
+.field {
+    $this: &;
+
+    @apply inline-flex relative;
+
+
+    &--success,
+    &--error {
+        &::after {
+            @include mask-icon;
+        
+            @apply text-nobel absolute top-1/2 right-2 w-6 h-6 -translate-y-1/2;
+    
+            content: "";
+        }
+
+    }
+
+    &--search {
+        &::before {
+            @include mask-icon;
+            @apply text-nobel absolute top-1/2 left-3 w-6 h-6 -translate-y-1/2;
+            content: "";
+        }
+    }
+
+    // &--success {
+    //     &::after {
+    //         --url: var(--)
+    //     }
+    // }
+
+
+    &__lead {
+        @apply text-nobel absolute top-1/2 left-3 w-6 h-6 -translate-y-1/2;
+    }
+
+    &__action {
+        @apply text-nobel absolute top-1/2 right-2 w-6 h-6 -translate-y-1/2;
+    }
+
+    &__input {
+        @apply block text-mine-shaft;
+    }
+
+    &__message {
+        @apply text-xs text-current mt-1;
+    }
+
+
+    &--success &__input {
+        @apply border-atlantis;
+    }
+
+    &--error &__input {
+        @apply border-rose;
+    }
+
+
+    &__lead ~ &__input {
+        @apply pl-10;
+    }
+}
+
+.input,
+.textarea {
+    @apply text-base text-mine-shaft border border-nobel rounded-lg outline-none px-4 py-2;
+
+    &:focus {
+        @apply border-primary;
+    }
+
+    &:disabled,
+    &:read-only {
+        @apply text-dark-silver bg-concrete border-nobel;
+    }
+
+    &::placeholder {
+        @apply text-dark-silver;
+    }
+
+    &--icon {
+        @apply pl-10;
+    }
+}
+
+.input {
+    @apply h-10;
+}
+
+.textarea {
+    @apply resize-none;
+}
+
+.action-input {
+
+}

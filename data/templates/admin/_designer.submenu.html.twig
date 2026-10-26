@@ -1,0 +1,61 @@
+{% if designer is defined and designer.id|default %}
+    {% set submenu = [
+        {
+            'title': 'Портфолио',
+            'path': path('admin.designer.portfolio', {'id': designer.id}),
+            'icon': 'design',
+            'disabled': false,
+        },
+        {
+            'title': 'Черновики',
+            'path': path('admin.designer.drafts', {'id': designer.id}),
+            'icon': 'brush',
+            'disabled': false,
+        },
+        {
+            'title': 'Профиль',
+            'path': path('admin.designer.profile', {'id': designer.id}),
+            'icon': 'face',
+            'disabled': false,
+        },
+        {
+            'title': 'Реквизиты и договоры',
+            'path': path('admin.designer.edit.requisites', {'id': designer.id}),
+            'icon': 'snippet',
+            'disabled': false,
+        },
+        {
+            'title': 'Заказы',
+            'path': path('admin.designer.orders', {'id': designer.id}),
+            'icon': 'order',
+            'disabled': false,
+        }
+    ] %}
+
+    <div class="submenu__container">
+        <ul class="submenu">
+            {% for menu_item in submenu %}
+                <li class="submenu__item">
+                    <a class="submenu__item__link {% if menu_item.disabled|default(false) %}disabled{% endif %} {% if app.request.pathinfo starts with menu_item.path %}active{% endif %}"
+                       href="{{ menu_item.path }}"
+                    >
+                        <div class="mask-icon mask-icon--{{ menu_item.icon }} submenu__item__link__icon"></div>
+                        <p class="submenu__item__link__text">{{ menu_item.title }}</p>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="submenu__profile">
+            {% if designer.profile.avatar|default %}
+                <img class="submenu__profile__avatar" alt="" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ designer.profile.avatar|trim('/')) }}">
+            {% else %}
+                <img class="submenu__profile__avatar" alt="" src="{{ asset('build/images/missing-image--small.svg') }}">
+            {% endif %}
+            <div class="submenu__profile__text">
+                <p class="submenu__profile__text__name">{{ designer.profile.fullName }}</p>
+                <p class="submenu__profile__text__profession">{{ designer.profile.profession }}</p>
+            </div>
+        </div>
+    </div>
+{% endif %}

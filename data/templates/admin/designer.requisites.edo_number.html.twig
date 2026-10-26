@@ -1,0 +1,15 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% block content %}
+
+    <div class="requisites requisites__content main__content">
+
+        {% include 'admin/_designer.requisites.navigation.html.twig' with {'designer': designer} %}
+
+        <div class="flex">
+            {{ form(form) }}
+        </div>
+
+    </div>
+
+{% endblock %}

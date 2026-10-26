@@ -1,0 +1,36 @@
+# IDE
+.vscode/
+.idea/
+
+# Symfony / data
+/data/.env.local
+/data/.env.local.php
+/data/.env.*.local
+/data/config/secrets/prod/prod.decrypt.private.php
+/data/public/bundles/
+/data/var/
+/data/vendor/
+/data/node_modules/
+/data/phpunit.xml
+/data/.phpunit.result.cache
+
+# Uploads — данные пользователей
+/data/uploads/
+/data/public/uploads/
+
+# Docker
+/docker/.env
+
+# БД (локально)
+/base/database/
+
+# Vagrant
+.vagrant/
+Vagrantfile
+
+# Мусор из data/ при переносе .git
+/.env
+/docker-compose.yaml
+/app.js
+/php-packages.txt
+/base/

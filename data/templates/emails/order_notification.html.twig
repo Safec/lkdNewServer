@@ -1,0 +1,8 @@
+{# templates/emails/order_notification.html.twig #}
+
+<h1>Уведомление о заказе</h1>
+
+<p>ФИО заказчика: {{ data.fullName }}</p>
+<p>Телефон заказчика: {{ data.phone }}</p>
+<p>Адрес доставки/объект: {{ data.address }}</p>
+<p>Предварительный список товаров: <br>{{ data.productList|raw }}</p>

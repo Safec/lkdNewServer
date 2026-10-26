@@ -1,0 +1,23 @@
+.unit {
+    @apply flex flex-col p-5;
+
+    &__title {
+        @apply text-base;
+    }
+
+    &__element {
+        @apply mt-2;
+
+        &--shrink {
+            @apply self-start;
+        }
+    }
+
+    &__content {
+        @apply mt-5;
+
+        &--full {
+            @apply -mx-5 px-5;
+        }
+    }
+}

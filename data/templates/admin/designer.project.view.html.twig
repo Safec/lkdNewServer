@@ -1,0 +1,61 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% block main %}
+
+    <div class="project-page--with-submenu">
+
+        {% include 'admin/_designer.submenu.html.twig' with {'designer': project.author} %}
+
+        <div class="profile-page profile-page--with-submenu">
+            <div class="main__container">
+
+                <div class="main-header main__header main__header--controls">
+                    {% include 'admin/_header.html.twig' with {'class': 'main-header__profile'} %}
+                    {% block header_action %}{% endblock %}
+                </div>
+
+                <div class="project main__content">
+                    <div class="project-gallery">
+                        {% if project.images|default %}
+                            {% for image in project.images %}
+                                <img class="img project-gallery__image" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ image ~ '?h=1080') }}" alt="">
+                            {% endfor %}
+                        {% else %}
+                            <img class="img project-gallery__image" src="{{ asset('build/images/missing-image.svg') }}" alt="">
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+            <aside class="side-helper profile-page__helper profile-page__helper--controls profile-page__helper--project">
+                <div class="project-about side-helper__content">
+                    <a class="back project-about__back" href="{{ path('admin.designer.portfolio', {'id': project.author.id}) }}">К проектам</a>
+
+                    <h1 class="h1 project-about__title">{{ project.title|default }}</h1>
+                    <p class="project-about__specs">{{ project.subtitle|default }}</p>
+                    <p class="project-about__description">{{ project.description|default|nl2br }}</p>
+                </div>
+
+                {% if project.id|default and is_granted('ROLE_MANAGER') %}
+                    <div class="side-helper-controls side-helper__controls side-helper__controls--project">
+                        <a href="{{ path('admin.designer.portfolio.project.edit', {'id': project.id, 'designerId': project.author.id}) }}" class="button button--primary side-helper-controls__action">
+                            <div class="mask-icon mask-icon--edit button__icon"></div>
+                            Редактировать
+                        </a>
+                        <a onclick="document.getElementById('popup-delete').classList.remove('!hidden')" class="button button--additional side-helper-controls__action">
+                            <div class="mask-icon mask-icon--delete button__icon"></div>
+                            Удалить
+                        </a>
+                    </div>
+
+                    {% import '_popup.html.twig' as popup %}
+                    {{ popup.question('popup-delete', 'Вы уверены, что хотите удалить проект?', path('admin.designer.portfolio.project.delete', {'id': project.id})) }}
+                {% endif %}
+            </aside>
+
+        </div>
+    </div>
+
+
+{% endblock %}

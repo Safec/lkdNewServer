@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+    <link rel="icon" type="image/x-icon" href="/build/images/favicon.ico">
+    <link rel="stylesheet" href="/build/app.css">
+    <script src="/build/app.js" defer></script>
+</head>
+<body>
+    <div class="profile-page">
+        <main class="main profile-page__main">
+            <div class="main__container">
+                <div class="project-edit main__content main__content--pad">
+                    <div class="unit">
+                        <p class="h5 unit__title">Добавить изображение</p>
+                        <div class="project-edit-gallery unit__content unit__content--full">
+                            <div class="uploader project-edit-gallery__uploader">
+                                <input type="file" hidden>
+                                <p class="uploader__title">Загрузить изображение</p>
+                                <div class="uploader__list"></div>
+                                <p class="uploader__limits">gif, jpg, png и webp (до 20 мб)</p>
+                                <!-- <p class="uploader__error">Произошла ошибка. Пожалуйста, попробуйте позже</p> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="side-helper profile-page__helper">
+                <div class="side-helper-content side-helper__content">
+                    <div class="unit project-edit-about__field">
+                        <label class="h5 unit__title">Название проекта</label>
+                        <input 
+                            class="input unit__element" type="text"
+                            placeholder="Введите название проекта"
+                        >
+                    </div>
+                    <div class="unit project-edit-about__field">
+                        <label class="h5 unit__title">Подзаголовок</label>
+                        <input 
+                            class="input unit__element" type="text"
+                            placeholder="Введите подзаголовок"  
+                        >
+                    </div>
+                    <div class="unit project-edit-about__field">
+                        <label class="h5 unit__title">Описание</label>
+                        <textarea 
+                            class="textarea unit__element" 
+                            placeholder="Введите описание"
+                        ></textarea>
+                    </div>
+                </div>
+    
+                <div class="side-helper-controls side-helper__controls">
+                    <button class="button button--primary side-helper-controls__action" disabled>Сохранить</button>
+                    <button class="button button--additional side-helper-controls__action">Закрыть</button>
+                </div>
+            </aside>
+        </main>
+    </div>
+</body>
+</html>

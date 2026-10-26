@@ -1,0 +1,22 @@
+.error-404 {
+    @apply h-screen flex justify-center items-center;
+
+    &__content {
+        @apply flex flex-row tab:flex-col justify-center items-center gap-10;
+
+        &__block {
+            @apply p-4;
+        }
+
+        &__title {
+            @apply h2 text-center;
+            @apply font-normal #{!important};
+            color: #bbb;
+        }
+
+        &__description {
+            @apply text-center;
+            color: #666;
+        }
+    }
+}

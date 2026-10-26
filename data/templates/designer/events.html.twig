@@ -1,0 +1,71 @@
+{% set months = {
+    'January': 'января',
+    'February': 'февраля',
+    'March': 'марта',
+    'April': 'апреля',
+    'May': 'мая',
+    'June': 'июня',
+    'July': 'июля',
+    'August': 'августа',
+    'September': 'сентября',
+    'October': 'октября',
+    'November': 'ноября',
+    'December': 'декабря'
+} %}
+
+{% extends 'designer/_layout.html.twig' %}
+
+{% block content %}
+
+    <div class="event-page__content main__content mb-5">
+        <h1>Мероприятия для дизайнеров</h1>
+    </div>
+
+    <div class="main__content">
+
+        <div class="contacts event">
+
+            {% for event in events|default %}
+                {% if event.isPublished|default %}
+                    <div class="contacts__contact">
+                        <div class="contacts__contact__name">{{ event.title|default }}</div>
+                        <div class="">
+                            <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+                                {% if event.location|default %}
+                                    <div class="contacts__contact__wrap__location">
+                                        <i class="mask-icon mask-icon--location"></i>
+                                        {{ event.location }}
+                                    </div>
+                                {% endif %}
+                                {% if event.date|default %}
+                                    <div class="contacts__contact__wrap__date">
+                                        <i class="mask-icon mask-icon--calendar"></i>
+                                        {% set date = event.date|date('d F Y H:i') %}
+                                        {% set date_parts = date|split(' ') %}
+                                        {{ date_parts[0] }} {{ months[date_parts[1]] }} {{ date_parts[2] }}  {{ date_parts[3] }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            {% if event.coverImage|default %}
+                                <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ event.coverImage|trim('/') ~ '?w=100%&fit=crop') }}" alt="">
+                            {% else %}
+                                <img src="{{ asset('/build/images/missing-image--small.svg') }}" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+                            <div class="w-full">
+                                <a href="{{ path('designer.event.view', {'id': event.id}) }}" class="button button--primary w-full">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+</div>
+
+{% endblock %}

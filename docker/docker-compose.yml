@@ -1,0 +1,47 @@
+services:
+  nginx:
+    build:
+      context: ../nginx
+      dockerfile: Dockerfile
+    image: otusapp/nginx
+    container_name: nginx_service2
+    volumes:
+      - ../data:/var/www/html
+    depends_on:
+      - php-fpm
+    networks:
+      - app_network
+
+  php-fpm:
+    build:
+      context: ../fpm
+      dockerfile: Dockerfile
+    image: otusapp/php
+    container_name: php_fpm_service2
+    volumes:
+      - ../data:/var/www/html
+    environment:
+      - PHP_MEMORY_LIMIT=512M
+    depends_on:
+      - redis
+      - database
+    networks:
+      - app_network
+
+  database:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-dev}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dev}
+      POSTGRES_DB: ${POSTGRES_DB:-dev}
+    networks:
+      - app_network
+
+  redis:
+    image: redis:7
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge

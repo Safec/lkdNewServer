@@ -1,0 +1,11 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% block content %}
+    <div class="requisites requisites__content main__content">
+
+        {% include 'admin/_designer.requisites.navigation.html.twig' with {'designer': designer} %}
+
+        {% include '_common/_requisites.documents_upload.form.html.twig' with {'form': form} %}
+
+    </div>
+{% endblock %}

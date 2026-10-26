@@ -1,0 +1,8 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% block content %}
+    <h2>Список заказов</h2>
+    <div class="flex justify-end">
+        <a href="{{ path('admin.designers.import_orders') }}" class="text-dim hover:text-primary text-xs">Загрузить заказы</a>
+    </div>
+{% endblock %}

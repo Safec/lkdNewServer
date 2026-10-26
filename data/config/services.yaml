@@ -1,0 +1,95 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    env(RATE_LIMITER_POLICY): 'fixed_window'
+    rate_limiter.policy: '%env(RATE_LIMITER_POLICY)%'
+    rate_limiter.sms_send_code.interval: '60 seconds'
+    auth.otp_code_lifetime: 120
+    h_captcha.enabled: true
+    h_captcha.sitekey: '%env(H_CAPTCHA_SITEKEY)%'
+    h_captcha.secret: '%env(H_CAPTCHA_SECRET)%'
+    uploads.path: 'uploads/'
+    images.path: 'i/'
+    bitrix24.webhook_url: '%env(BITRIX24_WEBHOOK)%'
+    bitrix24.designer_entity_type_id: '%env(int:BITRIX24_DESIGNER_ENTITY_TYPE_ID)%'
+    bitrix24.notification_entity_type_id: '%env(int:BITRIX24_NOTIFICATION_ENTITY_TYPE_ID)%'
+
+when@dev:
+    parameters:
+        rate_limiter.sms_send_code.interval: '15 seconds'
+
+when@test:
+    parameters:
+        env(RATE_LIMITER_POLICY): 'no_limit'
+        rate_limiter.sms_send_code.interval: '0 seconds'
+        auth.otp_code_lifetime: 3
+        h_captcha.enabled: false
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: true
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Message/'
+            - '../src/Kernel.php'
+            - '../src/Notifier/'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Notifier\DevSmsTransportFactory:
+        parent: notifier.transport_factory.abstract
+        tags: ['texter.transport_factory']
+        arguments:
+            $notifier: '@notifier'
+            $dispatcher: '@event_dispatcher'
+            $client: '@http_client'
+
+    App\Notifier\RapportoSmsTransportFactory:
+        parent: notifier.transport_factory.abstract
+        tags: ['texter.transport_factory']
+
+    App\Notifier\SmsGatewayTransportFactory:
+        parent: notifier.transport_factory.abstract
+        tags: [ 'texter.transport_factory' ]
+
+    App\Notifier\StreamTelecomTransportFactory:
+        parent: notifier.transport_factory.abstract
+        tags: ['texter.transport_factory']
+
+    App\Security\OneTimeCodeAuthenticator:
+        arguments:
+            $options: {'otp_code_lifetime': '%auth.otp_code_lifetime%'}
+
+    App\EventListener\UtmListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 10 }
+
+    App\Service\CaptchaService:
+        arguments:
+            $hCaptchaSecret: '%h_captcha.secret%'
+
+    App\Service\Bitrix24DesignerService:
+        arguments:
+            $webhookUrl: '%bitrix24.webhook_url%'
+            $designerEntityTypeId: '%bitrix24.designer_entity_type_id%'
+            $notificationEntityTypeId: '%bitrix24.notification_entity_type_id%'
+
+    Dadata\DadataClient:
+        arguments:
+            $token: '%env(DADATA_TOKEN)%'
+            $secret: '%env(DADATA_SECRET)%'
+
+    Psr\Log\LoggerInterface $logger: '@monolog.logger.konkurs'

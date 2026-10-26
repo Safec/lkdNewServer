@@ -1,0 +1,99 @@
+.text {
+    @apply font-sans text-base;
+
+    &--bold {
+        @apply font-bold;
+    }
+
+    &--black {
+        @apply font-black;
+    }
+
+    &--secondary {
+        @apply text-nobel;
+    }
+
+    &--caption {
+        @apply text-sm;
+    }
+
+    &--small {
+        @apply text-xs;
+    }
+
+    &--center {
+        @apply text-center;
+    }
+
+    &--right {
+        @apply text-right;
+    }
+}
+
+h1, .h1 {
+    @apply text-4xl font-sans font-black text-mine-shaft;
+
+    @apply tab:text-2xl;
+
+    &--secondary {
+        @apply text-nobel;
+    }
+}
+
+h2, .h2 {
+    @apply text-3xl font-sans font-black text-mine-shaft;
+
+    @apply tab:text-xl;
+
+    &--secondary {
+        @apply text-nobel;
+    }
+}
+
+h3, .h3 {
+    @apply text-2xl font-sans font-black text-mine-shaft;
+
+    @apply tab:text-lg;
+
+    &--secondary {
+        @apply text-nobel;
+    }
+}
+
+h4, .h4 {
+    @apply text-xl font-sans font-black text-mine-shaft;
+
+    @apply tab:text-base;
+
+    &--secondary {
+        @apply text-nobel;
+    }
+}
+
+h5, .h5 {
+    @apply text-lg font-sans font-black text-mine-shaft;
+
+    @apply tab:text-base;
+
+    &--secondary {
+        @apply text-nobel;
+    }
+}
+
+h6, .h6 {
+    @apply text-base font-sans font-black text-mine-shaft;
+
+    @apply tab:text-base;
+
+    &--secondary {
+        @apply text-nobel;
+    }
+}
+
+.caption {
+    @apply font-sans text-sm text-mine-shaft;
+}
+
+small, .small {
+    @apply font-sans text-xs text-mine-shaft;
+}

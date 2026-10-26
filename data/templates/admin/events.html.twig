@@ -1,0 +1,83 @@
+{% set months = {
+    'January': 'января',
+    'February': 'февраля',
+    'March': 'марта',
+    'April': 'апреля',
+    'May': 'мая',
+    'June': 'июня',
+    'July': 'июля',
+    'August': 'августа',
+    'September': 'сентября',
+    'October': 'октября',
+    'November': 'ноября',
+    'December': 'декабря'
+} %}
+
+{% extends 'admin/_layout.html.twig' %}
+
+{% block header_action %}
+    {% include 'admin/_header_action.html.twig' with {'href': path('admin.event.new'), 'caption': 'Добавить мероприятие'} %}
+{% endblock %}
+
+{% block content %}
+
+    {% import '_popup.html.twig' as popup %}
+
+    <div class="main__content">
+
+        <div class="contacts event">
+
+            {% for event in events|default %}
+                {% if event.title|default %}
+                    <div class="contacts__contact">
+                        <div class="contacts__contact__name">{{ event.title|default }}</div>
+                        <div class="">
+                            <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+                                {% if event.location|default %}
+                                    <div class="contacts__contact__wrap__location">
+                                        <i class="mask-icon mask-icon--location"></i>
+                                        {{ event.location }}
+                                    </div>
+                                {% endif %}
+                                {% if event.date|default %}
+                                    <div class="contacts__contact__wrap__date">
+                                        <i class="mask-icon mask-icon--calendar"></i>
+                                        {% set date = event.date|date('d F Y H:i') %}
+                                        {% set date_parts = date|split(' ') %}
+                                        {{ date_parts[0] }} {{ months[date_parts[1]] }} {{ date_parts[2] }} {{ date_parts[3] }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!--div class="contacts__contact__switch">
+                            <span class="text-dim text-sm">Активный</span>
+
+                        </div-->
+
+                        <div class="mt-5">
+                            {% if event.coverImage|default %}
+                                <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ event.coverImage|trim('/') ~ '?w=100%&fit=crop') }}" alt="">
+                            {% else %}
+                                <img src="{{ asset('/build/images/missing-image--small.svg') }}" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+                            <div class="w-full">
+                                <a onclick="document.getElementById('popup-delete-{{ event.id }}').classList.remove('!hidden')" class="button button--additional w-full !text-rose">Удалить</a>
+                            </div>
+                            <div class="w-full">
+                                <a href="{{ path('admin.event.edit', {'id': event.id}) }}" class="button button--additional w-full">Изменить</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {{ popup.question('popup-delete-' ~ event.id, 'Вы уверены, что хотите удалить мероприятие?', path('admin.event.delete', {'id': event.id})) }}
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+framework:
+    notifier:
+        chatter_transports:
+            telegram: '%env(TELEGRAM_DSN)%'
+        texter_transports:
+            sms: '%env(SMS_GATEWAY_DSN)%'
+        channel_policy:
+            # use chat/slack, chat/telegram, sms/twilio or sms/nexmo
+            urgent: ['browser', 'sms']
+            high: ['browser']
+            medium: ['browser']
+            low: ['browser']
+        admin_recipients:
+            - { email: admin@example.com }

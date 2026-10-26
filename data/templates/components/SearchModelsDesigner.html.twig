@@ -1,0 +1,35 @@
+<div {{ attributes }}>
+
+    <div class="field field--search mask-icon--search mb-5 mob:mb-2 w-full">
+        <input name="search" type="text" data-model="query" data-action="live#action" data-action-name="debounce(300)|onChangeFilter" class="input input--icon w-full mr-2" placeholder="Поиск по моделям" title="">
+    </div>
+
+    <div class="container-outer-category">{% include '/public/models_categories.html.twig' %}</div>
+
+    <div class="models" data-loading="addClass(opacity-60)">
+        {% include '/designer/models_list.html.twig' %}
+    </div>
+
+    {% set total = this.models.count|default %}
+    {% if total > 0 and total > this.perPage %}
+        {% set totalPage = (total / this.perPage)|round(0, 'ceil') %}
+        <div class="pagingM flex flex-row gap-2 mob:flex-col-reverse w-full justify-between mob:justify-center items-center my-5 mob:my-2">
+
+            <div class="flex flex-row gap-2">
+                {% for page in range(this.page - 3, this.page + (this.page < 3 ? 6 - this.page : 3)) %}
+                    {% if page > 0 and page <= totalPage %}
+                        <button data-model="page" data-value="{{ page }}" data-action="live#update"
+                                class="button button--paginator {% if this.page == page %}active{% endif %}"
+                        >{{ page }}</button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="text-nobel">
+                Вы посмотрели {{ min(this.page * this.perPage, total) }} из {{ total }} {{ plural(total, "модели", "моделей", "моделей") }}.
+            </div>
+
+        </div>
+    {% endif %}
+
+</div>

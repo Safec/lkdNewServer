@@ -1,0 +1,21 @@
+.sidebar {
+    @apply flex flex-col bg-white rounded-lg p-5 sticky top-5 w-full min-h-[600px];
+
+    @apply tab:fixed tab:top-0 tab:bottom-[unset] tab:left-0 tab:right-0 tab:p-2 tab:min-h-0 tab:z-[100] tab:rounded-b-none;
+
+    &__profile {
+        @apply tab:hidden;
+    }
+
+    &__nav {
+        @apply flex border-gallery h-full border-t border-solid mt-5;
+
+        @apply tab:border-t-0 tab:mt-0;
+    }
+
+    &__menu {
+        @apply mt-5;
+
+        @apply tab:mt-0;
+    }
+}

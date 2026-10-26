@@ -1,0 +1,107 @@
+.contacts {
+    @apply grid gap-5;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+
+    @apply mob:grid-cols-1;
+
+    &__contact {
+        @apply relative flex flex-col items-center justify-center p-5 rounded-lg bg-white;
+
+        &__avatar {
+            @apply h-20 w-20 rounded-full overflow-hidden flex mb-5;
+
+            & > img {
+                @apply min-h-[80px] min-w-[80px] object-cover;
+            }
+        }
+
+        &__name {
+            @apply text-lg font-black text-mine-shaft mb-2 text-center;
+        }
+
+        &__position {
+            @apply text-base font-normal text-dim mb-5 text-center;
+        }
+
+        &__wrap {
+            @apply flex flex-col gap-2 justify-center w-full;
+
+            &__phone, &__email {
+                @apply bg-wild-sand rounded-lg p-4 w-full flex flex-row justify-center items-center gap-3 text-center;
+
+                & > a {
+                    @apply link font-bold text-base;
+                }
+            }
+
+            &--buttons {
+                @apply flex flex-row;
+            }
+        }
+
+        &__switch {
+            @apply absolute flex flex-row items-center gap-3 top-4 right-5;
+        }
+
+        &__status {
+            @apply absolute flex flex-col items-end justify-center gap-0 top-4 right-5;
+            width: 30%;
+        }
+
+        &__select {
+            @apply bg-concrete p-0.5 text-sm rounded border-none outline-none;
+        }
+    }
+
+    &--table {
+        @apply bg-white rounded-lg mb-4 w-full;
+
+        & tr + tr {
+            @apply border-t border-whisper;
+        }
+
+        & th, td {
+            @apply p-1;
+        }
+
+        & th + th, td + td {
+            @apply border-l border-whisper;
+        }
+
+        & th {
+            @apply border-b;
+        }
+
+        & tbody > tr {
+            &:hover {
+                @apply bg-primary-light;
+            }
+        }
+
+        &__avatar {
+            @apply h-[40px] w-[40px] rounded-full overflow-hidden flex;
+            min-width: 40px;
+
+            & > img {
+                @apply min-h-[40px] min-w-[40px] object-cover;
+            }
+        }
+    }
+}
+
+.contacts.event {
+        .contacts
+        {
+            &__contact {
+                align-items: inherit;
+
+                &__name {
+                    @apply text-left;
+                }
+
+                &__wrap {
+                    justify-content: space-between;
+                }
+            }
+        }
+    }

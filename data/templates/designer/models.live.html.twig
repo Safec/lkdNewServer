@@ -1,0 +1,18 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% block content %}
+
+    {% import '_popup.html.twig' as popup %}
+
+    <div class="main__content">
+        {{ component('SearchModelsDesigner', {
+            'models': models|default([]),
+            'perPage': per_page,
+            'page': page,
+            'sort': sort,
+            'sortDirection': sortDirection,
+            'categories': categories
+        }) }}
+    </div>
+
+{% endblock %}

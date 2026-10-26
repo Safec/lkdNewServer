@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+    <link rel="icon" type="image/x-icon" href="/build/images/favicon.ico">
+    <link rel="stylesheet" href="/build/app.css">
+    <script src="/build/app.js" defer></script>
+</head>
+<body>
+    <div class="profile-page">
+        <aside class="sidebar profile-page__sidebar">
+
+            <!-- Авторизация -->
+            <a class="menu-profile sidebar__profile" href="#">
+                <img class="menu-profile__photo" src="/build/images/avatar.jpeg" alt="">
+                <div class="menu-profile__info">
+                    <p class="menu-profile__name">Сергей Вознесенский</p>
+                    <p class="menu-profile__position">Архитектор</p>
+                </div>
+            </a>
+            <!-- /Авторизация -->
+
+            <!-- Регистрация -->
+            <!--
+            <a class="menu-profile sidebar__profile" href="#">
+                <img class="menu-profile__photo" src="build/images/missing-image--small.svg" alt="">
+                <div class="menu-profile__no-data">Нет данных</div>
+            </a>
+            -->
+            <!-- /Регистрация -->
+
+            <nav class="sidebar__nav">
+                <ul class="side-menu sidebar__menu">
+                    <li class="side-menu__item">
+                        <a class="side-menu-link side-menu__link" href="#">
+                            <div class="mask-icon mask-icon--design side-menu-link__icon"></div>
+                            <p class="side-menu-link__text">Портфолио</p>
+                        </a>
+                    </li>
+                    <li class="side-menu__item">
+                        <a class="side-menu-link side-menu__link active" href="#">
+                            <div class="mask-icon mask-icon--ar-view side-menu-link__icon"></div>
+                            <p class="side-menu-link__text">Каталог моделей</p>
+                        </a>
+                    </li>
+                    <li class="side-menu__item">
+                        <a class="side-menu-link side-menu__link" href="#">
+                            <div class="mask-icon mask-icon--brush side-menu-link__icon"></div>
+                            <p class="side-menu-link__text">Черновики</p>
+                        </a>
+                    </li>
+                    <li class="side-menu__item">
+                        <a class="side-menu-link side-menu__link" href="#">
+                            <div class="mask-icon mask-icon--face side-menu-link__icon"></div>
+                            <p class="side-menu-link__text">О дизайнере</p>
+                        </a>
+                    </li>
+                    <li class="side-menu__item">
+                        <a class="side-menu-link side-menu__link" href="#">
+                            <div class="mask-icon mask-icon--snippet side-menu-link__icon"></div>
+                            <p class="side-menu-link__text">Реквизиты и договоры</p>
+                        </a>
+                    </li>
+                    <li class="side-menu__item">
+                        <a class="side-menu-link side-menu__link" href="#">
+                            <div class="mask-icon mask-icon--message side-menu-link__icon"></div>
+                            <p class="side-menu-link__text">Контакты</p>
+                        </a>
+                    </li>
+
+                    <li class="side-menu__logout">
+                        <a class="side-menu-link side-menu-link--logout side-menu__link" href="#">
+                            <div class="mask-icon mask-icon--exit side-menu-link__icon"></div>
+                            <p class="side-menu-link__text">Выйти</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main profile-page__main">
+            <div class="container">
+
+                <div class="main-header main__header">
+                    <a class="menu-profile menu-profile main-header__profile" href="#">
+                        <img class="menu-profile__photo" src="/build/images/avatar.jpeg" alt="">
+                        <div class="menu-profile__info">
+                            <p class="menu-profile__name">Сергей Вознесенский</p>
+                            <p class="menu-profile__position">Архитектор</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="main__content">
+                    <div class="main__placeholder">
+                        <div class="main-placeholder">
+                            <div class="mask-icon mask-icon--ar-view main-placeholder__icon"></div>
+                            <p>
+                            Раздел находится в разработке, получить необходимую<br>
+                            3D модель вы можете обратившись к <a href="@" class="link">менеджеру</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+</html>

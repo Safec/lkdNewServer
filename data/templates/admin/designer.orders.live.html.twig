@@ -1,0 +1,18 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block content %}
+
+    <h4 class="mt-5 mb-5">Заказы</h4>
+
+    <div class="main__content">
+
+        {{ component('SearchOrders', {
+            'userOrders': userOrders|default([]),
+            'perPage': per_page,
+            'page': page,
+        }) }}
+
+    </div>
+
+
+{% endblock %}

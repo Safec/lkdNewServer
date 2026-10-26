@@ -1,0 +1,13 @@
+.tab-panel {
+    @apply inline-flex bg-white rounded-md p-0.5;
+
+    &__switcher {
+        @apply text-mine-shaft text-base font-bold px-4 py-1;
+
+        @apply tab:text-sm tab:rounded-[4px];
+        
+        &.active {
+            @apply text-primary rounded bg-primary/[0.1];
+        }
+    }
+}

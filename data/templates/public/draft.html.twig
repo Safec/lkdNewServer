@@ -1,0 +1,74 @@
+{% extends '_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="profile-page">
+        <div class="main__container">
+
+            <div id="project" class="project main__content">
+
+                {% if draft_products|default %}
+                    <div class="tab-panel project__tabs">
+                        <a href="#project" class="tab-panel__switcher active">Проект</a>
+                        <a href="#products" class="tab-panel__switcher">Товары</a>
+                    </div>
+                {% endif %}
+
+                <div class="project-gallery">
+                    {% if draft.images|default %}
+                        {% for image in draft.images %}
+                            <img class="img project-gallery__image" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ image ~ '?h=1080') }}" alt="">
+                        {% endfor %}
+                    {% else %}
+                        <img class="img project-gallery__image" src="{{ asset('build/images/missing-image.svg') }}" alt="">
+                    {% endif %}
+                </div>
+
+                {% if draft_products|default %}
+                    <div id="products" class="products-list project__products">
+                        {% for product in draft_products %}
+                            <a href="{{ product.url }}" target="_blank" class="products-item">
+                                <img class="products-item__img" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ product.images|first ~ '?h=480') }}" alt="">
+                                <div class="products-item__content">
+                                    <p class="products-item__about">{{ product.name }}</p>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <aside class="side-helper profile-page__helper !p-0">
+            <div class="border-b-2 p-5 mob:p-2">
+                <div class="menu-profile{{ class|default ? ' ' ~ class : '' }}">
+                    {% if draft.author.profile.avatar|default %}
+                        <img class="menu-profile__photo" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ draft.author.profile.avatar|trim('/') ~ '?w=120&h=120&fit=crop') }}" alt="">
+                    {% else %}
+                        <img class="menu-profile__photo" src="{{ asset('build/images/missing-image--small.svg') }}" alt="">
+                    {% endif %}
+
+                    {% if draft.author.profile.fullName|default %}
+                        <div class="menu-profile__info">
+                            <p class="menu-profile__name">{{ draft.author.profile.fullName }}</p>
+                            {% if draft.author.profile.profession|default %}
+                                <p class="menu-profile__position">{{ draft.author.profile.profession|default }}</p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="menu-profile__no-data">Нет данных</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="p-5 mob:p-2">
+                <div class="project-about side-helper__content">
+                    <h1 class="h1 project-about__title">{{ draft.title|default }}</h1>
+                    <p class="project-about__specs">{{ draft.subtitle|default }}</p>
+                    <p class="project-about__description">{{ draft.description|default|nl2br }}</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+{% endblock %}

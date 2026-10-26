@@ -1,0 +1,42 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% block content %}
+
+    {% if orders|default %}
+
+                <div class="requisites__content">
+                        <table border="1" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th>Номер заказа</th>
+                                <th>Статус заказа</th>
+                                <th>Планируемая дата выполнения</th>
+                                <th>Сумма заказа с НДС (без услуг)</th>
+                                <th>Готовность акта</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in orders %}
+                                <tr style="vertical-align: top;">
+                                    <td style="border: 1px solid #ccc;padding: 5px;"><b>{{ order.orderNumber }}</b></td>
+                                    <td style="border: 1px solid #ccc;padding: 5px;text-align: center;">{{ order.status }}</td>
+                                    <td style="border: 1px solid #ccc;padding: 5px;text-align: center;">{{ order.date|date('d.m.Y') }}</td>
+                                    <td style="border: 1px solid #ccc;padding: 5px;text-align: center;">{{ order.amount|number_format(0, '.', ' ') }}</td>
+                                    <td style="border: 1px solid #ccc;padding: 5px;text-align: center;">{{ order.actReady }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+    {% else %}
+
+        <div class="main__placeholder">
+            <div class="main-placeholder">
+                <div class="mask-icon mask-icon--design main-placeholder__icon"></div>
+                <p>У дизайнера пока нет заказов.</p>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% macro question(id, question, href, callback, remove = false) %}
+    <div id="{{ id|default }}" class="popup !hidden">
+        <div class="popup__screen" onclick="this.closest('.popup').classList.add('!hidden')"></div>
+
+        <div class="popup__window">
+            <span class="popup__window__close" onclick="this.closest('.popup').classList.add('!hidden')"></span>
+            <div class="popup__window__title">{{ question|default('Вы уверены?') }}</div>
+            {% if href|default %}
+                <form method="post" action="{{ href|default }}">
+                    <div class="popup__window__buttons">
+                        <button type="submit" class="button button--secondary w-full cursor-pointer">Да</button>
+                        <button type="button" class="button button--primary w-full cursor-pointer" onclick="this.closest('.popup').classList.add('!hidden')">Нет</button>
+                    </div>
+                </form>
+            {% else %}
+                <div class="popup__window__buttons">
+                    <button type="button" class="popup-yes button button--secondary w-full cursor-pointer" onclick="{{ callback|e('html_attr') }}">Да</button>
+                    <button type="button" class="button button--primary w-full cursor-pointer" onclick="{% if remove|default %}this.closest('.popup').remove(){% else %}this.closest('.popup').classList.add('!hidden'){% endif %}">Нет</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro alert(id, title, message, button, remove = false) %}
+    <div id="{{ id|default }}" class="popup !hidden">
+        <div class="popup__screen" onclick="{% if remove|default %}this.closest('.popup').remove(){% else %}this.closest('.popup').classList.add('!hidden'){% endif %}"></div>
+
+        <div class="popup__window">
+            <span class="popup__window__close" onclick="{% if remove|default %}this.closest('.popup').remove(){% else %}this.closest('.popup').classList.add('!hidden'){% endif %}"></span>
+
+            {% if title|default %}
+                <div class="popup__window__title">{{ title }}</div>
+            {% endif %}
+
+            {% if message|default %}
+                <div class="popup__window__text">{{ message }}</div>
+            {% endif %}
+
+            <div>
+                <div class="popup__window__buttons">
+                    <button type="button" class="button button--primary w-full cursor-pointer"
+                            onclick="{% if remove|default %}this.closest('.popup').remove(){% else %}this.closest('.popup').classList.add('!hidden'){% endif %}"
+                    >
+                        {{ button|default('OK') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

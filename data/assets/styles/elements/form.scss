@@ -1,0 +1,155 @@
+.symfony-form {
+    & input[type="text"], 
+    & input[type="password"], 
+    & input[type="email"], 
+    & input[type="date"], 
+    & select, 
+    & .bubble-select .ts-control {
+        @apply border border-nobel rounded-lg py-2 px-4 h-10 text-base text-mine-shaft outline-none bg-white;
+
+        &::placeholder {
+            @apply text-dark-silver;
+        }
+
+        &:focus {
+            @apply border-primary;
+        }
+
+        &.is-invalid, &.error {
+            @apply border-rose;
+            @apply bg-icon-error bg-no-repeat;
+            background-position: right 12px center;
+        }
+
+        &:disabled {
+            @apply bg-concrete border-nobel text-dark-silver;
+
+            &::placeholder {
+                @apply text-concrete;
+            }
+        }
+    }
+
+    & .bubble-select .ts-control {
+        @apply h-auto;
+    }
+
+    & select, 
+    & .bubble-select .ts-control {
+        @apply appearance-none pr-8 cursor-pointer;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOSIgaGVpZ2h0PSI1IiB2aWV3Qm94PSIwIDAgOSA1IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMC41ODQ3MjMgMC40MjUzNTFDMC44NTM1OTUgMC4xODM0NTEgMS4yNjE2IDAuMTgzMjI5IDEuNTMwNzQgMC40MjQ4MzhMNC41IDMuMDkwNDJMNy40NjkyNiAwLjQyNDgzOEM3LjczODQgMC4xODMyMjkgOC4xNDY0MSAwLjE4MzQ1MSA4LjQxNTI4IDAuNDI1MzUxQzguNzI3NzQgMC43MDY0NjYgOC43Mjc3NCAxLjE5NjM3IDguNDE1MjggMS40Nzc0OEw1LjE2ODg0IDQuMzk4MjZDNC43ODg1NyA0Ljc0MDM4IDQuMjExNDMgNC43NDAzOCAzLjgzMTE2IDQuMzk4MjZMMC41ODQ3MjMgMS40Nzc0OEMwLjI3MjI2MyAxLjE5NjM3IDAuMjcyMjYzIDAuNzA2NDY2IDAuNTg0NzIzIDAuNDI1MzUxWiIgZmlsbD0iIzIxMjEyMSIvPgo8L3N2Zz4K");
+        background-repeat: no-repeat;
+        background-position: center right 16px;
+
+        &[data-empty] {
+            @apply text-dark-silver;
+        }
+
+        & option {
+            @apply text-mine-shaft;
+        }
+    }
+
+    & textarea {
+        @apply text-base text-mine-shaft border border-nobel rounded-lg outline-none px-4 py-2 resize-none;
+
+        &:focus {
+            @apply border-primary;
+        }
+
+        &:disabled,
+        &:read-only {
+            @apply text-dark-silver bg-concrete border-nobel;
+        }
+
+        &::placeholder {
+            @apply text-dark-silver;
+        }
+
+        &--icon {
+            @apply pl-10;
+        }
+
+        &.high {
+            @apply h-40;
+        }
+    }
+
+    & label + input, 
+    & label + select, 
+    & label + select + .bubble-select .ts-control, 
+    & label + textarea {
+        @apply mt-1;
+    }
+
+    & label.required:not(.without-required) {
+        &:after {
+            content: " *";
+        }
+    }
+
+    & input:not([type="hidden"]) + input:not([type="hidden"]), & input:not([type="hidden"]) + button, & button + input:not([type="hidden"]) {
+        @apply mt-2;
+    }
+
+    & .sites, & .social-medias {
+        @apply mt-2;
+
+        & input {
+            @apply mt-0 mb-2;
+        }
+    }
+
+    & .error {
+        @apply text-rose text-sm;
+    }
+}
+
+.form-row {
+    @apply flex flex-row gap-4;
+    & > * {
+        @apply w-full;
+    }
+
+    @screen mob {
+        @apply block;
+    }
+}
+
+.text-control {
+    &--removable {
+        @apply relative;
+
+        & input {
+            @apply m-0 pr-8 #{!important};
+        }
+
+        & .mask-icon {
+            @apply hidden tab:block absolute right-1 inset-y-1/2 -translate-y-1/2 opacity-60 cursor-pointer h-5;
+
+            &:hover {
+                @apply opacity-100;
+            }
+        }
+
+        &:hover .mask-icon {
+            @apply block;
+        }
+    }
+
+    &--copied {
+        @apply relative;
+
+        & input {
+            @apply m-0 pr-8 #{!important};
+        }
+
+        & .mask-icon {
+            @apply block absolute right-1 inset-y-1/2 -translate-y-1/2 opacity-60 cursor-pointer h-5;
+
+            &:hover {
+                @apply opacity-100;
+            }
+        }
+    }
+}

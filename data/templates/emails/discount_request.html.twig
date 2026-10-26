@@ -1,0 +1,9 @@
+{# templates/emails/discount_request.html.twig #}
+
+<h1>Запрос скидки</h1>
+
+<p>ФИО заказчика: {{ data.fullName }}</p>
+<p>Телефон заказчика: {{ data.phone }}</p>
+<p>Адрес доставки/объект: {{ data.address }}</p>
+<p>Предварительный список товаров: <br>{{ data.productList|raw }}</p>
+<p>Скидка: {{ data.sale }}</p>

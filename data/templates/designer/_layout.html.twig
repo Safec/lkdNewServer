@@ -1,0 +1,108 @@
+{% extends '_layout.html.twig' %}
+
+{% block body %}
+    <div class="profile-page">
+        <aside class="sidebar profile-page__sidebar">
+            {% include 'designer/_header.html.twig' with {'class': 'sidebar__profile'} %}
+
+            {% set menu = [
+                {
+                    'title': 'Заключить договор',
+                    'icon': 'snippet',
+                    'path': path('designer.requisites'),
+                    'disabled': false
+                },
+                {
+                    'title': 'Условия сотрудничества',
+                    'icon': 'mail',
+                    'path': path('designer.conditions'),
+                    'disabled': not app.user.active|default
+                },
+                {
+                    'title': 'Сообщить о заказе',
+                    'icon': 'message',
+                    'path': path('designer.order_notification'),
+                },
+                {
+                    'title': 'Запросы и контакты',
+                    'icon': 'message',
+                    'path': path('designer.contacts'),
+                    'disabled': false,
+                    'class': 'desktop-url'
+                },
+                {
+                    'title': 'Запросы и контакты',
+                    'icon': 'message',
+                    'path': path('designer.contacts.mobile'),
+                    'disabled': false,
+                    'class': 'mobile-url'
+                },
+                {
+                    'title': 'Каталог моделей',
+                    'icon': 'ar-view',
+                    'path': path('designer.catalog'),
+                    'disabled': false,
+                },
+                {
+                    'title': 'Заказы',
+                    'icon': 'order',
+                    'path': path('designer.orders'),
+                    'disabled': false,
+                },
+                {
+                    'title': 'Мероприятия',
+                    'icon': 'location',
+                    'path': path('designer.events'),
+                    'disabled': false,
+                },
+                {
+                    'title': 'Портфолио',
+                    'icon': 'design',
+                    'path': path('designer.portfolio'),
+                    'disabled': false
+                },
+                {
+                    'title': 'Черновики',
+                    'icon': 'brush',
+                    'path': path('designer.drafts'),
+                    'disabled': false
+                },
+                {
+                    'title': 'Профиль',
+                    'icon': 'face',
+                    'path': path('designer.profile'),
+                    'disabled': false,
+                    'class': 'mt337'
+                },
+
+
+            ] %}
+
+
+            {% include '_common/_menu.html.twig' with {'menu': menu, 'open_menu': open_menu|default(false)} %}
+
+        </aside>
+
+        {% block main %}
+            <main class="main profile-page__main">
+                <div class="container">
+                    {% block header %}
+                        <div class="main-header main__header">
+                            {% include 'designer/_header.html.twig' with {'class': 'main-header__profile'} %}
+                            {% block header_action %}{% endblock %}
+                            <div class="burger-icon" id="burgerIcon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                    <div class="main__content">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </main>
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'admin/_manager.layout.html.twig' %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+
+<div class="requests__content __content add_edit_model" style="display: block;">
+    <div class="">
+        <div class="question__question-item__request">
+            <div class="event main__content main__content--pad requests-block">
+
+                <div>{{ form_errors(form) }}</div>
+
+                <div class="event__form__section">
+                    <h4>Мероприятие</h4>
+                    <div class="mt-5">
+                        {{ form_row(form.isRegistrationOpen) }}
+                    </div>
+                    <div class="mt-5">
+                        {{ form_row(form.status) }}
+                    </div>
+                    <div>
+                        {{ form_row(form.title) }}
+                    </div>
+                    <div>
+                        {{ form_row(form.location) }}
+                    </div>
+                    <div class="mt-5">
+                        <div>{{ form_label(form.date) }}</div>
+                        <div class="date-container">
+                            <div>
+                                {{ form_widget(form.date) }}
+                            </div>
+                        </div>
+                        <div class="date-error">{{ form_errors(form.date) }}</div> <!-- Общее поле для ошибок -->
+                    </div>
+                    <div class="mt-5">
+                        {{ form_label(form.cover_file) }}
+                        {% include '_common/_event_cover_uploader.html.twig' with {'form': form} %}
+                    </div>
+                    <div class="mt-5">
+                        {{ form_label(form.speaker_file) }}
+                        {% include '_common/_event_speaker_uploader.html.twig' with {'form': form} %}
+                    </div>
+                    <div class="mt-5">
+                        {{ form_row(form.mainText) }}
+                    </div>
+                    <div>
+                        {{ form_row(form.speakerName) }}
+                    </div>
+                    <div class="mt-5">
+                        {{ form_row(form.speakerText) }}
+                    </div>
+                </div>
+
+                <div class="profile__form__section">
+                    {{ form_row(form.save, {'label': 'form.save.label', 'attr': {'data-form-required': ''}}) }}
+                </div>
+
+                <div class="mt-5">
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

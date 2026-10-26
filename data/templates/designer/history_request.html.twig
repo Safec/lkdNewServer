@@ -1,0 +1,67 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% set active_link = 'cont_history' %}
+
+{% block content %}
+    <div class="requests__content __content">
+        {% include 'designer/_contacts_menu.html.twig' with {'active_link': active_link} %}
+        <div class="requests__content__right-column">
+            <div class="question__question-item__request" id="cont_history">
+                <div class="project-edit main__content main__content--pad requests-block">
+                    <div class="arrow_mobile">
+                        <a href="{{ path('designer.contacts.mobile') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <h4 class="mt-5 mb-5">История обращений</h4>
+                    {% for request in requests %}
+                        {% set data = request.data %}
+                        <div class="item_history">
+                            <div class="date">{{ request.createdAt|date('d.m.Y H:i:s') }}</div>
+                            <div class="type">
+                                {% if data.type is defined %}
+                                    {{ data.type }}
+                                {% endif %}</div>
+                            <div class="opis">
+                                {% for key, value in data %}
+                                    {% if fieldNames[key] is defined and key not in ['invoice', 'project_info', 'type'] %}
+                                        <div>
+                                            <strong>{{ fieldNames[key] }}:</strong>
+                                            {% if key == 'attached' %}
+                                                {% set attachedFiles = value %}
+                                                {% for type, files in attachedFiles %}
+                                                    <div>
+                                                        <strong>{{ fieldNames[type] }}:</strong>
+                                                        <ul>
+                                                            {% for file in files %}
+                                                                <li><a href="/uploads{{ asset(file) }}" target="_blank">{{ file|split('/')|last }}</a></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                {% endfor %}
+                                            {% else %}
+                                                {% if value is iterable %}
+                                                    <ul>
+                                                        {% for item in value %}
+                                                            <li>{{ item }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% else %}
+                                                    {{ value|replace({'<br />': "\n", '<br>': "\n"}) }}
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <hr>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

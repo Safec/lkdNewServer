@@ -1,0 +1,61 @@
+.submenu {
+    @apply flex flex-row gap-4 tab:gap-2;
+
+    .project-page--with-submenu &__container {
+        @apply mob:mt-[80px];
+        @apply tab:mt-[80px];
+    }
+
+    &__container {
+        @apply flex flex-row justify-between items-center gap-4 bg-white rounded-lg p-5;
+        @apply mob:gap-2 mob:p-2 mb-5 mob:mb-2;
+    }
+
+    &__item {
+        &__link {
+            @apply flex flex-row gap-3 items-center h-[50px] px-4 rounded-lg;
+            @apply text-base font-bold text-mine-shaft;
+
+            &:hover {
+                @apply bg-wild-sand;
+            }
+
+            &__icon {}
+
+            &__text {
+                @apply mob:hidden;
+            }
+
+            &:not(.active) &__text {
+                @apply tab:hidden;
+            }
+
+            &.active {
+                @apply text-primary bg-primary-light;
+            }
+        }
+    }
+
+    &__profile {
+        @apply flex flex-row gap-3 items-center max-w-[257px];
+
+        &__avatar {
+            @apply h-[60px] w-[60px] rounded-full;
+            @apply tab:h-[40px] tab:w-[40px];
+        }
+
+        &__text {
+            @apply tab:hidden;
+
+            &__name {
+                @apply text-base font-bold text-mine-shaft;
+                line-height: 100%;
+                min-height: 24px;
+            }
+
+            &__profession {
+                @apply text-xs text-dim;
+            }
+        }
+    }
+}

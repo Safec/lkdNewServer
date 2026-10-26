@@ -1,0 +1,47 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% block header_action %}
+    <a href="{{ path('designer.portfolio.project.new') }}" class="button button--primary button--sm main-header__action">
+        <i class="mask-icon mask-icon--add mr-2"></i>
+        Новый проект
+    </a>
+{% endblock %}
+
+{% block content %}
+    {% if projects|default %}
+
+        <div class="portfolio main__content">
+            <div class="projects-list portfolio__projects">
+
+                {% for project in projects %}
+                    <a href="{{ path('designer.portfolio.project.view', {'slug': project.slug|default(project.id)}) }}" class="projects-item">
+                        {% if project.images %}
+                            {% if project.cover and project.cover in project.images %}
+                                <img class="projects-item__preview" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ project.cover ~ '?h=1024') }}" alt="">
+                            {% else %}
+                                <img class="projects-item__preview" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ project.images|first ~ '?h=1024') }}" alt="">
+                            {% endif %}
+                        {% else %}
+                            <img class="projects-item__preview" src="{{ asset('build/images/missing-image.svg') }}" alt="">
+                        {% endif %}
+                        <div class="projects-item__about">
+                            <p class="h3 projects-item__name">{{ project.title }}</p>
+                            <p class="projects-item__specs">{{ project.subtitle }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    {% else %}
+
+        <div class="main__placeholder">
+            <div class="main-placeholder">
+                <div class="mask-icon mask-icon--design main-placeholder__icon"></div>
+                <p>У вас пока нет проектов.</p>
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,115 @@
+.mask-icon {
+    @include mask-icon;
+
+    @apply block w-6 h-6 flex-grow-0 flex-shrink-0 basis-6 bg-current;
+
+    --url: none;
+
+    &--add {
+        --url: var(--icon-add);
+    }
+
+    &--ar-view {
+        --url: var(--icon-ar-view);
+    }
+
+    &--attention {
+        --url: var(--icon-attention);
+    }
+
+    &--back {
+        --url: var(--icon-back);
+    }
+
+    &--bed {
+        --url: var(--icon-bed);
+    }
+
+    &--brush {
+        --url: var(--icon-brush);
+    }
+
+    &--calendar {
+        --url: var(--icon-calendar);
+    }
+
+    &--close {
+        --url: var(--icon-close);
+    }
+
+    &--copy {
+        --url: var(--icon-copy);
+    }
+
+    &--cover {
+        --url: var(--icon-cover);
+    }
+
+    &--delete {
+        --url: var(--icon-delete);
+    }
+
+    &--design {
+        --url: var(--icon-design);
+    }
+
+    &--download {
+        --url: var(--icon-download);
+    }
+
+    &--edit {
+        --url: var(--icon-edit);
+    }
+
+    &--exit {
+        --url: var(--icon-exit);
+    }
+
+    &--face {
+        --url: var(--icon-face);
+    }
+
+    &--filter {
+        --url: var(--icon-filter);
+    }
+
+    &--happy-face {
+        --url: var(--icon-happy-face);
+    }
+
+    &--location {
+        --url: var(--icon-location);
+    }
+
+    &--order {
+        --url: var(--icon-order);
+    }
+
+    &--mail {
+        --url: var(--icon-mail);
+    }
+
+    &--manage {
+        --url: var(--icon-manage);
+    }
+
+    &--message {
+        --url: var(--icon-message);
+    }
+
+    &--phone {
+        --url: var(--icon-phone);
+    }
+
+    &--room {
+        --url: var(--icon-room);
+    }
+
+    &--search {
+        --url: var(--icon-search);
+    }
+
+    &--snippet {
+        --url: var(--icon-snippet);
+    }
+}

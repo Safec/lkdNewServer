@@ -1,0 +1,63 @@
+@import "tom-select/src/scss/tom-select.scss";
+
+.bubble-select {
+    &.ts-wrapper {
+        @apply w-full inline-block;
+
+        &.focus .ts-control {
+            @apply border-primary #{!important};
+        }
+    
+        &.single {
+            .ts-control {
+                @apply border-nobel rounded-lg text-base;
+    
+                background: no-repeat center right 16px url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOSIgaGVpZ2h0PSI1IiB2aWV3Qm94PSIwIDAgOSA1IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMC41ODQ3MjMgMC40MjUzNTFDMC44NTM1OTUgMC4xODM0NTEgMS4yNjE2IDAuMTgzMjI5IDEuNTMwNzQgMC40MjQ4MzhMNC41IDMuMDkwNDJMNy40NjkyNiAwLjQyNDgzOEM3LjczODQgMC4xODMyMjkgOC4xNDY0MSAwLjE4MzQ1MSA4LjQxNTI4IDAuNDI1MzUxQzguNzI3NzQgMC43MDY0NjYgOC43Mjc3NCAxLjE5NjM3IDguNDE1MjggMS40Nzc0OEw1LjE2ODg0IDQuMzk4MjZDNC43ODg1NyA0Ljc0MDM4IDQuMjExNDMgNC43NDAzOCAzLjgzMTE2IDQuMzk4MjZMMC41ODQ3MjMgMS40Nzc0OEMwLjI3MjI2MyAxLjE5NjM3IDAuMjcyMjYzIDAuNzA2NDY2IDAuNTg0NzIzIDAuNDI1MzUxWiIgZmlsbD0iIzIxMjEyMSIvPgo8L3N2Zz4K") !important;
+    
+                & input {
+                    @apply text-base #{!important};
+                }
+    
+                & .clear-button {
+                    display: none;
+                }
+            }
+        }
+
+        &.ui-interacted.required.invalid {
+            & .ts-control {
+                @apply border-rose;
+            }
+
+            &::after {
+                @apply absolute text-sm text-rose;
+                content: 'Это обязательное поле.';
+            }
+        }
+    }
+
+    & .ts-control {
+        @apply py-[6px] pr-[36px] min-h-[40px] #{!important};
+
+        & .item {
+            @apply text-base rounded-md;
+            @apply mb-[2px] #{!important};
+        }
+
+        & input {
+            @apply text-base #{!important};
+        }
+    }
+
+    .ts-dropdown {
+        @apply m-0 text-base;
+    
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        border: 1px solid rgb(var(--color-nobel)) !important;
+    
+        & .option.active {
+            @apply bg-primary-light;
+        }
+    }
+}

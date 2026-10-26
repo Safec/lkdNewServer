@@ -1,0 +1,31 @@
+.menu-profile {
+    @apply flex items-center;
+
+    &__photo {
+        @apply rounded-half object-cover w-[60px] h-[60px] flex-grow-0 flex-shrink-0 basis-[60px];
+
+        @apply tab:w-10 tab:h-10 tab:basis-10;
+    }
+
+    &__info {
+        @apply ml-3;
+
+        @apply tab:ml-4;
+
+        @apply mob:ml-2;
+    }
+
+    &__no-data {
+        @apply ml-3 text-base font-bold text-nobel;
+    }
+
+    &__name {
+        @apply text-base font-bold text-mine-shaft;
+        line-height: 100%;
+        min-height: 24px;
+    }
+
+    &__position {
+        @apply text-xs text-dim;
+    }
+}

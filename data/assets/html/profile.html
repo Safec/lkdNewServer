@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Askona</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/build/app.css">
+    <script src="/build/app.js" defer></script>
+</head>
+<body>
+<div class="profile-page">
+    <aside class="sidebar profile-page__sidebar">
+        <a class="menu-profile sidebar__profile" href="/designer/profile">
+            <img class="menu-profile__photo" src="/build/images/missing-image--small.svg" alt="">
+
+            <div class="menu-profile__no-data">Нет данных</div>
+        </a>
+
+
+        <nav class="sidebar__nav">
+            <ul class="side-menu sidebar__menu">
+                <li class="side-menu__item">
+                    <a class="side-menu-link side-menu__link side-menu-link--disabled "
+                       href="/designer/portfolio"
+                    >
+                        <div class="mask-icon mask-icon--design side-menu-link__icon"></div>
+                        <p class="side-menu-link__text">Портфолио</p>
+                    </a>
+                </li>
+                <li class="side-menu__item">
+                    <a class="side-menu-link side-menu__link side-menu-link--disabled "
+                       href="/designer/catalog"
+                    >
+                        <div class="mask-icon mask-icon--ar-view side-menu-link__icon"></div>
+                        <p class="side-menu-link__text">Каталог моделей</p>
+                    </a>
+                </li>
+                <li class="side-menu__item">
+                    <a class="side-menu-link side-menu__link side-menu-link--disabled "
+                       href="/designer/drafts"
+                    >
+                        <div class="mask-icon mask-icon--brush side-menu-link__icon"></div>
+                        <p class="side-menu-link__text">Черновики</p>
+                    </a>
+                </li>
+                <li class="side-menu__item">
+                    <a class="side-menu-link side-menu__link  active"
+                       href="/designer/profile"
+                    >
+                        <div class="mask-icon mask-icon--face side-menu-link__icon"></div>
+                        <p class="side-menu-link__text">Профиль</p>
+                    </a>
+                </li>
+                <li class="side-menu__item">
+                    <a class="side-menu-link side-menu__link  "
+                       href="/designer/requisites"
+                    >
+                        <div class="mask-icon mask-icon--snippet side-menu-link__icon"></div>
+                        <p class="side-menu-link__text">Реквизиты и договоры</p>
+                    </a>
+                </li>
+                <li class="side-menu__item">
+                    <a class="side-menu-link side-menu__link  "
+                       href="/designer/contacts"
+                    >
+                        <div class="mask-icon mask-icon--message side-menu-link__icon"></div>
+                        <p class="side-menu-link__text">Контакты</p>
+                    </a>
+                </li>
+
+                <li class="side-menu__logout">
+                    <a class="side-menu-link side-menu-link--logout side-menu__link" href="/auth/logout">
+                        <div class="mask-icon mask-icon--exit side-menu-link__icon"></div>
+                        <p class="side-menu-link__text">Выйти</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main profile-page__main">
+        <div class="container">
+            <div class="main-header main__header">
+                <a class="menu-profile main-header__profile" href="/designer/profile">
+                    <img class="menu-profile__photo" src="/build/images/missing-image--small.svg" alt="">
+
+                    <div class="menu-profile__no-data">Нет данных</div>
+                </a>
+                <a href="/auth/logout" class="main-header__action button button--additional desktop:hidden">
+                    <i class="mask-icon mask-icon--small mask-icon--exit mr-2"></i>
+                    Выйти
+                </a>
+            </div>
+
+            <div class="main__content">
+
+                <form name="profile" method="post" class="symfony-form" enctype="multipart/form-data">
+
+                    <div class="profile__content profile-page__content main__content">
+
+                        <div class="profile__content__left-column">
+                            <div class="ui-avatar-uploader profile__file-uploader">
+
+                                <label>
+                                    <input type="file" id="profile_avatar_file" name="profile[avatar_file]"
+                                           accept="image/jpeg, image/png, image/gif, image/webp" data-maxsize="5242880"
+                                           onchange="App.UI.AvatarUploader.onChange(this);" class="mt-1 w-full"/>
+                                    <span>
+                        <span class="fill-mine-shaft mb-2 text-center">
+                            <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5 8L10.5 0L8.5 0L8.5 8L0.5 8L0.5 10L8.5 10L8.5 18H10.5V10H18.5V8L10.5 8Z"/>
+                            </svg>
+                        </span>
+                        <small class="font-bold mb-1">Загрузить<br/>изображение</small>
+                        <small class="text-dim w-[120px]"><div id="profile_avatar_file_help" class="mt-1 help-text">jpg, png, gif, webp<br/>
+(до 5 мб)</div></small>
+                    </span>
+                                </label>
+
+                                <input type="hidden" id="profile_avatar" name="profile[avatar]" class="mt-1 w-full"/>
+
+                                <div class="profile__file-uploader__delete !hidden"
+                                     onclick="App.UI.AvatarUploader.onDelete(this);"></div>
+                            </div>
+                        </div>
+
+                        <div class="profile__content__right-column">
+                            <div class="tooltip tooltip--warning">
+                                <div class="text-sm">Для перехода на следующий шаг, заполните все обязательные поля.
+                                </div>
+                            </div>
+
+                            <div class="profile__form">
+
+                                <div></div>
+
+                                <div class="profile__form__section">
+                                    <h4>Личные данные</h4>
+                                    <div>
+                                        <div class="mb-5"><label class="block required"
+                                                                 for="profile_fullName">ФИО</label><input type="text"
+                                                                                                          id="profile_fullName"
+                                                                                                          name="profile[fullName]"
+                                                                                                          required="required"
+                                                                                                          placeholder="Иванов Иван"
+                                                                                                          class="mt-1 w-full"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="mb-5"><label class="block required"
+                                                                 for="profile_phone">Телефон</label><input type="text"
+                                                                                                           id="profile_phone"
+                                                                                                           name="profile[phone]"
+                                                                                                           disabled="disabled"
+                                                                                                           required="required"
+                                                                                                           maxlength=""
+                                                                                                           data-mask="+{7} (000) 000-00-00"
+                                                                                                           placeholder="+7 (___) ___-__-__"
+                                                                                                           class="mt-1 w-full border-gray-300 text-gray-500"
+                                                                                                           value="+79998768545"/>
+                                        </div>
+                                        <div class="mb-5"><label class="block required"
+                                                                 for="profile_email">Почта</label><input type="email"
+                                                                                                         id="profile_email"
+                                                                                                         name="profile[email]"
+                                                                                                         required="required"
+                                                                                                         maxlength="128"
+                                                                                                         placeholder="info@gmail.com"
+                                                                                                         class="mt-1 w-full"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="mb-5"><label class="block required" for="profile_city">Город</label><input
+                                                type="text" id="profile_city" name="profile[city]" required="required"
+                                                placeholder="Екатеринбург" class="mt-1 w-full"/></div>
+                                        <div class="mb-5"><label class="block required" for="profile_legalEntity">Форма
+                                            юридического лица</label><select id="profile_legalEntity"
+                                                                             name="profile[legalEntity]"
+                                                                             required="required" class="mt-1 w-full">
+                                            <option value="" disabled="disabled" hidden="hidden" selected="selected">
+                                                ООО
+                                            </option>
+                                            <option value="ООО">ООО</option>
+                                            <option value="ИП">ИП</option>
+                                            <option value="Самозанятый">Самозанятый</option>
+                                        </select></div>
+                                    </div>
+                                </div>
+
+                                <div class="profile__form__section">
+                                    <h4>О дизайнере</h4>
+                                    <div class="form-row">
+                                        <div class="mb-5"><label class="block required" for="profile_profession">Профиль
+                                            деятельности</label><select id="profile_profession"
+                                                                        name="profile[profession]" required="required"
+                                                                        class="mt-1 w-full">
+                                            <option value="" disabled="disabled" hidden="hidden" selected="selected">
+                                                Дизайнер
+                                            </option>
+                                            <option value="Дизайнер">Дизайнер</option>
+                                            <option value="Архитектор">Архитектор</option>
+                                            <option value="Интерьерный стилист">Интерьерный стилист</option>
+                                        </select></div>
+
+                                        <div class="mb-5">
+                                            <label 
+                                                class="block required"
+                                                for="profile_style">Стиль</label>
+                                            <select
+                                                class="bubble-select"
+                                                name="profile[style]"
+                                                multiple
+                                                placeholder="Выберите стили"
+                                                autocomplete="off"
+                                            >
+                                                <option value="Авангард" selected>Авангард</option>
+                                                <option value="Английский стиль">Английский стиль</option>
+                                                <option value="Американский стиль">Американский стиль</option>
+                                                <option value="Античный стиль">Античный стиль</option>
+                                                <option value="Ампир">Ампир</option>
+                                                <option value="Арабский стиль">Арабский стиль</option>
+                                                <option value="Ар-деко">Ар-деко</option>
+                                                <option value="Ар-нуво">Ар-нуво</option>
+                                                <option value="Африканский стиль">Африканский стиль</option>
+                                                <option value="Барокко">Барокко</option>
+                                                <option value="Баухауз">Баухауз</option>
+                                                <option value="Бельгийский стиль">Бельгийский стиль</option>
+                                                <option value="Бидермейер">Бидермейер</option>
+                                                <option value="Бионика ">Бионика</option>
+                                                <option value="Бохо">Бохо</option>
+                                                <option value="Брутализм">Брутализм</option>
+                                                <option value="Бунгало">Бунгало</option>
+                                                <option value="Венецианский стиль">Венецианский стиль</option>
+                                                <option value="Версаль">Версаль</option>
+                                                <option value="Викторианский стиль">Викторианский стиль</option>
+                                                <option value="Винтаж">Винтаж</option>
+                                                <option value="Восточный стиль">Восточный стиль</option>
+                                                <option value="Гжель">Гжель</option>
+                                                <option value="Голландский стиль">Голландский стиль</option>
+                                                <option value="Готический стиль">Готический стиль</option>
+                                                <option value="Гранж">Гранж</option>
+                                                <option value="Греческий стиль">Греческий стиль</option>
+                                                <option value="Джаз">Джаз</option>
+                                                <option value="Датский стиль">Датский стиль</option>
+                                                <option value="Диско">Диско</option>
+                                                <option value="Египетский стиль">Египетский стиль</option>
+                                                <option value="Жуи">Жуи</option>
+                                                <option value="Ирландский стиль">Ирландский стиль</option>
+                                                <option value="Индонезийский стиль">Индонезийский стиль</option>
+                                                <option value="Индийский стиль">Индийский стиль</option>
+                                                <option value="Индустриальный стиль">Индустриальный стиль</option>
+                                                <option value="Испанский стиль">Испанский стиль</option>
+                                                <option value="Итальянский стиль">Итальянский стиль</option>
+                                                <option value="Кантри">Кантри</option>
+                                                <option value="Кельтский стиль">Кельтский стиль</option>
+                                                <option value="Китайский стиль">Китайский стиль</option>
+                                                <option value="Китч">Китч</option>
+                                                <option value="Классический стиль">Классический стиль</option>
+                                                <option value="Классицизм">Классицизм</option>
+                                                <option value="Колониальный стиль">Колониальный стиль</option>
+                                                <option value="Консерватизм">Консерватизм</option>
+                                                <option value="Конструктивизм">Конструктивизм</option>
+                                                <option value="Контемпорари">Контемпорари</option>
+                                                <option value="Кэжуал">Кэжуал</option>
+                                                <option value="Лаунж">Лаунж</option>
+                                                <option value="Лофт">Лофт</option>
+                                                <option value="Мавританский стиль">Мавританский стиль</option>
+                                                <option value="Манга">Манга</option>
+                                                <option value="Маньеризм">Маньеризм</option>
+                                                <option value="Марокканский стиль">Марокканский стиль</option>
+                                                <option value="Мексиканский стиль">Мексиканский стиль</option>
+                                                <option value="Милитари">Милитари</option>
+                                                <option value="Минимализм">Минимализм</option>
+                                                <option value="Модерн">Модерн</option>
+                                                <option value="Морской стиль">Морской стиль</option>
+                                                <option value="Неоклассика">Неоклассика</option>
+                                                <option value="Немецкий стиль">Немецкий стиль</option>
+                                                <option value="Норвежский стиль">Норвежский стиль</option>
+                                                <option value="Османский стиль">Османский стиль</option>
+                                                <option value="Парижский стиль">Парижский стиль</option>
+                                                <option value="Пин-ап">Пин-ап</option>
+                                                <option value="Поп-арт">Поп-арт</option>
+                                                <option value="Постмодернизм">Постмодернизм</option>
+                                                <option value="Прованс">Прованс</option>
+                                                <option value="Ренессанс">Ренессанс</option>
+                                                <option value="Ретро">Ретро</option>
+                                                <option value="Римский стиль">Римский стиль</option>
+                                                <option value="Рококо">Рококо</option>
+                                                <option value="Романский стиль">Романский стиль</option>
+                                                <option value="Романтизм">Романтизм</option>
+                                                <option value="Рустик">Рустик</option>
+                                                <option value="Русский стиль">Русский стиль</option>
+                                                <option value="Скандинавский стиль">Скандинавский стиль</option>
+                                                <option value="Славянский стиль">Славянский стиль</option>
+                                                <option value="Средиземноморский стиль">Средиземноморский стиль</option>
+                                                <option value="Стимпанк">Стимпанк</option>
+                                                <option value="Техно">Техно</option>
+                                                <option value="Тиффани">Тиффани</option>
+                                                <option value="Тропический стиль">Тропический стиль</option>
+                                                <option value="Уличный стиль">Уличный стиль</option>
+                                                <option value="Французский стиль">Французский стиль</option>
+                                                <option value="Функциональный стиль">Функциональный стиль</option>
+                                                <option value="Футуризм">Футуризм</option>
+                                                <option value="Фьюжн">Фьюжн</option>
+                                                <option value="Хай-тек">Хай-тек</option>
+                                                <option value="Хиппи">Хиппи</option>
+                                                <option value="Хюгге">Хюгге</option>
+                                                <option value="Шале">Шале</option>
+                                                <option value="Шведский стиль">Шведский стиль</option>
+                                                <option value="Шебби-шик">Шебби-шик</option>
+                                                <option value="Эклектика">Эклектика</option>
+                                                <option value="Экостиль">Экостиль</option>
+                                                <option value="Экспрессионизм">Экспрессионизм</option>
+                                                <option value="Этнический стиль">Этнический стиль</option>
+                                                <option value="Японский стиль">Японский стиль</option>
+                                            </select>
+                                        </div>
+                                        <!-- <div class="mb-5">
+                                            <label 
+                                                class="block required"
+                                                for="profile_style">Стиль</label>
+                                                <select
+                                                    id="profile_style" name="profile[style]" required="required"
+                                                    placeholder="Скандинавский стиль" class="mt-1 w-full">
+                                            <option value="" disabled="disabled" hidden="hidden" selected="selected">
+                                                Скандинавский стиль
+                                            </option>
+                                            <option value="Авангард">Авангард</option>
+                                            <option value="Английский стиль">Английский стиль</option>
+                                            <option value="Американский стиль">Американский стиль</option>
+                                            <option value="Античный стиль">Античный стиль</option>
+                                            <option value="Ампир">Ампир</option>
+                                            <option value="Арабский стиль">Арабский стиль</option>
+                                            <option value="Ар-деко">Ар-деко</option>
+                                            <option value="Ар-нуво">Ар-нуво</option>
+                                            <option value="Африканский стиль">Африканский стиль</option>
+                                            <option value="Барокко">Барокко</option>
+                                            <option value="Баухауз">Баухауз</option>
+                                            <option value="Бельгийский стиль">Бельгийский стиль</option>
+                                            <option value="Бидермейер">Бидермейер</option>
+                                            <option value="Бионика ">Бионика</option>
+                                            <option value="Бохо">Бохо</option>
+                                            <option value="Брутализм">Брутализм</option>
+                                            <option value="Бунгало">Бунгало</option>
+                                            <option value="Венецианский стиль">Венецианский стиль</option>
+                                            <option value="Версаль">Версаль</option>
+                                            <option value="Викторианский стиль">Викторианский стиль</option>
+                                            <option value="Винтаж">Винтаж</option>
+                                            <option value="Восточный стиль">Восточный стиль</option>
+                                            <option value="Гжель">Гжель</option>
+                                            <option value="Голландский стиль">Голландский стиль</option>
+                                            <option value="Готический стиль">Готический стиль</option>
+                                            <option value="Гранж">Гранж</option>
+                                            <option value="Греческий стиль">Греческий стиль</option>
+                                            <option value="Джаз">Джаз</option>
+                                            <option value="Датский стиль">Датский стиль</option>
+                                            <option value="Диско">Диско</option>
+                                            <option value="Египетский стиль">Египетский стиль</option>
+                                            <option value="Жуи">Жуи</option>
+                                            <option value="Ирландский стиль">Ирландский стиль</option>
+                                            <option value="Индонезийский стиль">Индонезийский стиль</option>
+                                            <option value="Индийский стиль">Индийский стиль</option>
+                                            <option value="Индустриальный стиль">Индустриальный стиль</option>
+                                            <option value="Испанский стиль">Испанский стиль</option>
+                                            <option value="Итальянский стиль">Итальянский стиль</option>
+                                            <option value="Кантри">Кантри</option>
+                                            <option value="Кельтский стиль">Кельтский стиль</option>
+                                            <option value="Китайский стиль">Китайский стиль</option>
+                                            <option value="Китч">Китч</option>
+                                            <option value="Классический стиль">Классический стиль</option>
+                                            <option value="Классицизм">Классицизм</option>
+                                            <option value="Колониальный стиль">Колониальный стиль</option>
+                                            <option value="Консерватизм">Консерватизм</option>
+                                            <option value="Конструктивизм">Конструктивизм</option>
+                                            <option value="Контемпорари">Контемпорари</option>
+                                            <option value="Кэжуал">Кэжуал</option>
+                                            <option value="Лаунж">Лаунж</option>
+                                            <option value="Лофт">Лофт</option>
+                                            <option value="Мавританский стиль">Мавританский стиль</option>
+                                            <option value="Манга">Манга</option>
+                                            <option value="Маньеризм">Маньеризм</option>
+                                            <option value="Марокканский стиль">Марокканский стиль</option>
+                                            <option value="Мексиканский стиль">Мексиканский стиль</option>
+                                            <option value="Милитари">Милитари</option>
+                                            <option value="Минимализм">Минимализм</option>
+                                            <option value="Модерн">Модерн</option>
+                                            <option value="Морской стиль">Морской стиль</option>
+                                            <option value="Неоклассика">Неоклассика</option>
+                                            <option value="Немецкий стиль">Немецкий стиль</option>
+                                            <option value="Норвежский стиль">Норвежский стиль</option>
+                                            <option value="Османский стиль">Османский стиль</option>
+                                            <option value="Парижский стиль">Парижский стиль</option>
+                                            <option value="Пин-ап">Пин-ап</option>
+                                            <option value="Поп-арт">Поп-арт</option>
+                                            <option value="Постмодернизм">Постмодернизм</option>
+                                            <option value="Прованс">Прованс</option>
+                                            <option value="Ренессанс">Ренессанс</option>
+                                            <option value="Ретро">Ретро</option>
+                                            <option value="Римский стиль">Римский стиль</option>
+                                            <option value="Рококо">Рококо</option>
+                                            <option value="Романский стиль">Романский стиль</option>
+                                            <option value="Романтизм">Романтизм</option>
+                                            <option value="Рустик">Рустик</option>
+                                            <option value="Русский стиль">Русский стиль</option>
+                                            <option value="Скандинавский стиль">Скандинавский стиль</option>
+                                            <option value="Славянский стиль">Славянский стиль</option>
+                                            <option value="Средиземноморский стиль">Средиземноморский стиль</option>
+                                            <option value="Стимпанк">Стимпанк</option>
+                                            <option value="Техно">Техно</option>
+                                            <option value="Тиффани">Тиффани</option>
+                                            <option value="Тропический стиль">Тропический стиль</option>
+                                            <option value="Уличный стиль">Уличный стиль</option>
+                                            <option value="Французский стиль">Французский стиль</option>
+                                            <option value="Функциональный стиль">Функциональный стиль</option>
+                                            <option value="Футуризм">Футуризм</option>
+                                            <option value="Фьюжн">Фьюжн</option>
+                                            <option value="Хай-тек">Хай-тек</option>
+                                            <option value="Хиппи">Хиппи</option>
+                                            <option value="Хюгге">Хюгге</option>
+                                            <option value="Шале">Шале</option>
+                                            <option value="Шведский стиль">Шведский стиль</option>
+                                            <option value="Шебби-шик">Шебби-шик</option>
+                                            <option value="Эклектика">Эклектика</option>
+                                            <option value="Экостиль">Экостиль</option>
+                                            <option value="Экспрессионизм">Экспрессионизм</option>
+                                            <option value="Этнический стиль">Этнический стиль</option>
+                                            <option value="Японский стиль">Японский стиль</option>
+                                        </select></div> -->
+                                    </div>
+                                    <div>
+                                        <div class="mb-5"><label class="block" for="profile_info">Дополнительная
+                                            информация</label><input type="text" id="profile_info" name="profile[info]"
+                                                                     placeholder="" class="mt-1 w-full"/></div>
+                                    </div>
+                                </div>
+
+                                <div class="profile__form__section">
+                                    <h4>Контакты</h4>
+                                    <div class="form-row">
+                                        <div data-index="0"
+                                             data-prototype="&lt;input&#x20;type&#x3D;&quot;text&quot;&#x20;id&#x3D;&quot;profile_sites___name__&quot;&#x20;name&#x3D;&quot;profile&#x5B;sites&#x5D;&#x5B;__name__&#x5D;&quot;&#x20;placeholder&#x3D;&quot;design.com&quot;&#x20;class&#x3D;&quot;mt-1&#x20;w-full&quot;&#x20;&#x2F;&gt;"
+                                             class="mb-5"
+                                        >
+                                            <label class="block">Сайт</label>
+
+
+                                            <div class="sites">
+                                                <div id="profile_sites"></div>
+                                            </div>
+
+                                            <button type="button"
+                                                    class="button button--outline button--compact w-full !mt-0"
+                                                    onclick="App.UI.Form.addFormToCollection(this.parentNode, this.parentNode.querySelector('.sites'))">
+                                                <i class="mask-icon mask-icon--add mr-2"></i>
+                                                Добавить ссылку
+                                            </button>
+                                        </div>
+
+                                        <div data-index="0"
+                                             data-prototype="&lt;input&#x20;type&#x3D;&quot;text&quot;&#x20;id&#x3D;&quot;profile_socialMedias___name__&quot;&#x20;name&#x3D;&quot;profile&#x5B;socialMedias&#x5D;&#x5B;__name__&#x5D;&quot;&#x20;placeholder&#x3D;&quot;&#x40;design&quot;&#x20;class&#x3D;&quot;mt-1&#x20;w-full&quot;&#x20;&#x2F;&gt;"
+                                             class="mb-5"
+                                        >
+                                            <label class="block">Социальные сети</label>
+
+
+                                            <div class="social-medias">
+                                                <div id="profile_socialMedias"></div>
+                                            </div>
+
+                                            <button type="button"
+                                                    class="button button--outline button--compact w-full !mt-0"
+                                                    onclick="App.UI.Form.addFormToCollection(this.parentNode, this.parentNode.querySelector('.social-medias'))">
+                                                <i class="mask-icon mask-icon--add mr-2"></i>
+                                                Добавить ссылку
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="profile__form__section">
+                                    <div>
+                                        <input type="checkbox" id="profile_userAgreementAccepted"
+                                               name="profile[userAgreementAccepted]" required="required" class="mr-2"
+                                               value="1"/>
+                                        <label for="profile_userAgreementAccepted">
+                                            Я согласен с
+                                            <a href="/terms_of_use.pdf" target="_blank"
+                                               class="text-primary hover:text-primary-hover">
+                                                пользовательским соглашением
+                                            </a>
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" id="profile_save" name="profile[save]"
+                                                data-form-required="">Сохранить и продолжить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="profile__token" name="profile[_token]" class="mt-1 w-full"
+                           value="d3a5.Y8mLycmkeMPDzAkugDgWhDwBYKUlPjTHyWIFgiDJHcE.V6LOmJ_gCJukrm9D30t5zUtFJOR8bVeRkAVS9nihbI40q7qmlpM--6GfWA"/>
+                </form>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="ui-alerts" class="alerts-container"></div>
+<script type="text/javascript">
+    window.__alerts__ = [];
+</script>
+
+<div id="popup-alert-prototype" class="popup !hidden">
+    <div class="popup__screen" onclick="this.closest('.popup').remove()"></div>
+
+    <div class="popup__window">
+        <span class="popup__window__close" onclick="this.closest('.popup').remove()"></span>
+
+        <div class="popup__window__title">{{title}}</div>
+
+        <div class="popup__window__text">{{message}}</div>
+
+        <div>
+            <div class="popup__window__buttons">
+                <button type="button" class="button button--primary w-full cursor-pointer"
+                        onclick="this.closest('.popup').remove()"
+                >
+                    {{button}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popup-question-prototype" class="popup !hidden">
+    <div class="popup__screen" onclick="this.closest('.popup').classList.add('!hidden')"></div>
+
+    <div class="popup__window">
+        <span class="popup__window__close" onclick="this.closest('.popup').classList.add('!hidden')"></span>
+        <div class="popup__window__title">{{question}}</div>
+        <div class="popup__window__buttons">
+            <button type="button" class="popup-yes button button--secondary w-full cursor-pointer" onclick="">Да
+            </button>
+            <button type="button" class="button button--primary w-full cursor-pointer"
+                    onclick="this.closest('.popup').remove()">Нет
+            </button>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+.profile-page {
+    @apply text-mine-shaft text-base bg-wild-sand flex p-5 min-h-screen h-max;
+
+    @apply tab:flex-col;
+
+    @apply mob:p-2;
+
+    &__sidebar {        
+        @apply mr-5 w-[297px] flex-grow-0 flex-shrink-0;
+        @apply tab:mr-0 tab:h-auto tab:w-auto;
+    }
+
+    &__main {
+        @apply w-full;
+        min-height: var(--screen-height);
+
+        // @apply tab:py-20;
+
+        // @apply mob:py-[54px];
+    }
+
+    &__helper {
+        @apply ml-5 w-[508px] flex-grow-0 flex-shrink-0;
+        height: var(--screen-height);
+
+        @apply tab:mt-5 tab:ml-0 tab:w-full tab:h-auto tab:flex-grow tab:flex-shrink tab:mb-[80px];
+        @apply tab:h-min #{!important};
+        @apply mob:mt-2 mob:mb-[68px];
+
+        &--controls {
+            @apply tab:mb-[4.5em];
+        }
+
+        &--project {
+            @apply tab:mb-[152px];
+            @apply mob:mb-[118px];
+        }
+    }
+
+    &__content {
+        @apply bg-white w-full rounded-lg p-10 mob:p-5;
+    }
+
+    &--with-submenu {
+        @apply p-0 m-0;
+
+        & .project {
+            @apply tab:pt-0;
+        }
+    }
+
+    &--with-submenu &__helper {
+        height: calc(var(--screen-height) - 130px);
+        @apply mob:h-auto;
+    }
+}

@@ -1,0 +1,54 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block header_action %}
+    <a href="{{ path('auth.logout') }}" class="main-header__action button button--additional desktop:hidden">
+        <i class="mask-icon mask-icon--exit mr-2"></i>
+        Выйти
+    </a>
+{% endblock %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+
+    <div class="profile__content profile-page__content main__content">
+
+        <div class="profile__content__left-column">
+            {% include '_common/_profile_avatar_uploader.html.twig' with {'form': form} %}
+        </div>
+
+        <div class="profile__content__right-column">
+            <div class="profile__form">
+
+                <div>{{ form_errors(form) }}</div>
+
+                <div class="profile__form__section">
+                    <h4>Личные данные</h4>
+                    <div>
+                        {{ form_row(form.fullName) }}
+                        {{ form_row(form.position) }}
+                    </div>
+                    <div class="form-row">
+                        {{ form_row(form.phone) }}
+                        {{ form_row(form.email) }}
+                    </div>
+                </div>
+
+                <div class="profile__form__section">
+                    <h4>Данные входа</h4>
+                    <div class="form-row">
+                        {{ form_row(form.login) }}
+                        {{ form_row(form.password) }}
+                    </div>
+                </div>
+
+                <div class="profile__form__section">
+                    {{ form_row(form.save, {'label': 'form.save.label', 'attr': {'data-form-required': ''}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

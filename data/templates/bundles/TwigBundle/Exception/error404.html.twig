@@ -1,0 +1,20 @@
+{% extends '_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="error-404">
+        <div class="error-404__content">
+            <div class="error-404__content__block">
+                <img src="{{ asset('build/images/404.png') }}" alt="">
+            </div>
+            <div class="error-404__content__block">
+                <h2 class="error-404__content__title">К сожалению, страница не найдена!</h2>
+                <p class="error-404__content__description">
+                    Возможно, она была удалена или перемещена в другой раздел.<br>
+                    Вы можете вернуться на <a class="link" href="{{ path('app.home') }}">главную страницу</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

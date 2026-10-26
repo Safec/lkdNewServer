@@ -1,0 +1,68 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% import '_common/_upload_document.html.twig' as macros %}
+
+{% set active_link = 'cont_order' %}
+
+{% block content %}
+    <div class="requests__content __content">
+        {% include 'designer/_contacts_menu.html.twig' with {'active_link': active_link} %}
+        <div class="requests__content__right-column">
+            <div class="question__question-item__request" id="cont_order">
+                <div class="project-edit main__content main__content--pad requests-block">
+                    <div class="arrow_mobile">
+                        <a href="{{ path('designer.contacts.mobile') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <h4 class="mt-5">Сообщить о заказе</h4>
+                    <div class="mt-5">
+                        Сообщите нам о заказе вашего клиента заранее, но не позднее 3-х дней с даты оформления заказа, заполнив следующую форму.
+                    </div>
+                    <div class="h5 mt-5">Обратите внимание:</div>
+                    <div class="mt-2 mb-5">
+                        Без уведомления о заказе вознаграждение не выплачивается. Уведомление о заказе, направленное позднее 3-х дней с даты оформления заказа, не принимается. Вознаграждение не выплачивается.
+                    </div>
+
+                    {{ form_start(form) }}
+                    <div>{{ form_row(form.fullName, {
+                            'label_attr': {'class': 'h5 unit__title'}
+                        }) }}</div>
+                    <div>{{ form_row(form.phone, {
+                            'label_attr': {'class': 'h5 unit__title'}
+                        }) }}</div>
+                    <div>{{ form_row(form.address, {
+                            'label_attr': {'class': 'h5 unit__title'}
+                        }) }}</div>
+                    <div>{{ form_row(form.productList, {
+                            'label_attr': {'class': 'h5 unit__title without-required'},
+                            'attr': {'class': 'h-60 w-full mt-1'}
+                        }) }}</div>
+
+                    <div class="mt-5">
+                        {{ macros.single_document_uploader(form.invoice, 'Вложить счет', 'Загрузить счет, предзаказ, спецификацию') }}
+                    </div>
+
+                    <div class="mt-5">
+                        {{ macros.single_document_uploader(form.project_info, 'Информация о проекте', 'Загрузить файл проекта') }}
+                    </div>
+
+                    <div class="h5 mt-5">Обязательно!</div>
+                    <div class="mt-2 mb-5">
+                        При заказе мебели предоставить 3-4 листа визуализации проекта.
+                    </div>
+
+                    <div class="mt-5">
+                        {{ form_end(form) }}
+                    </div>
+
+                    <div>
+                        <a target="_blank" href="https://www.askona.ru/divany/square-new-i-raklet-i-ralf-i-monako-new-i-molto-i-mercury-i-mellow-i-laguna-mini-i-laguna-i-kvina-new-i-klark-i-fleks-i-conti-i-amani-pro-i-amani-mini/divany-modulnye-i-divany-pryamye-i-divany-uglovye/"><img class="banner__preview" style="margin-top: 1.25rem" src="{{ asset('build/images/banner2_688x230.jpg') }}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

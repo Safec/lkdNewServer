@@ -1,0 +1,23 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% block content %}
+    <div class="main__placeholder">
+        <div class="main-placeholder">
+            <div class="mask-icon mask-icon--snippet main-placeholder__icon"></div>
+            {% if app.user.isFullyRegisteredDesigner|default %}
+                <p>
+                    Документы проверены, номер вашего договора - {{ app.user.requisites.contractNumber|default }}.<br>
+                    Для уточнения информации по договору или его изменению свяжитесь с
+                    <a href="{{ path('designer.contacts') }}" class="link">менеджером</a>.
+                </p>
+            {% else %}
+                <p>
+                    Документы отправлены на рассмотрение, менеджер свяжется с вами в ближайшее время.<br>
+                    Запросить информацию и условия сотрудничества вы можете у
+                    <a href="{{ path('designer.contacts') }}" class="link">менеджеров</a>.
+                    <p><a href="{{ path('designer.requisites.documents_upload') }}" class="link">Вернуться к заполнению документов</a></p>
+                </p>
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}

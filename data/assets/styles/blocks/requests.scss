@@ -1,0 +1,110 @@
+.requests {
+  &__content {
+    @apply flex flex-row mob:items-center gap-10;
+
+    &__right-column {
+      width: 40%;
+      /*@apply w-[400px];*/
+      .question__question-item__request {
+        @apply mb-5 text-nobel;
+
+        label {
+          @apply mt-2 mb-1;
+        }
+
+        .snoska {
+          @apply mt-5 mb-5 text-sm;
+          .ul_dop {
+            @apply font-bold list-disc pl-5;
+            li {
+              @apply mb-2;
+            }
+          }
+        }
+
+        .fweight {
+          @apply mt-5 mb-5 font-bold;
+        }
+
+        .form-row {
+          @apply m-5 flex;
+
+          @media (max-width: 599px) {
+            @apply ml-0 mr-0;
+          }
+        }
+      }
+    }
+
+    &__left-column {
+      width: 60%;
+      /*@apply w-full*/ /*max-w-[596px]*/;
+
+      .question {
+        &__question-item {
+          @apply p-5 mb-5 rounded-lg bg-white;
+          transition: all 0.3s ease;
+
+          &.active {
+            @apply text-primary;
+          }
+
+          &__zagolovok {
+            @apply text-lg font-bold flex justify-between items-center cursor-pointer;
+          }
+
+        }
+      }
+    }
+  }
+}
+
+.item_history {
+  @apply mb-5;
+
+  .date {
+    @apply mb-2 mt-5;
+  }
+
+  .type {
+    @apply mb-2 font-bold text-base;
+    color: rgb(33 33 33);
+  }
+
+  hr {
+    @apply mt-5 mb-5;
+  }
+}
+
+.side-menu__item.mobile-url, .requests__content.__content .arrow_mobile {display: none;}
+
+/* Основные стили для мобильных устройств */
+@media (max-width: 768px) {
+
+  .requests__content.__content .unit__title {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .requests__content.__content .main__content--pad {
+    padding: 1.25rem;
+  }
+
+  .requests__content.__content .arrow_mobile {
+    display: block;
+  }
+
+  .requests__content__left-column {
+    width: 100%;
+  }
+  .requests__content.__content .requests__content__right-column {
+    width: 100%;
+  }
+
+  .requests__content.__content .requests__content__left-column {
+    display: none;
+  }
+
+  .side-menu__item.desktop-url {display: none;}
+  .side-menu__item.mobile-url {display: list-item;}
+}

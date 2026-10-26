@@ -1,0 +1,87 @@
+.side-menu {
+    @apply flex flex-col w-full;
+
+    &__item {
+        & + & {
+            @apply mt-4;
+
+            @apply tab:mt-0 tab:ml-2;
+
+            @apply mob:ml-0;
+        }
+    }
+
+    &__logout {
+        @apply mt-auto;
+
+        @apply tab:hidden;
+    }
+
+    .contactDBlock {
+        @apply font-bold py-[13px] px-4;
+    }
+
+    .contactDHeader {
+        @apply text-primary;
+    }
+
+    .contactD {
+        @apply font-normal;
+        margin-top: 10px;
+        padding-left: 30px;
+        font-size: 14px;
+    }
+
+    .contactD.contactEmail {
+        background: url("~@images/contact/email.png") left center no-repeat;
+    }
+    .contactD.contactTelega {
+        background: url("~@images/contact/telega.png") left center no-repeat;
+    }
+    .contactD.contactPhone {
+        background: url("~@images/contact/phone.png") left center no-repeat;
+    }
+}
+
+.side-menu-link {
+    @apply flex w-full self-center font-bold text-mine-shaft rounded-xl py-[13px] px-4;
+
+    @apply tab:items-center tab:text-xs tab:text-center tab:rounded-lg tab:h-full tab:p-2;
+
+    @apply mob:text-[16px] mob:leading-[16px];
+
+    &:hover {
+        @include hoverable {
+            @apply bg-wild-sand;
+        }
+    }
+    
+    &.disabled,
+    &--disabled {
+        @apply opacity-20 pointer-events-none;
+
+        &.active {
+            @apply opacity-100;
+        }
+    }
+
+    &--logout {
+        @apply text-nobel;
+    }
+
+    &.active {
+        @apply text-primary bg-primary-light;
+    }
+
+    &__icon {
+        @apply mr-3;
+
+        @apply tab:mr-0 tab:mb-2;
+
+        @apply mob:mr-1;
+    }
+
+    &__text {
+        @apply line-clamp-1 break-all;
+    }
+}

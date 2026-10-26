@@ -1,0 +1,42 @@
+<div class="requisites__form">
+
+    {{ form_start(form, {'attr': {'data-js-validate': ''}}) }}
+
+    <div class="profile__form">
+        <div class="profile__form__section">
+
+            <div>{{ form_errors(form) }}</div>
+
+            <div>
+                {{ form_row(form.fullName) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.phone) }}
+                {{ form_row(form.email) }}
+            </div>
+            <div>
+                {{ form_row(form.address) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.INN, {'attr': {'oninput': 'App.UI.Dadata.onChangeInn(this)'}}) }}
+            </div>
+            <div>
+                {{ form_row(form.passport) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.bankAccountNumber) }}
+                {{ form_row(form.bank) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.bankCorrespondentAccount) }}
+                {{ form_row(form.BIK) }}
+            </div>
+            <div>
+                {{ form_row(form.save, {'attr': {'data-form-required': ''}}) }}
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+</div>

@@ -1,0 +1,65 @@
+.profile {
+    &__content {
+        @apply flex flex-row tab:flex-col mob:items-center gap-10;
+
+        &__left-column {
+            @apply w-[160px];
+        }
+
+        &__right-column {
+            @apply w-full max-w-[596px];
+        }
+    }
+
+    &__form {
+        &__section h4 {
+            @apply mb-5;
+        }
+
+        &__section + &__section {
+            @apply mt-10;
+        }
+
+        button, input[type=submit] {
+            @apply mt-5;
+        }
+    }
+
+    &__file-uploader {
+        @apply relative;
+
+        & label {
+            @apply flex flex-col justify-center items-center w-[160px] h-[160px] overflow-hidden;
+            @apply rounded-full bg-wild-sand cursor-pointer;
+
+            &:hover {
+                @apply bg-concrete;
+            }
+
+            & > span {
+                @apply flex flex-col justify-center items-center text-center;
+            }
+
+            & > img {
+                @apply min-w-[160px] min-h-[160px] object-cover;
+            }
+        }
+
+        &__delete {
+            @apply absolute bottom-4 inset-x-1/2 -ml-[12px] w-[24px] h-[24px];
+            @apply rounded bg-white cursor-pointer fill-mine-shaft bg-opacity-60;
+
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDlWMTlIOFY5SDE2Wk0xNC41IDNIOS41TDguNSA0SDVWNkgxOVY0SDE1LjVMMTQuNSAzWk0xOCA3SDZWMTlDNiAyMC4xIDYuOSAyMSA4IDIxSDE2QzE3LjEgMjEgMTggMjAuMSAxOCAxOVY3WiIvPgo8L3N2Zz4K");
+            background-repeat: no-repeat;
+            background-position: center center;
+
+            &:hover {
+                @apply bg-opacity-100;
+            }
+        }
+
+        & input[type=file] {
+            @apply hidden;
+        }
+    }
+}

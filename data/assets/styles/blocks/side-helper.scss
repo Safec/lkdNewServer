@@ -1,0 +1,59 @@
+.side-helper {
+    @apply flex flex-col h-full bg-white rounded-lg p-5 sticky top-5 w-full min-h-[640px];
+
+    @apply tab:static tab:p-0 tab:min-h-0;
+    
+    &__content {
+        @apply mb-auto;
+
+        &--link {
+            @apply mb-0 px-0 #{!important};
+            @apply tab:px-5 #{!important};
+        }
+
+        &--public {
+            @apply p-10;
+            @apply tab:p-5;
+            @apply mob:p-2;
+        }
+    }
+
+    &__controls {
+        @apply tab:fixed tab:bottom-0 tab:left-0 tab:right-0 tab:z-[100] tab:px-5 tab:pb-5 tab:bg-white tab:pt-5 rounded-t-lg;
+
+        @apply mob:px-2 mob:pb-2 mob:pt-2;
+
+        &--project {
+            @apply tab:bottom-[74px];
+            @apply mob:bottom-[62px];
+        }
+    }
+
+    .sidebar ~ main &__controls {
+        @apply tab:bottom-0 tab:pb-20 tab:z-[99] tab:pt-2 tab:px-2 tab:bg-white;
+
+        @apply mob:pb-[4.25rem];
+    }
+}
+
+.side-helper-content {
+
+}
+
+.side-helper-controls {
+    @apply flex;
+
+    &__action {
+        @apply w-1/2;
+
+        @apply tab:text-sm tab:py-2;
+
+        & + & {
+            @apply ml-2;
+        }
+
+        .mask-icon {
+            @apply mob:hidden;
+        }
+    }
+}

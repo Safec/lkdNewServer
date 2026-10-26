@@ -1,0 +1,87 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% block content %}
+
+    {{ form_start(form, {'attr': {'data-js-validate': ''}}) }}
+
+    <div class="profile__content profile-page__content main__content">
+
+        <div class="profile__content__left-column">
+            {% include '_common/_profile_avatar_uploader.html.twig' with {'form': form} %}
+        </div>
+
+        <div class="profile__content__right-column">
+            <div class="profile__form">
+
+                <div>{{ form_errors(form) }}</div>
+
+                <div class="profile__form__section">
+                    <h4>Личные данные</h4>
+                    <div>
+                        {{ form_row(form.fullName) }}
+                    </div>
+                    <div class="form-row">
+                        {{ form_row(form.phone) }}
+                        {{ form_row(form.email) }}
+                    </div>
+                    <div class="form-row">
+                        {{ form_row(form.city) }}
+                        {{ form_row(form.legalEntity) }}
+                    </div>
+                </div>
+
+                <div class="profile__form__section">
+                    <h4>Контакты</h4>
+                    <div class="form-row">
+                        <div data-index="{{ form.sites|length > 0 ? form.sites|last.vars.name + 1 : 0 }}"
+                             data-prototype="{{ form_widget(form.sites.vars.prototype)|e('html_attr') }}"
+                             class="mb-5"
+                        >
+                            {{ form_label(form.sites) }}
+                            {{ form_errors(form.sites) }}
+
+                            <div class="sites">
+                                {{ form_widget(form.sites) }}
+                            </div>
+
+                            <button type="button" class="button button--outline button--compact w-full !mt-0"
+                                    onclick="App.UI.Form.addFormToCollection(this.parentNode, this.parentNode.querySelector('.sites'))">
+                                <i class="mask-icon mask-icon--add mr-2"></i>
+                                Добавить ссылку
+                            </button>
+                        </div>
+
+                        <div data-index="{{ form.socialMedias|length > 0 ? form.socialMedias|last.vars.name + 1 : 0 }}"
+                             data-prototype="{{ form_widget(form.socialMedias.vars.prototype)|e('html_attr') }}"
+                             class="mb-5"
+                        >
+                            {{ form_label(form.socialMedias) }}
+                            {{ form_errors(form.socialMedias) }}
+
+                            <div class="social-medias">
+                                {{ form_widget(form.socialMedias) }}
+                            </div>
+
+                            <button type="button" class="button button--outline button--compact w-full !mt-0"
+                                    onclick="App.UI.Form.addFormToCollection(this.parentNode, this.parentNode.querySelector('.social-medias'))">
+                                <i class="mask-icon mask-icon--add mr-2"></i>
+                                Добавить ссылку
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile__form__section">
+                    {% if form.active is defined %}
+                        {{ form_row(form.active) }}
+                    {% endif %}
+
+                    {{ form_row(form.save, {'attr': {'data-form-required': ''}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

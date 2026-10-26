@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Платформа для сотрудничества с дизайнерами и архитекторами – Развивайтесь и зарабатывайте с Askona Design{% endblock %}</title>
+    <meta name="description" content="{% block description %}Платформа Askona Design создана для дизайнеров интерьеров и архитекторов, чтобы упростить взаимодействие с компанией Askona и заказчиками. Получите доступ к базе 3D-моделей, комфортное взаимодействие с клиентами и Askona, PR поддержку, доступ к мероприятиям и развитие портфолио.{% endblock %}">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    {% block landCss %}{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% if app.request.get('_route') in ['auth.login_with_sms_code', 'app.home', 'auth.login_with_password'] %}
+        <meta name="robots" content="noindex">
+    {% endif %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+
+        {% if app.session.get('registration-sms_code-confirmed') %}
+        <script>
+            (function(m,e,t,r,i,k,a){
+                m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0];
+                k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+            })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            // Отправка цели
+            ym(1383371, 'reachGoal', 'lkd.askona.ru_registration-sms_code-confirmed');
+        </script>
+        {% do app.session.remove('registration-sms_code-confirmed') %}
+        {% endif %}
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function(m,e,t,r,i,k,a){
+                m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                for (var j = 0; j < document.scripts.length; j++) {
+                    if (document.scripts[j].src === r) { return; }
+                }
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);
+            })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(97862242, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true
+            });
+        </script>
+        <noscript>
+            <div><img src="https://mc.yandex.ru/watch/97862242" style="position:absolute; left:-9999px;" alt="" /></div>
+        </noscript>
+        <!-- /Yandex.Metrika counter -->
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+
+{% block alerts %}
+    <div id="ui-alerts" class="alerts-container"></div>
+    <script type="text/javascript">
+        window.__alerts__ = {{ app.session.flashbag.all()|json_encode()|raw }};
+    </script>
+{% endblock %}
+
+{% block popups %}
+    {% import '_popup.html.twig' as popup %}
+    {{ popup.alert('popup-alert-prototype', '{{title}}', '{{message}}', '{{button}}', true) }}
+    {{ popup.question('popup-question-prototype', '{{question}}', '', '', true) }}
+{% endblock %}
+
+</body>
+</html>

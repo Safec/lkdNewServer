@@ -1,0 +1,672 @@
+@mixin askona-design-container {
+    @apply max-w-[calc(1200px_+_2_*_40px)] px-10 m-auto;
+
+    @media (max-width: 1023px) {
+        @apply px-4;
+    }
+}
+
+
+
+.askona-design-card {
+    @apply rounded-2xl bg-wild-sand p-6;
+
+    @media (max-width: 1279px) {
+        @apply pb-8;
+    }
+
+    &__icon {
+        @apply w-10 h-10 bg-atlantis;
+
+        &--discount {
+            --url: url("~@images/landing/askona_design/icons/discount.svg");
+        }
+
+        &--manager {
+            --url: url("~@images/landing/askona_design/icons/messenger.svg");
+        }
+
+        &--assortment {
+            --url: url("~@images/landing/askona_design/icons/box.svg");
+        }
+
+        &--sales {
+            --url: url("~@images/landing/askona_design/icons/cart.svg");
+        }
+    }
+
+    &__index {
+        @apply font-black text-4xl text-atlantis;
+    }
+
+    &__title {
+        @apply font-bold text-2xl leading-8 mt-1;
+
+        @media (max-width: 1023px) {
+            @apply text-lg;
+        }
+    }
+
+    &__text {
+        @apply mt-4;
+
+        @media (max-width: 1023px) {
+            @apply text-sm mt-2;
+        }
+    }
+}
+
+
+
+.askona-design {
+    @apply pb-[104px];
+
+    @media (max-width: 1023px) {
+        @apply pb-16;
+    }
+
+    &__support {
+        @include askona-design-container();
+        @apply mt-5;
+
+        @media (max-width: 1023px) {
+            @apply mt-0;
+        }
+    }
+
+    &__usage {
+        @include askona-design-container();
+        @apply mt-[104px];
+
+        @media (max-width: 1023px) {
+            @apply mt-14;
+        }
+    }
+
+    &__start {
+        @include askona-design-container();
+        @apply mt-10;
+
+        @media (max-width: 1279px) {
+            @apply mt-[108px];
+        }
+
+        @media (max-width: 1023px) {
+            @apply mt-16;
+        }
+    }
+
+    &__registration {
+        @apply mt-[104px];
+
+        @media (max-width: 1023px) {
+            @apply mt-16;
+        }
+    }
+
+    &__appeal {
+        @apply max-w-[calc(996px_+_2_*_40px)] px-10 mt-16 mx-auto;
+
+        @media (max-width: 1023px) {
+            @apply px-4 mt-12;
+        }
+    }
+}
+
+
+
+.askona-design-intro {
+    @apply relative text-white bg-left bg-cover bg-no-repeat h-[680px];
+    background-image: url("~@images/landing/askona_design/intro-desktop.jpg");
+
+    @media (max-width: 1023px) {
+        @apply bg-center h-[700px];
+        background-image: url("~@images/landing/askona_design/intro-mobile.jpg");
+    }
+
+    &::after {
+        content: "";
+        @apply absolute left-0 right-0 bottom-[-2px] block bg-white rounded-t-[42px] h-11;
+
+        @media (max-width: 1023px) {
+            @apply rounded-t-[20px];
+        }
+    }
+
+    &__content {
+        @apply max-w-[550px] pt-10 ml-40;
+        
+        @media (max-width: 1439px) {
+            @apply ml-20;
+        }
+
+        @media (max-width: 1023px) {
+            @apply max-w-none mx-4;
+        }
+    }
+
+    &__title {
+        @apply text-inherit text-[72px] leading-[72px];
+
+        @media (max-width: 1023px) {
+            @apply text-[36px] leading-[36px];
+        }
+    }
+
+    &__description {
+        @apply text-lg mt-4;
+
+        @media (max-width: 1023px) {
+            @apply mt-6;
+        }
+    }
+
+    &__cooperation {
+        @apply mt-8;
+
+        @media (max-width: 1023px) {
+            @apply mt-6;
+        }
+    }
+}
+
+.askona-design-intro-header-contacts {
+    @apply flex flex-col items-start;
+
+    &__phone {
+        @apply font-bold text-base leading-none;
+    }
+
+    &__recall {
+        @apply text-xs;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+    }
+}
+
+.askona-design-intro-header {
+    @apply flex h-14;
+
+    @media (max-width: 1023px) {
+        @apply h-auto;
+    }
+
+    &__logo {
+        @apply h-9 mt-4 ml-40;
+
+        @media (max-width: 1439px) {
+            @apply ml-20;
+        }
+
+        @media (max-width: 1023px) {
+            @apply h-6 ml-4;
+        }
+    }
+
+    &__contacts {
+        @apply mt-[18px] mr-7;
+
+        @media (max-width: 1023px) {
+            @apply hidden;
+        }
+
+        &__icons {
+            @apply flex items-start mt-[18px] ml-auto mr-7;
+
+            @media (max-width: 1023px) {
+                @apply hidden;
+            }
+
+            a {
+                margin-right: 6px;
+            }
+        }
+    }
+}
+
+
+
+.askona-design-support {
+    &__stages {
+        @apply mt-12;
+
+        @media (max-width: 1023px) {
+            @apply mt-6;
+        }
+    }
+
+    &__cooperation {
+        @apply mt-10;
+
+        @media (max-width: 1023px) {
+            @apply w-full mt-6;
+        }
+    }
+}
+
+.askona-design-support-stages {
+    @apply grid grid-cols-4 gap-6;
+
+    @media (max-width: 1279px) {
+        @apply grid-cols-2;
+    }
+
+    @media (max-width: 1023px) {
+        @apply grid-cols-1 gap-3;
+    }
+}
+
+
+
+.askona-design-usage {   
+    &__content {
+        @apply flex items-start;
+    }
+
+    &__ui {
+        @apply max-w-[690px] min-w-0 w-full;
+
+        @media (max-width: 1439px) {
+            @apply mt-3;
+        }
+
+        @media (max-width: 1023px) {
+            @apply hidden;
+        }
+    }
+
+    &__about {
+        @apply ml-[126px];
+
+        @media (max-width: 1439px) {
+            @apply ml-[104px];
+        }
+
+        @media (max-width: 1023px) {
+            @apply ml-0;
+        }
+    }
+}
+
+.askona-design-usage-about {
+    &__stages {
+        @apply mt-12;
+
+        @media (max-width: 1023px) {
+            @apply mt-0;
+        }
+    }
+
+    &__question {
+        @apply w-full mt-20;
+
+        @media (max-width: 1023px) {
+            @apply mt-16;
+        }
+    }
+
+    &__cooperation {
+        @apply w-full mt-4;
+
+        @media (max-width: 1023px) {
+            @apply mt-3;
+        }
+    }
+}
+
+.askona-design-usage-stages {
+    counter-reset: askona-design-usage-stage-counter;
+
+    &__stage {
+        @apply max-w-[320px] min-w-[299px];
+
+        @media (max-width: 1023px) {
+            @apply max-w-none min-w-0;
+        }
+
+        & + & {
+            @apply mt-[120px];
+
+            @media (max-width: 1023px) {
+                @apply mt-0;
+            }
+        }
+    }
+}
+
+.askona-design-usage-stage-wrapper {
+    &__ui {
+        @apply hidden;
+
+        @media (max-width: 1023px) {
+            @apply block mx-[-16px] max-w-none w-[calc(100%_+_2_*_16px)];
+        }
+    }
+}
+
+.askona-design-usage-stage {
+    @apply relative pl-11;
+
+    &::before {
+        counter-increment: askona-design-usage-stage-counter;
+        content: counter(askona-design-usage-stage-counter);
+        @apply absolute top-0 left-0 font-black text-[44px] leading-none text-atlantis;
+
+        @media (max-width: 1023px) {
+            @apply text-3xl leading-10;
+        }
+    }
+
+    &__title {
+        @apply font-bold text-xl;
+
+        @media (max-width: 1023px) {
+            @apply text-lg;
+        }
+    }
+
+    &__clauses {
+        @apply mt-2;
+    }
+}
+
+.askona-design-usage-stage-clauses {
+    @apply flex flex-col;
+
+    &__clause {
+        @apply inline-flex;
+
+        &::before {
+            content: "—";
+            @apply mr-2;
+        }
+
+        & + & {
+            @apply mt-1;
+
+            @media (max-width: 1023px) {
+                @apply mt-0;
+            }
+        }
+    }
+}
+
+
+
+.askona-design-start {
+    &__steps {
+        @apply mt-12;
+
+        @media (max-width: 1279px) {
+            @apply mt-7;
+        }
+    }
+}
+
+.askona-design-start-steps {
+    @apply grid grid-cols-3 gap-6;
+
+    @media (max-width: 1023px) {
+        @apply grid-cols-1;
+    }
+}
+
+
+
+.askona-design-registration {
+    @apply bg-center bg-cover bg-no-repeat h-80;
+    background-image: url("~@images/landing/askona_design/registration-desktop.jpg");
+
+    @media (max-width: 1023px) {
+        @apply h-auto aspect-square;
+        background-image: url("~@images/landing/askona_design/registration-mobile.jpg");
+    }
+
+    &__container {
+        @include askona-design-container();
+    }
+
+    &__content {
+        @apply max-w-[470px] pt-16;
+
+        @media (max-width: 1023px) {
+            @apply max-w-none pt-5;
+        }
+    }
+}
+
+.askona-design-registration-content {
+    &__appeal {
+        @apply font-bold text-2xl;
+
+        @media (max-width: 1023px) {
+            @apply text-xl;
+        }
+    }
+
+    &__button {
+        @apply mt-6;
+
+        @media (max-width: 1023px) {
+            @apply mt-4;
+        }
+    }
+}
+
+
+
+.askona-design-appeal {
+    @apply flex flex-wrap text-xl;
+
+    @media (max-width: 1023px) {
+        @apply text-base;
+    }
+
+    &__photo {
+        @apply rounded-half w-[242px] h-[242px] flex-grow-0 flex-shrink-0;
+
+        @media (max-width: 1023px) {
+            @apply w-[104px] h-[104px];
+        }
+    }
+
+    &__content {
+        @apply flex-1 max-w-[588px] ml-16;
+
+        @media (max-width: 1279px) {
+            @apply ml-14;
+        }
+
+        @media (max-width: 1023px) {
+            @apply max-w-none ml-6;
+        }
+    }
+
+    &__questions {
+        @apply w-full mt-[10px] ml-[306px];
+
+        @media (max-width: 1279px) {
+            @apply ml-[298px];
+        }
+
+        @media (max-width: 1023px) {
+            @apply mt-12 ml-0;
+        }
+    }
+}
+
+.askona-design-appeal-content {
+    &__quote {
+        --url: url("~@images/landing/askona_design/icons/quote.svg");
+        @apply w-10 h-10 bg-atlantis;
+    }
+
+    &__text {
+        @apply mt-3;
+
+        @media (max-width: 1023px) {
+            @apply mt-1;
+        }
+    }
+
+    &__author {
+        @apply text-sm mt-4;
+
+        @media (max-width: 1023px) {
+            @apply text-xs mt-2;
+        }
+    }
+}
+
+.askona-design-appeal-questions {
+    &__contact-us {}
+
+    &__question {
+        @apply w-full max-w-[282px] mt-4;
+
+        @media (max-width: 1023px) {
+            @apply max-w-none;
+        }
+    }
+}
+
+
+.question-modal {
+
+    .alertQ { font-size: 14px; margin: 15px auto; border-radius: 8px; background: none; text-align: center}
+    .alertQ.alert-success { color: #00b7b7;}
+    .alertQ.alert-danger { color: #dc3765;}
+
+    .btn-submit {
+        width: 100%;
+        height: 48px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 500;
+        border: none;
+        transition: all 0.25s ease;
+        cursor: not-allowed;
+
+        // ❌ неактивная
+        background-color: #e6e6e6;
+        color: #a0a0a0;
+
+        &:disabled {
+            background-color: #e6e6e6;
+            color: #a0a0a0;
+        }
+
+        // ✅ активная
+        &.active {
+            background-color: #00b7b7;
+            color: #ffffff;
+            cursor: pointer;
+
+            &:hover {
+                background-color: darken(#00b7b7, 5%);
+            }
+
+            &:active {
+                transform: scale(0.98);
+            }
+        }
+    }
+
+
+    .modal-dialog {
+        max-width: 720px;
+        padding: 16px;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        padding: 24px;
+    }
+
+    .modal-header {
+        border: 0;
+        padding: 0 0 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .btn-close {
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 14px;
+            opacity: 1;
+            width: auto;
+            height: auto;
+        }
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    form {
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            label {
+                font-size: 14px;
+                color: #333;
+            }
+
+            input,
+            textarea {
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                padding: 10px 12px;
+                font-size: 14px;
+                resize: none;
+            }
+
+            textarea {
+                min-height: 120px;
+            }
+        }
+
+        .policy {
+            font-size: 12px;
+            color: #666;
+            margin: 16px 0;
+
+            a {
+                --tw-text-opacity: 1;
+                color: rgb(var(--color-primary) / var(--tw-text-opacity));
+                text-decoration: underline;
+            }
+        }
+
+    }
+
+    /* 📱 Мобильная версия */
+    @media (max-width: 576px) {
+        .modal-dialog {
+            max-width: 100%;
+        }
+
+        form {
+            .form-row {
+                flex-direction: column;
+            }
+        }
+    }
+}
+

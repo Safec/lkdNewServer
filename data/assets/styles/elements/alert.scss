@@ -1,0 +1,44 @@
+.alert {
+    @apply inline-block relative z-50 min-w-[320px] min-h-[40px] rounded-lg shadow pl-10 py-2 pr-4 text-base text-mine-shaft;
+
+    @apply bg-diamond;
+
+    transition: opacity 0.5s;
+    opacity: 1;
+
+    &::before {
+        @include mask-icon;
+        @apply block bg-current w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2;
+
+        --url: var(--icon-attention);
+        content: "";
+    }
+
+    &.fade {
+        opacity: 0;
+    }
+
+    &--fixed {
+        @apply fixed top-1 left-1/2 transform -translate-x-1/2;
+    }
+
+    &--success {
+        @apply bg-caper;
+    }
+
+    &--warning {
+        @apply bg-buttermilk;
+    }
+
+    &--error {
+        @apply bg-dandelion;
+    }
+}
+
+.alerts-container {
+    @apply fixed z-50 top-7 right-7 w-fit h-fit flex flex-col items-end gap-2;
+
+    @apply tab:top-[86px] tab:left-1/2 tab:transform tab:-translate-x-1/2 tab:right-[inherit] tab:items-center;
+
+    @apply mob:top-[86px];
+}

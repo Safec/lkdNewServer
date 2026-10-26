@@ -1,0 +1,107 @@
+{% extends '_layout.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form, {'attr': {'class': 'h-screen'}}) }}
+
+    {{ form_widget(form.cover) }}
+
+    <div class="profile-page">
+        <main class="main profile-page__main">
+
+            <div class="main__container">
+                <div class="project-edit main__content main__content--pad">
+
+                    <div class="unit">
+                        {% set uploader_index = form.images|length > 0 ? form.images|last.vars.name + 1 : 0 %}
+
+                        {% set uploader_prototype %}
+                            <label class="ui-project-uploader uploader empty">
+                                {{ form_widget(form.images.vars.prototype.path) }}
+                                {{ form_widget(form.images.vars.prototype.file, {'attr': {'onchange': 'App.UI.ProjectUploader.onChangeFile(this.parentNode)'}}) }}
+                                <span class="project-edit-gallery__uploader">
+                                    <span class="uploader__title">Загрузить изображение</span>
+                                    <span class="uploader__limits">{{ form_help(form.images.vars.prototype)|nl2br }}</span>
+                                </span>
+                                <label for="cover-__name__" class="ui-cover !hidden">
+                                    <input type="radio" class="!hidden" name="{{ form.cover.vars.full_name }}" id="cover-__name__" value="__name__">
+                                    <span class="image-control__cover">
+                                        <span class="mask-icon mask-icon--cover"></span>
+                                    </span>
+                                </label>
+                                <button type="button" class="image-control__delete ui-delete !hidden" onclick="App.UI.ProjectUploader.onDeleteFile(this.parentNode);">
+                                    <span class="mask-icon mask-icon--delete"></span>
+                                </button>
+                            </label>
+                        {% endset %}
+
+                        <p class="h5 unit__title">{{ 'form.project.images.label'|trans }}</p>
+                        <div class="project-edit-gallery unit__content unit__content--full"
+                             data-index="{{ uploader_index }}"
+                             data-prototype="{{ uploader_prototype|e('html_attr') }}"
+                        >
+
+                            {% for upload_form in form.images %}
+                                {% set upload = upload_form.vars.value %}
+                                <label class="ui-project-uploader uploader !border-none {% if not upload.path %}!hidden{% endif %}">
+                                    {{ form_widget(upload_form.path) }}
+                                    {{ form_widget(upload_form.file, {'attr': {'onchange': 'App.UI.ProjectUploader.onChangeFile(this.parentNode)'}}) }}
+                                    <span class="project-edit-gallery__uploader">
+                                        <span class="uploader__title">Загрузить изображение</span>
+                                        <span class="uploader__limits">{{ form_help(upload_form)|nl2br }}</span>
+                                    </span>
+                                    <label for="cover-{{ upload_form.vars.name }}" class="ui-cover">
+                                        <input type="radio" class="!hidden" name="{{ form.cover.vars.full_name }}" id="cover-{{ upload_form.vars.name }}"
+                                               value="{{ upload_form.vars.name }}" {% if form.cover.vars.value == upload_form.path.vars.value %}checked{% endif %}
+                                        >
+                                        <span class="image-control__cover">
+                                            <span class="mask-icon mask-icon--cover"></span>
+                                        </span>
+                                    </label>
+                                    <button type="button" class="image-control__delete ui-delete" onclick="App.UI.ProjectUploader.onDeleteFile(this.parentNode);">
+                                        <span class="mask-icon mask-icon--delete"></span>
+                                    </button>
+                                    <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ upload.path|trim('/') ~ '?w=466&h=352&fit=crop') }}" alt="">
+                                </label>
+                            {% endfor %}
+
+                            {{ uploader_prototype|replace({'__name__': uploader_index})|raw }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="side-helper profile-page__helper">
+                <div class="side-helper-content side-helper__content">
+                    <div style="padding: 1.25rem;">Поделитесь своими работами с использованием продуктов от Askona и мы опубликуем их в своем блоге <a href="https://www.askona.ru/club/" target="_blank">Askona Sleep Club</a> и своих социальных сетях.</div>
+                    <div class="unit project-edit-about__field !pb-0">
+                        {{ form_row(form.title, {'label_attr': {'class': 'h5 unit__title without-required'}}) }}
+                    </div>
+                    <div class="unit project-edit-about__field !pb-0">
+                        {{ form_row(form.subtitle, {'label_attr': {'class': 'h5 unit__title without-required'}}) }}
+                    </div>
+                    <div class="unit project-edit-about__field !pb-0">
+                        {{ form_row(form.description, {
+                            'label_attr': {'class': 'h5 unit__title without-required'},
+                            'attr': {'class': 'h-60 w-full mt-1'}
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    {{ form_errors(form) }}
+                </div>
+
+                <div class="side-helper-controls side-helper__controls">
+                    {{ form_widget(form.save, {'attr': {'class': 'button button--primary side-helper-controls__action', 'data-form-required': ''}}) }}
+                    <a href="{{ return_path|default(path('designer.portfolio')) }}" class="ui-confirm-cancel button button--additional side-helper-controls__action">Закрыть</a>
+                </div>
+            </aside>
+
+        </main>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

@@ -1,0 +1,240 @@
+<div {{ attributes }}>
+
+    {% import '_popup.html.twig' as popup %}
+
+    <div class="field field--search mask-icon--search mb-5 mob:mb-2 w-full">
+        <input name="search" type="text" data-model="query" data-action="live#action" data-action-name="debounce(300)|onChangeFilter" class="input input--icon w-full" placeholder="Поиск по дизайнерам" title="">
+    </div>
+
+    <div class="flex flex-row justify-between">
+        <div class="tab-panel project__tabs">
+            <label class="tab-panel__switcher cursor-pointer {% if not this.onlyNew %}active{% endif %}">
+                <input type="radio" value="0" data-model="onlyNew" data-action="live#action" data-action-name="onChangeFilter" class="!hidden">
+                Все
+            </label>
+            <label class="tab-panel__switcher cursor-pointer {% if this.onlyNew %}active{% endif %}">
+                <input type="radio" value="1" data-model="onlyNew" data-action="live#action" data-action-name="onChangeFilter" class="!hidden">
+                Новые
+            </label>
+        </div>
+
+        <div class="mob:hidden tab:hidden">
+            <div class="tab-panel project__tabs">
+                <label class="tab-panel__switcher cursor-pointer {% if this.view == 'grid' %}active{% endif %}">
+                    <input type="radio" value="grid" data-model="view" data-action="live#action" data-action-name="onChangeView" class="!hidden">
+                    Карточки
+                </label>
+                <label class="tab-panel__switcher cursor-pointer {% if this.view == 'table' %}active{% endif %}">
+                    <input type="radio" value="table" data-model="view" data-action="live#action" data-action-name="onChangeView" class="!hidden">
+                    Таблица
+                </label>
+            </div>
+        </div>
+
+        <div>
+            <div class="tab-panel project__tabs">
+                <label class="tab-panel__switcher cursor-pointer {% if this.sort == 'registeredAt' %}active{% endif %}">
+                    <input type="radio" value="registeredAt" data-model="sort" class="!hidden">
+                    Дата регистрации
+                </label>
+                <label class="tab-panel__switcher cursor-pointer {% if this.sort == 'fullName' %}active{% endif %}">
+                    <input type="radio" value="fullName" data-model="sort" class="!hidden">
+                    ФИО
+                </label>
+            </div>
+        </div>
+    </div>
+
+    {% if this.view == 'table' %}
+        <table class="contacts--table" data-loading="addClass(opacity-60)">
+            <thead>
+            <tr>
+                <th class="sortable {% if this.sort == 'registeredAt' %}sorted-{{ this.sortDirection }}{% endif %}">
+                    <label class="cursor-pointer">
+                        <input type="radio" value="registeredAt" data-model="sort" class="!hidden">
+                        Регистрация
+                    </label>
+                </th>
+                <th class="sortable {% if this.sort == 'fullName' %}sorted-{{ this.sortDirection }}{% endif %}">
+                    <label class="cursor-pointer {% if this.sort == 'fullName' %}active{% endif %}">
+                        <input type="radio" value="fullName" data-model="sort" class="!hidden">
+                        ФИО
+                    </label>
+                </th>
+                <th class="sortable {% if this.sort == 'phone' %}sorted-{{ this.sortDirection }}{% endif %}">
+                    <label class="cursor-pointer {% if this.sort == 'phone' %}active{% endif %}">
+                        <input type="radio" value="phone" data-model="sort" class="!hidden">
+                        Телефон
+                    </label>
+                </th>
+                <th class="sortable {% if this.sort == 'email' %}sorted-{{ this.sortDirection }}{% endif %}">
+                    <label class="cursor-pointer {% if this.sort == 'email' %}active{% endif %}">
+                        <input type="radio" value="email" data-model="sort" class="!hidden">
+                        Почта
+                    </label>
+                </th>
+                <th class="sortable {% if this.sort == 'legalEntity' %}sorted-{{ this.sortDirection }}{% endif %}">
+                    <label class="cursor-pointer {% if this.sort == 'legalEntity' %}active{% endif %}">
+                        <input type="radio" value="legalEntity" data-model="sort" class="!hidden">
+                        Форма ЮЛ
+                    </label>
+                </th>
+                <th class="sortable {% if this.sort == 'status' %}sorted-{{ this.sortDirection }}{% endif %}">
+                    <label class="cursor-pointer {% if this.sort == 'status' %}active{% endif %}">
+                        <input type="radio" value="status" data-model="sort" class="!hidden">
+                        Статус
+                    </label>
+                </th>
+                <th>Менеджер</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for designer in this.designers %}
+                <tr>
+                    <td>{{ designer.createdAt|date('d.m.Y') }}</td>
+                    <td>
+                        <div class="flex flex-row gap-2 items-center">
+                            <a href="{{ path('admin.designer.edit', {'id': designer.id}) }}" class="contacts--table__avatar">
+                                {% if designer.profile.avatar|default %}
+                                    <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ designer.profile.avatar|trim('/') ~ '?w=80&h=80&fit=crop') }}" alt="">
+                                {% else %}
+                                    <img src="{{ asset('/build/images/missing-image--small.svg') }}" alt="">
+                                {% endif %}
+                            </a>
+
+                            <a class="link underline" href="{{ path('admin.designer.edit', {'id': designer.id}) }}">
+                                {{ designer.profile.fullName|default('Нет данных') }}
+                            </a>
+                        </div>
+                    </td>
+                    <td>{{ designer.profile.phone|default }}</td>
+                    <td>{{ designer.profile.email|default }}</td>
+                    <td>{{ designer.requisites.legalEntity|default }}</td>
+                    <td>
+                        {{ component('UserStatusSelect', {
+                            'user': designer,
+                            'data-live-id': 'user-status-select-' ~ designer.id,
+                        }) }}
+                    </td>
+                    <td>{{ designer.moderateBy|default }}</td>
+                    <td>
+                        <div class="flex flex-row gap-1">
+                            <a onclick="document.getElementById('popup-delete-{{ designer.id }}').classList.remove('!hidden')"
+                               class="button button--sm !border-rose !text-rose !py-0 !px-1 !h-9">
+                                <i class="mask-icon mask-icon--delete text-sm"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="contacts" data-loading="addClass(opacity-60)">
+
+            {% for designer in this.designers %}
+
+                <div class="contacts__contact">
+
+                    <div class="contacts__contact__status">
+                        <div>
+                            {{ component('UserStatusSelect', {
+                                'user': designer,
+                                'data-live-id': 'user-status-select-' ~ designer.id,
+                            }) }}
+                        </div>
+                        <div class="text-xs text-right">
+                            {% if designer.status == constant('App\\Entity\\User::STATUS_MODERATE') and designer.moderateBy %}
+                                {{ designer.moderateBy }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="contacts__contact__avatar">
+                        {% if designer.profile.avatar|default %}
+                            <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ designer.profile.avatar|trim('/') ~ '?w=160&h=160&fit=crop') }}" alt="">
+                        {% else %}
+                            <img src="{{ asset('/build/images/missing-image--small.svg') }}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="contacts__contact__name">
+                        {% if designer.profile.fullName|default %}
+                            {{ designer.profile.fullName }}
+                        {% else %}
+                            <span class="text-dim">Нет данных</span>
+                        {% endif %}
+                    </div>
+                    <div class="contacts__contact__position">
+                        {% set position = designer.profile.position|default(designer.profile.profession|default) %}
+                        {% if position %}
+                            {{ position }}
+                        {% else %}
+                            <span class="text-dim">Нет данных</span>
+                        {% endif %}
+                    </div>
+                    <div class="contacts__contact__wrap">
+
+                        <div class="contacts__contact__wrap__phone">
+                            <i class="mask-icon mask-icon--phone"></i>
+                            {% if designer.profile.phone|default %}
+                                <a href="tel:{{ designer.profile.phone }}">{{ designer.profile.phone|phone }}</a>
+                            {% else %}
+                                <span class="text-dim">Нет данных</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="contacts__contact__wrap__email">
+                            <i class="mask-icon mask-icon--mail"></i>
+                            {% if designer.profile.email|default %}
+                                <a href="mailto:{{ designer.profile.email }}">{{ designer.profile.email }}</a>
+                            {% else %}
+                                <span class="text-dim">Нет данных</span>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+                        <div class="w-full">
+                            <a href="{{ path('admin.designer.edit', {'id': designer.id}) }}" class="button button--additional w-full">Редактировать</a>
+                        </div>
+                        <div class="w-full">
+                            <a onclick="document.getElementById('popup-delete-{{ designer.id }}').classList.remove('!hidden')" class="button button--additional w-full !text-rose">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% for designer in this.designers %}
+        {{ popup.question('popup-delete-' ~ designer.id, 'Вы уверены, что хотите удалить аккаунт дизайнера?', path('admin.designer.delete', {'id': designer.id})) }}
+    {% endfor %}
+
+    {% set total = this.designers.count|default %}
+    {% if total > 0 and total > this.perPage %}
+        {% set totalPage = (total / this.perPage)|round(0, 'ceil') %}
+        <div class="flex flex-row gap-2 mob:flex-col-reverse w-full justify-between mob:justify-center items-center my-5 mob:my-2">
+
+            <div class="flex flex-row gap-2">
+                {% for page in range(this.page - 3, this.page + (this.page < 3 ? 6 - this.page : 3)) %}
+                    {% if page > 0 and page <= totalPage %}
+                        <button data-model="page" data-value="{{ page }}" data-action="live#update"
+                                class="button button--paginator {% if this.page == page %}active{% endif %}"
+                        >{{ page }}</button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="text-nobel">
+                Вы посмотрели {{ min(this.page * this.perPage, total) }} из {{ total }} {{ plural(total, "дизайнера", "дизайнеров", "дизайнеров") }}.
+            </div>
+
+        </div>
+    {% endif %}
+
+    <div class="flex justify-end">
+        <a href="{{ path('admin.designers.export.csv') }}" class="text-dim hover:text-primary text-xs">CSV</a>
+    </div>
+</div>

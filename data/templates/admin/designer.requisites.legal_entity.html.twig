@@ -1,0 +1,37 @@
+{% extends 'admin/_designer.layout.html.twig' %}
+
+{% block content %}
+
+    <div class="requisites requisites__content main__content">
+
+        {% include 'admin/_designer.requisites.navigation.html.twig' with {'designer': designer} %}
+        {% set edo_number = form.edoNumber.vars.value|default %}
+        <div class="flex">
+            {{ form_start(form) }}
+            <div class="mb-5" id="legal-entity">{{ form_row(form.legalEntity) }}</div>
+
+            <div id="tax-system-wrapper" style="display: none;">
+                {{ form_row(form.taxSystem) }}
+            </div>
+
+            <div id="vat-rate-wrapper" style="display: none;">
+                {{ form_row(form.vatRate) }}
+            </div>
+
+            <div>
+                <label for="has-edo-number">
+                    <input id="has-edo-number" name="hasEdoNumber" type="checkbox" {% if edo_number|length > 0 %}checked{% endif %}
+                           onclick="document.getElementById('edo-number').classList.toggle('!hidden');"
+                    />
+                    Подключен в электронному документообороту
+                </label>
+            </div>
+            <div class="mt-2">
+                <div id="edo-number" {% if not edo_number|length > 0 %}class="!hidden"{% endif %}>{{ form_row(form.edoNumber) }}</div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+{% endblock %}

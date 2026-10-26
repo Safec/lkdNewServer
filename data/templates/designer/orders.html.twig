@@ -1,0 +1,42 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% block content %}
+                <div class="requisites__content">
+                    <h4 class="mt-0 mb-0">История заказов</h4>
+                    <div class="mt-5">Здесь вы можете увидеть заказы, размещенные с Вашим участием с 1 января 2025 года.</div>
+                    <div class="mt-5 mb-5">Заказ появляется в этом разделе в течении 2-3 дней после того, как вы сообщили о нем в разделе «Сообщить о заказе» (при условии, что он был оформлен в розничной сети Аскона или интернет магазине).</div>
+                    {% if orders %}
+                        <table border="1" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th>Номер заказа</th>
+                                <th>Статус заказа</th>
+                                <th>Планируемая дата выполнения</th>
+                                <th>Сумма заказа с НДС (без услуг)</th>
+                                <th>Готовность акта</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                    <tr style="vertical-align: top;">
+                                        <td style="border: 1px solid #ccc;padding: 5px;"><b>{{ order.orderNumber }}</b></td>
+                                        <td style="border: 1px solid #ccc;padding: 5px;text-align: center;">{{ order.status }}</td>
+                                        <td style="border: 1px solid #ccc;padding: 5px;text-align: center;">{{ order.date|date('d.m.Y') }}</td>
+                                        <td style="border: 1px solid #ccc;padding: 5px;text-align: center;">{{ order.amount|number_format(0, '.', ' ') }}</td>
+                                        <td style="border: 1px solid #ccc;padding: 5px;text-align: center;">{{ order.actReady }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                        </table>
+                    {% endif %}
+                    <div class="mt-5">Просим вас обратить внимание:</div>
+                    <div class="mt-2">
+                        <ul>
+                            <li>1.	Заказы, которые еще не оформлены, но вы о них нам сообщили будут появляться после того, как мы увидим их оформление.</li>
+                            <li>2.	Мы готовим акт в течении 3 недель с даты выполнения заказа. Как акт будет готов мы отправим вам его на подпись (через оператора электронного документооборота).</li>
+                            <li>3.	После того, как Вы подпишите акт, выплата производится в среднем в течении 5 рабочих дней.</li>
+                            <li>4.	Заказы, в которых была применена СКИДКА ДИЗАЙНЕРА, в этом разделе отражены. Но выплата по ним не производится.</li>
+                        </ul>
+                    </div>
+                </div>
+{% endblock %}

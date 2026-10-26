@@ -1,0 +1,14 @@
+{% extends 'designer/_layout.html.twig' %}
+
+{% set active_link = 'cont_manager' %}
+
+{% block content %}
+    <div class="requests__content __content">
+        {% include 'designer/_contacts_menu.html.twig' with {'active_link': active_link} %}
+        <div class="requests__content__right-column">
+                <div class="question__question-item__request" id="cont_manager">
+                    {% include 'designer/contacts.manager.html.twig' %}
+                </div>
+        </div>
+    </div>
+{% endblock %}

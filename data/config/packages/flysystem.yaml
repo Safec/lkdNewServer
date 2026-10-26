@@ -1,0 +1,25 @@
+# Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
+flysystem:
+    storages:
+        public.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/%uploads.path%'
+                permissions:
+                    file:
+                        public: 0o644
+                        private: 0o644
+                    dir:
+                        public: 0o755
+                        private: 0o755
+        private.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/uploads/'
+                permissions:
+                    file:
+                        public: 0o644
+                        private: 0o644
+                    dir:
+                        public: 0o755
+                        private: 0o755

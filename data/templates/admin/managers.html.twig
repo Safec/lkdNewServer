@@ -1,0 +1,65 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block header_action %}
+    {% include 'admin/_header_action.html.twig' with {'href': path('admin.manager.new'), 'caption': 'Добавить менеджера'} %}
+{% endblock %}
+
+{% block content %}
+
+    {% import '_popup.html.twig' as popup %}
+
+    <div class="main__content">
+
+        <div class="contacts">
+
+            {% for manager in managers|default %}
+                {% if manager.profile.fullName|default %}
+                    <div class="contacts__contact">
+
+                        <div class="contacts__contact__switch">
+                            <span class="text-dim text-sm">Активный</span>
+                            {{ component('UserActiveSwitch', {'userId': manager.id}) }}
+                        </div>
+
+                        <div class="contacts__contact__avatar">
+                            {% if manager.profile.avatar|default %}
+                                <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ manager.profile.avatar|trim('/') ~ '?w=160&h=160&fit=crop') }}" alt="">
+                            {% else %}
+                                <img src="{{ asset('/build/images/missing-image--small.svg') }}" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="contacts__contact__name">{{ manager.profile.fullName|default }}</div>
+                        <div class="contacts__contact__position">{{ manager.profile.position|default(manager.profile.profession|default) }}</div>
+                        <div class="contacts__contact__wrap">
+                            {% if manager.profile.phone|default %}
+                                <div class="contacts__contact__wrap__phone">
+                                    <i class="mask-icon mask-icon--phone"></i>
+                                    <a href="tel:{{ manager.profile.phone }}">{{ manager.profile.phone|phone }}</a>
+                                </div>
+                            {% endif %}
+                            {% if manager.profile.email|default %}
+                                <div class="contacts__contact__wrap__email">
+                                    <i class="mask-icon mask-icon--mail"></i>
+                                    <a href="mailto:{{ manager.profile.email }}">{{ manager.profile.email }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="contacts__contact__wrap contacts__contact__wrap--buttons mt-5">
+                            <div class="w-full">
+                                <a href="{{ path('admin.manager.edit', {'id': manager.id}) }}" class="button button--additional w-full">Редактировать</a>
+                            </div>
+                            <div class="w-full">
+                                <a onclick="document.getElementById('popup-delete-{{ manager.id }}').classList.remove('!hidden')" class="button button--additional w-full !text-rose">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {{ popup.question('popup-delete-' ~ manager.id, 'Вы уверены, что хотите удалить аккаунт менеджера?', path('admin.manager.delete', {'id': manager.id})) }}
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}

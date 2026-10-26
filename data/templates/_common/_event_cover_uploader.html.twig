@@ -1,0 +1,23 @@
+<div class="ui-avatar-uploader event__file-uploader">
+    {% set coverImage = form.coverImage.vars.value|default %}
+
+    <label>
+        {{ form_widget(form.cover_file, {'attr': {'onchange': 'App.UI.AvatarUploader.onChange(this);'}}) }}
+        <span {% if coverImage %}class="!hidden"{% endif %}>
+                        <span class="fill-mine-shaft mb-2 text-center">
+                            <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5 8L10.5 0L8.5 0L8.5 8L0.5 8L0.5 10L8.5 10L8.5 18H10.5V10H18.5V8L10.5 8Z"/>
+                            </svg>
+                        </span>
+                        <small class="font-bold mb-1">Загрузить<br />изображение</small>
+                        <small class="text-dim w-[120px]">{{ form_help(form.cover_file)|nl2br }}</small>
+                    </span>
+        {% if coverImage %}
+            <img src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ coverImage|trim('/') ~ '?w=320&h=320&fit=crop') }}" alt="">
+        {% endif %}
+    </label>
+
+    {{ form_widget(form.coverImage) }}
+
+    <div class="profile__file-uploader__delete {% if not coverImage %}!hidden{% endif %}" onclick="App.UI.AvatarUploader.onDelete(this);"></div>
+</div>

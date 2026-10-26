@@ -1,0 +1,103 @@
+{% extends 'admin/_layout.html.twig' %}
+{% set showHeaderAction = alone is defined and alone %}
+
+    {% block header_action %}
+        {% if showHeaderAction %}
+            {% include 'admin/_header_action.html.twig' with {'href': path('admin.requests'), 'caption': 'Показать все обращения'} %}
+        {% endif %}
+    {% endblock %}
+
+{% block content %}
+    <div>
+        {% if showHeaderAction %}
+            <h4 class="mt-5 mb-5">Обращение дизайнера</h4>
+        {% else %}
+            <h4 class="mt-5 mb-5">История обращений дизайнеров</h4>
+            <div class="field field--search mask-icon--search mb-5 mob:mb-2 w-full">
+                <input name="search" type="text" data-model="query" data-action="live#action" data-action-name="debounce(300)|onChangeFilter" class="input input--icon w-full" placeholder="Поиск по дизайнеру" title="">
+            </div>
+        {% endif %}
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>ФИО дизайнера</th>
+            <th>Контакты<br>дизайнера</th>
+            <th>Данные</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for request in userRequests %}
+            {% set data = request.data %}
+            <tr style="vertical-align: top;">
+                <td style="border: 1px solid #ccc;padding: 5px;"><b>{{ request.id }}</b><br>{{ request.createdAt|date('d.m.Y H:i:s') }}</td>
+                <td style="border: 1px solid #ccc;padding: 5px;">{{ request.user.profile.fullName | default }}</td>
+                <td style="border: 1px solid #ccc;padding: 5px;"><b>Телефон:</b><br>{{ request.user.phone }}<br><b>Email:</b><br>{{ request.user.email }}</td>
+                <td style="border: 1px solid #ccc;padding: 5px;">
+                    <div class="type">
+                        {% if data.type is defined %}
+                            {{ data.type }}
+                    {% endif %}</div>
+                    {% for key, value in data %}
+                        {% if fieldNames[key] is defined and key not in ['invoice', 'project_info', 'type'] %}
+                            <div>
+                                <strong>{{ fieldNames[key] }}:</strong>
+                                {% if key == 'attached' %}
+                                    {% set attachedFiles = value %}
+                                    {% for type, files in attachedFiles %}
+                                        <div>
+                                            <strong>{{ fieldNames[type] }}:</strong>
+                                            <ul>
+                                                {% for file in files %}
+                                                    <li><a href="/private{{ asset(file) }}" target="_blank">{{ file|split('/')|last }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    {% if value is iterable %}
+                                        <ul>
+                                            {% for item in value %}
+                                                <li>{{ item }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        {{ value|replace({'<br />': "\n", '<br>': "\n"}) }}
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <!--td>
+                    <div class="contacts__contact__switch">
+                        <span class="text-dim text-sm">Активный</span>
+                        {# {{ component('RequestActiveSwitch', {'requestId': request.id}) }} #}
+                    </div>
+                </td-->
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        {% set total = userRequests.count|default %}
+        {% if total > 0 and total > perPage %}
+            {% set totalPage = (total / perPage)|round(0, 'ceil') %}
+            <div class="flex flex-row gap-2 mob:flex-col-reverse w-full justify-between mob:justify-center items-center my-5 mob:my-2">
+
+                <div class="flex flex-row gap-2">
+                    {% for page2 in range(page - 3, page + (page < 3 ? 6 - page : 3)) %}
+                        {% if page2 > 0 and page2 <= totalPage %}
+                            <button data-model="page" data-value="{{ page2 }}" data-action="live#update"
+                                    class="button button--paginator {% if page2 == page %}active{% endif %}"
+                            >{{ page2 }}</button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+

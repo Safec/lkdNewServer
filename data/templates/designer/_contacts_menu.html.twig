@@ -1,0 +1,40 @@
+{# templates/designer/_contacts_menu.html.twig #}
+    <div class="requests__content__left-column">
+        <div class="question">
+            <div class="question__question-item {{ active_link == 'cont_manager' ? 'active' : '' }}" onclick="location.href='{{ path('designer.contacts') }}'">
+                <div class="question__question-item__zagolovok" data-content="cont_manager">
+                    <span>Менеджер</span>
+                </div>
+            </div>
+            <div class="question__question-item {{ active_link == 'cont_order' ? 'active' : '' }}" onclick="location.href='{{ path('designer.order_notification') }}'">
+                <div class="question__question-item__zagolovok" data-content="cont_order">
+                    <span>Сообщить о заказе</span>
+                </div>
+            </div>
+            <div class="question__question-item {{ active_link == 'cont_sale' ? 'active' : '' }} {{ app.user.active|default(false) ? '' : 'side-menu-link--disabled' }}" onclick="location.href='{{ path('designer.discount_request') }}'">
+                <div class="question__question-item__zagolovok" data-content="cont_sale">
+                    <span>Запросить скидку для клиента</span>
+                </div>
+            </div>
+            <div class="question__question-item {{ active_link == 'cont_model' ? 'active' : '' }} {{ app.user.active|default(false) ? '' : 'side-menu-link--disabled' }}" onclick="location.href='{{ path('designer.models_request') }}'">
+                <div class="question__question-item__zagolovok" data-content="cont_model">
+                    <span>Запросить модель</span>
+                </div>
+            </div>
+            <div class="question__question-item {{ active_link == 'cont_quest' ? 'active' : '' }} {{ app.user.active|default(false) ? '' : 'side-menu-link--disabled' }}" onclick="location.href='{{ path('designer.question_request') }}'">
+                <div class="question__question-item__zagolovok" data-content="cont_quest">
+                    <span>Задать вопрос</span>
+                </div>
+            </div>
+            <div class="question__question-item {{ active_link == 'cont_history' ? 'active' : '' }} {{ app.user.active|default(false) ? '' : 'side-menu-link--disabled' }}" onclick="location.href='{{ path('designer.history_request') }}'">
+                <div class="question__question-item__zagolovok" data-content="cont_history">
+                    <span>История обращений</span>
+                </div>
+            </div>
+            {% if active_link == 'cont_manager' %}
+                <div>
+                    <a target="_blank" href="https://www.askona.ru/divany/square-new-i-raklet-i-ralf-i-monako-new-i-molto-i-mercury-i-mellow-i-laguna-mini-i-laguna-i-kvina-new-i-klark-i-fleks-i-conti-i-amani-pro-i-amani-mini/divany-modulnye-i-divany-pryamye-i-divany-uglovye/"><img class="banner__preview" src="{{ asset('build/images/banner1_900x305.jpg') }}" alt=""></a>
+                </div>
+            {% endif %}
+        </div>
+</div>

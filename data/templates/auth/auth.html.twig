@@ -1,0 +1,79 @@
+{% extends 'auth/_layout.html.twig' %}
+
+{% block content %}
+    <a href="{{ path('auth.login_with_sms_code') }}" class="back back--left mb-5">Назад</a>
+
+    <h4>Войдите или зарегистрируйтесь</h4>
+
+    {% set errors = app.flashes('error') %}
+    {% set successes = app.flashes('success') %}
+
+    <form id="auth" action="{{ path('auth.auth') }}" method="post" class="symfony-form mt-5">
+        <input type="hidden" name="{{ options.csrf_parameter|default("_csrf_token") }}"
+               value="{{ csrf_token(options.csrf_token_id|default("_otp")) }}">
+        <input type="hidden" name="{{ options.phone_parameter|default("_phone") }}" value="{{ phone }}">
+
+        <div>
+            {% if use_captcha|default(false) and h_captcha.enabled|default(false) %}
+                <div>
+                    <div id="h-captcha"></div>
+                    <!--suppress JSUnresolvedReference -->
+                    <script type="text/javascript">
+                        function h_captcha_onload() {
+                            const covered = document.querySelectorAll(".captcha-cloak");
+                            covered.forEach(el => el.classList.add("hidden"));
+
+                            hcaptcha.render("h-captcha", {
+                                "sitekey": {{ h_captcha.sitekey|json_encode|raw }},
+                                "callback": function () {
+                                    covered.forEach(el => el.classList.remove("hidden"));
+                                }
+                            });
+                        }
+                    </script>
+                    <script src="https://js.hcaptcha.com/1/api.js?recaptchacompat=off&onload=h_captcha_onload" async defer></script>
+                </div>
+            {% else %}
+                <input type="hidden" name="{{ options.captcha_csrf_parameter|default('_captcha_csrf_token') }}"
+                       value="{{ csrf_token(options.captcha_csrf_token_id|default('_captcha')) }}"/>
+            {% endif %}
+
+            <div class="captcha-cloak">
+                <label for="_code">Введите код из СМС</label>
+                <input id="_code" name="{{ options.code_parameter|default("_code") }}" value="" type="text"
+                       placeholder="Код"
+                       data-mask="{% for i in range(1, options.otp_code_digits|default(4)) %}0{% endfor %}"
+                       data-focus-onload required
+                       class="w-full {% if errors|default %}is-invalid !pr-8{% endif %}"
+                />
+            </div>
+
+            {% for error in errors|default([]) %}
+                <div class="error mt-1 text-xs text-rose">{{ error|trans }}</div>
+            {% endfor %}
+
+            {% for success in successes|default([]) %}
+                <div class="success mt-1 text-xs text-primary">{{ success|trans }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="captcha-cloak mt-2">
+            <button type="submit" class="button button--primary w-full" data-form-required>Продолжить</button>
+        </div>
+
+        <div class="captcha-cloak">
+            {% if resend_timer|default %}
+                <div id="auth-sms-timer" data-timer="{{ resend_timer }}" class="text-center mt-2 hidden">
+                    <span class="text-dim text-sm">Отправить код снова через: <span
+                                data-timer-display>{{ resend_timer }}</span> сек.</span>
+                </div>
+            {% endif %}
+
+            <div id="auth-sms-link" class="text-center mt-2">
+                <a href="{{ path('auth.login_with_sms_code') }}"
+                   class="text-primary text-base underline underline-offset-4 decoration-1 decoration-dashed">Отправить
+                    код повторно</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

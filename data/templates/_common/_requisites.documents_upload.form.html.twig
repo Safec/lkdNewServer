@@ -1,0 +1,93 @@
+{% macro document_uploader(form) %}
+    <div class="ui-document-uploader {% if form.vars.required|default %}required{% endif %}">
+        {% set files_index = form.files|length > 0 ? max(form.files|keys) + 1 : 0 %}
+        {% set prototype_form = form.files.vars.prototype %}
+
+        {% set tag %}
+            <div class="uploader__tags__tag" data-id="__id__">
+                <div>
+                    <!--suppress HtmlUnknownTarget -->
+                    <a href="__href__" target="_blank" class="uploader__tags__tag__link">__name__</a>
+                    <button type="button" class="uploader__tags__tag__delete" data-id="__id__" onclick="App.UI.DocumentUploader.onDelete(this)"></button>
+                </div>
+            </div>
+        {% endset %}
+
+        {% set tag_prototype %}
+            <div class="uploader__tags__tag" data-id="__id__">
+                <div>
+                    <!--suppress HtmlUnknownTarget -->
+                    <a href="javascript:null" class="uploader__tags__tag__link disabled">__name__</a>
+                    <button type="button" class="uploader__tags__tag__delete" data-id="__id__" onclick="App.UI.DocumentUploader.onDelete(this)"></button>
+                </div>
+            </div>
+        {% endset %}
+
+        {% set files_prototype %}
+            <label class="uploader uploader--document">
+                {{ form_widget(prototype_form.path) }}
+                {{ form_widget(prototype_form.file, {'attr': {'onchange': 'App.UI.DocumentUploader.onChange(this.parentNode)'}}) }}
+                <span>
+                    <span class="uploader__title">Загрузить документ</span>
+                    <span class="uploader__tags">
+                        {% for file_form in form.files %}
+                            {% if file_form.path.vars.value|default %}
+                                {{ tag|replace({
+                                    '__name__': file_form.path.vars.value|split('/')|last,
+                                    '__id__': file_form.path.vars.id,
+                                    '__href__': path('private_file', {'path': file_form.path.vars.value})
+                                })|raw }}
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                    <span class="uploader__limits">{{ form_help(form) }}</span>
+                </span>
+            </label>
+        {% endset %}
+
+        <h5 class="mb-2">{{ form_label(form) }}</h5>
+        {% if form.vars.name == 'passport' %}
+            <div>
+                <div>Если Вы готовы подписать договор <b>через операторов электронного документооборота</b> -страницы паспорта загружать <b>не нужно</b>.</div>
+                <div>Если Вы планируете подписывать <b>бумажную версию договора</b> - страницы паспорта загружать <b>нужно</b>.</div>
+            </div>
+        {% endif %}
+        <div class="document"
+             data-index="{{ files_index }}"
+             data-prototype="{{ files_prototype|e('html_attr') }}"
+             data-tag-prototype="{{ tag_prototype|e('html_attr') }}"
+        >
+            {{ files_prototype|replace({'__name__': files_index})|raw }}
+        </div>
+
+        <div class="!hidden">
+            {{ form_widget(form.files) }}
+        </div>
+    </div>
+{% endmacro %}
+
+<div class="requisites__form requisites__form--documents">
+
+    <div>{{ form_errors(form) }}</div>
+
+    {{ form_start(form) }}
+
+    {% for field_form in form %}
+        {% if field_form.vars.name not in ['save', '_token'] %}
+            <div class="mt-10">
+                {{ _self.document_uploader(field_form) }}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="mt-10 flex gap-5">
+        {% if contract_url|default %}
+            <a href="{{ contract_url }}" target="_blank" class="button button--secondary">Скачать договор</a>
+            <a href="{{ archive_url }}" target="_blank" class="button button--secondary">Скачать архив документов</a>
+        {% endif %}
+        {{ form_row(form.save, {'attr': {'data-form-required': ''}}) }}
+    </div>
+
+    {{ form_end(form) }}
+
+</div>

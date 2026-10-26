@@ -1,0 +1,56 @@
+<div {{ attributes }}>
+    {% import '_popup.html.twig' as popup %}
+
+    <div class="field field--search mask-icon--search mb-5 mob:mb-2 w-full">
+        <input name="search" type="text" data-model="query" data-action="live#action" data-action-name="debounce(300)|onChangeFilter" class="input input--icon w-full mr-2" placeholder="Поиск по заказам" title="">
+        <a href="{{ path('admin.designers.import_orders') }}" class="button button--primary button--sm whitespace-nowrap">
+            Загрузить заказы
+        </a>
+    </div>
+
+    <table border="1" style="width: 100%">
+        <thead>
+        <tr>
+            <th>Номер заказа</th>
+            <th>ФИО дизайнера</th>
+            <th>Контакты<br>дизайнера</th>
+            <th>Статус заказа</th>
+            <th>Планируемая дата выполнения</th>
+            <th>Сумма заказа с НДС (без услуг)</th>
+            <th>Готовность акта</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for order in this.userOrders %}
+            <tr style="vertical-align: top;">
+                <td style="border: 1px solid #ccc;padding: 5px;"><b>{{ order.orderNumber }}</b></td>
+                <td style="border: 1px solid #ccc;padding: 5px;">{{ order.user.profile.fullName | default }}</td>
+                <td style="border: 1px solid #ccc;padding: 5px;"><b>Телефон:</b><br>{{ order.user.phone }}<br><b>Email:</b><br>{{ order.user.email }}</td>
+                <td style="border: 1px solid #ccc;padding: 5px;">{{ order.status }}</td>
+                <td style="border: 1px solid #ccc;padding: 5px;">{{ order.date|date('d.m.Y') }}</td>
+                <td style="border: 1px solid #ccc;padding: 5px;">{{ order.amount|number_format(0, '.', ' ') }}</td>
+                <td style="border: 1px solid #ccc;padding: 5px;">{{ order.actReady }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% set total = this.userOrders.count|default %}
+    {% if total > 0 and total > this.perPage %}
+        {% set totalPage = (total / this.perPage)|round(0, 'ceil') %}
+        <div class="flex flex-row gap-2 mob:flex-col-reverse w-full justify-between mob:justify-center items-center my-5 mob:my-2">
+
+            <div class="flex flex-row gap-2">
+                {% for page in range(this.page - 3, this.page + (this.page < 3 ? 6 - this.page : 3)) %}
+                    {% if page > 0 and page <= totalPage %}
+                        <button data-model="page" data-value="{{ page }}" data-action="live#update"
+                                class="button button--paginator {% if page == this.page %}active{% endif %}"
+                        >{{ page }}</button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+    {% endif %}
+</div>

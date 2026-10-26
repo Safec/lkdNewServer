@@ -1,0 +1,75 @@
+.img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.link {
+    @apply text-primary cursor-pointer;
+}
+
+.image-control {
+    @apply relative;
+
+    &__img {
+        @apply rounded-lg object-cover h-full;
+    }
+
+    &__delete, &__cover {
+        @apply block absolute bottom-2 w-6 h-6 rounded bg-white/[0.6] cursor-pointer;
+
+        & .mask-icon {
+            -webkit-mask-size: 20px 20px;
+            mask-size: 20px 20px;
+        }
+
+        .symfony-form & {
+            @apply bg-white/[0.6] text-mine-shaft border-none p-0 rounded z-[1] #{!important};
+
+            &:hover {
+                @apply bg-white/[0.8] #{!important};
+            }
+        }
+
+        &.active, input:checked + & {
+            @apply bg-primary text-white fill-white #{!important};
+
+            &:hover {
+                @apply bg-primary/[0.8] #{!important};
+            }
+        }
+    }
+
+    &__delete {
+        @apply right-2;
+    }
+
+    &__cover {
+        @apply left-2;
+    }
+}
+
+.back {
+    @apply inline-flex text-nobel text-base items-center cursor-pointer;
+
+    &:hover {
+        @include hoverable {
+            @apply text-mine-shaft;
+        }
+    }
+
+    &::before {
+        @include mask-icon;
+        @apply block bg-current w-5 h-5 mr-1.5;
+
+        --url: var(--icon-back);
+        content: "";
+    }
+}
+
+.desktop\:hidden {
+    display: none !important;
+    @screen tab {
+        display: inherit !important;
+    }
+}

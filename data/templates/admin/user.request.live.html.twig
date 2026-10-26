@@ -1,0 +1,29 @@
+{% extends 'admin/_layout.html.twig' %}
+{% set showHeaderAction = alone is defined and alone %}
+
+    {% block header_action %}
+        {% if showHeaderAction %}
+            {% include 'admin/_header_action.html.twig' with {'href': path('admin.requests'), 'caption': 'Показать все обращения'} %}
+        {% endif %}
+    {% endblock %}
+
+{% block content %}
+
+    {% if showHeaderAction %}
+        <h4 class="mt-5 mb-5">Обращение дизайнера</h4>
+    {% else %}
+        <h4 class="mt-5 mb-5">История обращений дизайнеров</h4>
+    {% endif %}
+
+    <div class="main__content">
+
+        {{ component('SearchRequests', {
+            'userRequests': userRequests|default([]),
+            'perPage': per_page,
+            'page': page,
+        }) }}
+
+    </div>
+
+
+{% endblock %}

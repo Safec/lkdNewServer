@@ -1,0 +1,103 @@
+{% set fieldNames = {
+    'fullName': 'Заказчик',
+    'phone': 'Телефон заказчика',
+    'address': 'Адрес доставки/объекта',
+    'productList': 'Предварительный список товаров',
+    'question': 'Вопрос',
+    'way': 'Куда отправить ответ',
+    'link': 'Ссылка на нужный товар на сайте',
+    'sale': 'Размер скидки клиента',
+    'type': 'Тип запроса',
+    'attached': 'Приложенные файлы',
+    'invoice': 'Счет',
+    'project_info': 'Информация о проекте'
+} %}
+<div {{ attributes }}>
+        <div class="field field--search mask-icon--search mb-5 mob:mb-2 w-full">
+            <input name="search" type="text" data-model="query" data-action="live#action" data-action-name="debounce(300)|onChangeFilter" class="input input--icon w-full" placeholder="Поиск по дизайнеру" title="">
+        </div>
+        <table border="1" style="width: 100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО дизайнера</th>
+                <th>Контакты<br>дизайнера</th>
+                <th>Данные</th>
+                <th>Обработан</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for request in this.userRequests %}
+                {% set data = request.data %}
+                <tr style="vertical-align: top;">
+                    <td style="border: 1px solid #ccc;padding: 5px;"><b>{{ request.id }}</b><br>{{ request.createdAt|date('d.m.Y H:i:s') }}</td>
+                    <td style="border: 1px solid #ccc;padding: 5px;">{{ request.user.profile.fullName | default }}</td>
+                    <td style="border: 1px solid #ccc;padding: 5px;"><b>Телефон:</b><br>{{ request.user.phone }}<br><b>Email:</b><br>{{ request.user.email }}</td>
+                    <td style="border: 1px solid #ccc;padding: 5px;">
+                        <div class="type">
+                            {% if data.type is defined %}
+                                {{ data.type }}
+                            {% endif %}</div>
+                        {% for key, value in data %}
+                            {% if fieldNames[key] is defined and key not in ['invoice', 'project_info', 'type'] %}
+                                <div>
+                                    <strong>{{ fieldNames[key] }}:</strong>
+                                    {% if key == 'attached' %}
+                                        {% set attachedFiles = value %}
+                                        {% for type, files in attachedFiles %}
+                                            <div>
+                                                <strong>{{ fieldNames[type] }}:</strong>
+                                                <ul>
+                                                    {% for file in files %}
+                                                        <li><a href="/private{{ asset(file) }}" target="_blank">{{ file|split('/')|last }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% if value is iterable %}
+                                            <ul>
+                                                {% for item in value %}
+                                                    <li>{{ item }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            {{ value|replace({'<br />': "\n", '<br>': "\n"}) }}
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td style="border: 1px solid #ccc;padding: 5px;">
+                        <div class="">
+                            {{ component('RequestProcessedSwitch', {
+                                'requestId': request.id,
+                                'data-live-id': 'request-switch-' ~ request.id,
+                            }) }}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% set total = this.userRequests.count|default %}
+        {% if total > 0 and total > this.perPage %}
+            {% set totalPage = (total / this.perPage)|round(0, 'ceil') %}
+            <div class="flex flex-row gap-2 mob:flex-col-reverse w-full justify-between mob:justify-center items-center my-5 mob:my-2">
+
+                <div class="flex flex-row gap-2">
+                    {% for page in range(this.page - 3, this.page + (this.page < 3 ? 6 - this.page : 3)) %}
+                        {% if page > 0 and page <= totalPage %}
+                            <button data-model="page" data-value="{{ page }}" data-action="live#update"
+                                    class="button button--paginator {% if page == this.page %}active{% endif %}"
+                            >{{ page }}</button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+            </div>
+        {% endif %}
+    </div>

@@ -1,0 +1,94 @@
+{% extends '_layout.html.twig' %}
+
+{% block body %}
+    <div class="profile-page">
+        <aside class="sidebar profile-page__sidebar">
+            {% include 'admin/_header.html.twig' with {'class': 'sidebar__profile'} %}
+
+            {% set menu = [
+                {
+                    'title': 'Каталог моделей',
+                    'icon': 'ar-view',
+                    'path': path('admin.catalog'),
+                    'disabled': false,
+                    'role': 'ROLE_MANAGER',
+                },
+                {
+                    'title': 'Дизайнеры',
+                    'icon': 'design',
+                    'path': path('admin.designers'),
+                    'disabled': false,
+                    'role': 'ROLE_MANAGER',
+                },
+                {
+                    'title': 'Заказы',
+                    'icon': 'order',
+                    'path': path('admin.designers.order_list'),
+                    'disabled': false,
+                    'role': 'ROLE_MANAGER',
+                },
+                {
+                    'title': 'Менеджеры',
+                    'icon': 'manage',
+                    'path': path('admin.managers'),
+                    'disabled': false,
+                    'role': 'ROLE_BOSS',
+                },
+                {
+                    'title': 'Мероприятия',
+                    'icon': 'location',
+                    'path': path('admin.events'),
+                    'disabled': false,
+                    'role': 'ROLE_MANAGER',
+                },
+                {
+                    'title': 'Обращения',
+                    'icon': 'design',
+                    'path': path('admin.requests'),
+                    'disabled': false,
+                    'role': 'ROLE_MANAGER',
+                },
+                {
+                    'title': 'Дизайнеры',
+                    'icon': 'design',
+                    'path': path('admin.designers'),
+                    'disabled': false,
+                    'role': 'ROLE_MANAGER',
+                    'class': 'no-visibility desktop-url mt337'
+                },
+                {
+                    'title': 'Профиль',
+                    'icon': 'face',
+                    'path': path('admin.profile'),
+                    'disabled': false,
+                    'role': 'ROLE_BOSS'
+                },
+            ] %}
+
+            {% include '_common/_menu.html.twig' with {'menu': menu} %}
+
+        </aside>
+
+        {% block main %}
+            <main class="main profile-page__main">
+                <div class="container">
+                    {% block header %}
+                        <div class="main-header main__header">
+                            {% include 'admin/_header.html.twig' with {'class': 'main-header__profile'} %}
+                            {% block header_action %}{% endblock %}
+                            <div class="burger-icon" id="burgerIcon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                    <div class="main__content">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </main>
+        {% endblock %}
+    </div>
+{% endblock %}

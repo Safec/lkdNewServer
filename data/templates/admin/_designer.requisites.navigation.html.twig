@@ -1,0 +1,39 @@
+{% set navigation = [
+    {
+        'title': '1. Форма юридического лица',
+        'path': path('admin.designer.requisites.legal_entity', {'id': designer.id}),
+    },
+    {
+        'title': '2. Личные данные',
+        'path': path('admin.designer.requisites.personal_data', {'id': designer.id}),
+    },
+    {
+        'title': '3. Загрузка документов',
+        'path': path('admin.designer.requisites.documents_upload', {'id': designer.id}),
+    },
+    {
+        'title': '4. Номер договора',
+        'path': path('admin.designer.requisites.contract_number', {'id': designer.id}),
+    },
+] %}
+
+{% set active_num = 0 %}
+{% for entry in navigation %}
+    {% if app.request.pathinfo starts with entry.path %}
+        {% set active_num = loop.index %}
+    {% endif %}
+{% endfor %}
+
+<div class="requisites__header requisites__header--admin">
+    <div class="{% if active_num|default %}position-{{ active_num }}{% endif %}">
+        <div class="flex flex-row gap-10 min-w-full max-w-full">
+            {% for entry in navigation %}
+                <div>
+                    <a href="{{ entry.path }}"
+                       class="requisites__header__title {% if not (app.request.pathinfo starts with entry.path) %}disabled{% endif %}"
+                    >{{ entry.title }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

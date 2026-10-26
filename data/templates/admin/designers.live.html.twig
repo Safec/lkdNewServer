@@ -1,0 +1,20 @@
+{% extends 'admin/_layout.html.twig' %}
+
+{% block content %}
+
+    {% import '_popup.html.twig' as popup %}
+
+    <div class="main__content">
+
+        {{ component('SearchDesigners', {
+            'designers': designers|default([]),
+            'perPage': per_page,
+            'page': page,
+            'sort': sort,
+            'sort': sortDirection,
+            'view': view|default('grid'),
+        }) }}
+
+    </div>
+
+{% endblock %}

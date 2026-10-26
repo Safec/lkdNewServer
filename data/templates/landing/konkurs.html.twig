@@ -1,0 +1,341 @@
+{% extends '_layout.html.twig' %}
+
+{% block title %}Конкурс для дизайнеров интерьеров Идеальная квартира Askona{% endblock %}
+{% block description %}Прими участие в конкурсе дизайнеров интерьеров от Askona и получи призы!{% endblock %}
+
+{% block landCss %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+  <main class="konkurs">
+    <div class="konkurs-intro">
+      <div class="konkurs-intro-header konkurs-intro__header">
+        <a href="https://www.askona.ru/">
+          <img class="konkurs-intro-header__logo" src="/build/images/logo-light.svg" alt="Askona">
+        </a>
+        <div class="konkurs-intro-header__contacts__icons">
+          <a href="mailto:askona_design@askona.ru" target="_blank"><img src="/build/images/landing/konkurs/icons/email.png" /></a>
+          <a href="https://t.me/AskonaDesign" target="_blank"><img src="/build/images/landing/konkurs/icons/telega.png" /></a>
+          <a href="https://max.ru/u/f9LHodD0cOKpQt8xYdtLaau3eJChFPrpDZQydIHZPa6LqwT2mr_9osOacds" target="_blank"><img src="/build/images/landing/konkurs/icons/phone.png" /></a>
+        </div>
+        <div class="konkurs-intro-header-contacts konkurs-intro-header__contacts">
+          <a class="konkurs-intro-header-contacts__phone" href="tel:88002004090">8 800 200-40-90</a>
+          <a
+                  class="konkurs-intro-header-contacts__recall" style="cursor: pointer"
+                  data-bs-toggle="modal" data-bs-target="#questionModal"
+          >Задать вопрос</a>
+        </div>
+        <div>
+          <a class="askona-button konkurs-intro-header__cooperation" href="#projectModal">
+            Участвовать
+          </a>
+        </div>
+      </div>
+      <div class="konkurs-intro__contentblock">
+        <div class="konkurs-intro__content">
+          <p class="konkurs-intro__description">
+            Конкурс для дизайнеров интерьеров
+          </p>
+          <h1 class="konkurs-intro__title">
+            Идеальная квартира
+          </h1>
+          <a class="askona-button konkurs-intro__cooperation" href="#projectModal">
+            Участвовать
+          </a>
+        </div>
+        <div class="konkurs__opisanie_desktop">
+          <div class="block1">
+            Приглашаем на конкурс дизайн-проектов Askona, где в фокусе - комфорт и стиль. Представьте жилые интерьеры с товарами Askona и Askona Home в главных ролях.
+          </div>
+          <div class="block2">
+            Экспертное жюри оценит гармонию, эстетику и функциональность пространства, созданного в философии здорового сна и уюта. Победители получат ценные призы.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="konkurs__opisanie_mobile">
+      <div class="block1">
+        Приглашаем на конкурс дизайн-проектов Askona, где в фокусе - комфорт и стиль. Представьте жилые интерьеры с товарами Askona и Askona Home в главных ролях.
+      </div>
+      <div class="block2">
+        Экспертное жюри оценит гармонию, эстетику и функциональность пространства, созданного в философии здорового сна и уюта. Победители получат ценные призы.
+      </div>
+      <div>
+        <a class="askona-button konkurs__opisanie_mobile__cooperation" href="#projectModal">
+          Участвовать
+        </a>
+      </div>
+    </div>
+
+    <div class="konkurs__descr_outer">
+      <div class="konkurs__descr">
+        К участию в конкурсе принимаются работы с мебелью Askona
+        (кроме матрасов и текстиля) как реализованные проекты, так и 3D-визуализации
+      </div>
+    </div>
+
+    <div class="konkurs__nominations">
+      <div class="konkurs-nominations-header">
+        <div class="konkurs-nominations-header__text">
+          <h2 class="h1">Номинации</h2>
+        </div>
+      </div>
+
+      <ol class="konkurs-nominations">
+        <li class="konkurs-nominations__item">
+          <img src="/build/images/landing/konkurs/nominations/1.png" alt="">
+          <div class="konkurs-nominations__overlay"><p class="konkurs-nominations__title">Квартира<br>в аренду</p></div>
+        </li>
+
+        <li class="konkurs-nominations__item">
+          <img src="/build/images/landing/konkurs/nominations/2.png" alt="">
+          <div class="konkurs-nominations__overlay"><p class="konkurs-nominations__title">Дофаминовый<br>интерьер</p></div>
+        </li>
+
+        <li class="konkurs-nominations__item">
+          <img src="/build/images/landing/konkurs/nominations/3.png" alt="">
+          <div class="konkurs-nominations__overlay"><p class="konkurs-nominations__title">Проект студии</p></div>
+        </li>
+        <li class="konkurs-nominations__item">
+          <img src="/build/images/landing/konkurs/nominations/4.png" alt="">
+          <div class="konkurs-nominations__overlay"><p class="konkurs-nominations__title">Дизайн детской<br>комнаты</p></div>
+        </li>
+
+        <li class="konkurs-nominations__item konkurs-nominations__item--wide">
+          <img src="/build/images/landing/konkurs/nominations/5.png" alt="">
+          <div class="konkurs-nominations__overlay">
+            <p class="konkurs-nominations__title">Уютная спальня с текстилем<br>и декором от Аскона</p>
+            <div class="konkurs-nominations__description">
+              В этой номинации участвуют проекты с текстилем и<br>декором Askona - постельное белье, покрывала, шторы<br>и декор
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="konkurs__juri">
+      <div class="konkurs-nominations-header">
+        <div class="konkurs-nominations-header__text">
+          <h2 class="h1">Жюри</h2>
+        </div>
+      </div>
+      <div class="konkurs-juri">
+        <div class="konkurs-juri-card">
+          <div class="konkurs-juri-card__image">
+            <img src="/build/images/landing/konkurs/juri/1.png" alt="">
+          </div>
+          <p class="konkurs-juri-card__title">
+            Татьяна Кардью
+          </p>
+          <p class="konkurs-juri-card__text">
+            Хоумстейджер-декоратор, сооснователь Ассоциации интерьерных специалистов, член жюри "Хоумстейджер года" 2024-2025
+          </p>
+        </div>
+        <div class="konkurs-juri-card">
+          <div class="konkurs-juri-card__image">
+            <img src="/build/images/landing/konkurs/juri/2.png" alt="">
+          </div>
+          <p class="konkurs-juri-card__title">
+            Карина Алтунина
+          </p>
+          <p class="konkurs-juri-card__text">
+            Архитектор, дизайнер интерьера, основательница архитектурного бюро ИДК Бюро (IDK Buro)
+          </p>
+        </div>
+        <div class="konkurs-juri-card">
+          <div class="konkurs-juri-card__image">
+            <img src="/build/images/landing/konkurs/juri/3.png" alt="">
+          </div>
+          <p class="konkurs-juri-card__title">
+            Олеся Черкунова
+          </p>
+          <p class="konkurs-juri-card__text">
+            Дизайнер-декоратор, хоумстейджер, блогер
+          </p>
+        </div>
+        <div class="konkurs-juri-card">
+          <div class="konkurs-juri-card__image">
+            <img src="/build/images/landing/konkurs/juri/4.png" alt="">
+          </div>
+          <p class="konkurs-juri-card__title">
+            Кира Разумникова
+          </p>
+          <p class="konkurs-juri-card__text">
+            Архитектор дизайнер, основатель дизайн студии и онлайн школы Киры Разумниковой
+          </p>
+        </div>
+        <div class="konkurs-juri-card">
+          <div class="konkurs-juri-card__image">
+            <img src="/build/images/landing/konkurs/juri/5.png" alt="">
+          </div>
+          <p class="konkurs-juri-card__title">
+            Камалова Полина
+          </p>
+          <p class="konkurs-juri-card__text">
+            Руководитель отдела локального маркетинга Аскона
+          </p>
+        </div>
+        <div class="konkurs-juri-card">
+          <div class="konkurs-juri-card__image">
+            <img src="/build/images/landing/konkurs/juri/6.png" alt="">
+          </div>
+          <p class="konkurs-juri-card__title">
+            Мария Овчарова
+          </p>
+          <p class="konkurs-juri-card__text">
+            Руководитель направления по работе<br>с дизайнерами Askona
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="konkurs-timing konkurs__timing">
+      <div class="h1">Тайминг</div>
+      <div class="konkurs__timing-stages konkurs__timing__stages">
+        <div class="konkurs__timing__stages__card">
+          <div class="konkurs__timing__stages__card__timetext">
+            1 августа – 30 сентября
+          </div>
+          <p class="konkurs__timing__stages__card__title">
+            Подача заявок<br>на сайте
+          </p>
+        </div>
+        <div class="konkurs__timing__stages__card">
+          <div class="konkurs__timing__stages__card__timetext">
+            1 – 10 октября
+          </div>
+          <p class="konkurs__timing__stages__card__title">
+            Выбор победителей<br>и голосование
+          </p>
+        </div>
+        <div class="konkurs__timing__stages__card">
+          <div class="konkurs__timing__stages__card__timetext">
+            20 октября
+          </div>
+          <p class="konkurs__timing__stages__card__title">
+            Подведение итогов и<br>объявление<br>победителей
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="konkurs-support konkurs__support">
+      <div class="konkurs__support__container">
+        <div class="konkurs__support__container-header">
+          <div class="konkurs__support__container-header__text">
+            <div class="h1">Призовой фонд</div>
+          </div>
+          <div class="konkurs__support__container-header__text2">
+            <p>
+              3 победителя в каждой номинации. Каждый победитель получит публикацию<br>работ в социальных сетях Askona в Бренд Медиа Sleep Club и диплом<br>в электронном формате
+            </p>
+          </div>
+        </div>
+
+        <div class="konkurs-support-stages konkurs-support__stages">
+          <div class="konkurs-card">
+            <div class="mask-icon konkurs-card__icon konkurs-card__icon--discount1"></div>
+            <p class="konkurs-card__title">
+              Сертификат на сумму<br>50 000 рублей
+            </p>
+            <p class="konkurs-card__text">
+              на покупку товаров Askona
+            </p>
+          </div>
+          <div class="konkurs-card">
+            <div class="mask-icon konkurs-card__icon konkurs-card__icon--discount2"></div>
+            <p class="konkurs-card__title">
+              Сертификат на сумму<br>30 000 рублей
+            </p>
+            <p class="konkurs-card__text">
+              на покупку товаров Askona
+            </p>
+          </div>
+          <div class="konkurs-card">
+            <div class="mask-icon konkurs-card__icon konkurs-card__icon--discount3"></div>
+            <p class="konkurs-card__title">
+              Сертификат на сумму<br>20 000 рублей
+            </p>
+            <p class="konkurs-card__text">
+              на покупку товаров Askona
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="konkurs-usage konkurs__usage">
+      <div class="h1">Как принять участие</div>
+
+      <div class="konkurs-usage-about konkurs-usage__about">
+        <ol class="konkurs-usage-stages konkurs-usage-about__stages">
+
+          <li class="konkurs-usage-stages__stage">
+            <div class="konkurs-usage-stage-grid">
+              <div class="konkurs-usage-stage konkurs-usage-stage-wrapper__content">
+                <p class="konkurs-usage-stage__title">Создайте или реализуйте<br>проект комнаты</p>
+                <div class="konkurs-usage-stage__text">с товарами Askona и Askona Home</div>
+              </div>
+
+              <img class="konkurs-usage-stage-wrapper__ui" src="/build/images/landing/konkurs/ui-1.png">
+            </div>
+          </li>
+
+          <li class="konkurs-usage-stages__stage">
+            <div class="konkurs-usage-stage-grid">
+              <div class="konkurs-usage-stage konkurs-usage-stage-wrapper__content">
+                <p class="konkurs-usage-stage__title">Подготовьте не менее<br>5 качественных фото<br>или 3D-визуализаций</p>
+              </div>
+
+              <img class="konkurs-usage-stage-wrapper__ui" src="/build/images/landing/konkurs/ui-2.png">
+            </div>
+          </li>
+
+          <li class="konkurs-usage-stages__stage">
+            <div class="konkurs-usage-stage-grid">
+              <div class="konkurs-usage-stage konkurs-usage-stage-wrapper__content">
+                <p class="konkurs-usage-stage__title">Отправьте заявку на почту<br><a href="mailTo:askona_design@askona.ru">askona_design@askona.ru</a><br>до 30 сентября 2026 года</p>
+                <div class="konkurs-usage-stage__text">с темой: Работы на конкурс «Идеальная квартира»<br>или заполните форму на этой странице и приложите<br>ссылку на проект в облаке</div>
+              </div>
+
+              <img class="konkurs-usage-stage-wrapper__ui" src="/build/images/landing/konkurs/ui-3.png">
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </div>
+  </main>
+
+
+  {% include '/landing/common/footerKonkurs.twig' %}
+  {% include '/landing/common/modal.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(1383371, "init", {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:true,
+      trackHash:true,
+      ecommerce:"dataLayer"
+    });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/1383371" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+{% endblock %}

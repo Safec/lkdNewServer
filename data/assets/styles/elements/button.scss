@@ -1,0 +1,136 @@
+.symfony-form {
+    button, [type="submit"], [type="reset"], [type="button"] {
+        @extend .button, .button--primary;
+    }
+}
+
+.button {
+    $this: &;
+
+    @apply inline-flex items-center justify-center text-base text-center font-bold py-2.5 px-[22px] rounded-lg border-primary border-2 cursor-pointer;
+
+    &--primary {
+        @apply text-white bg-primary;
+
+        &:hover {
+            @apply bg-primary-hover border-primary-hover;
+        }
+    
+        &:active {
+            @apply bg-primary-pressed border-primary-pressed;
+        }
+    }
+
+    &--secondary {
+        @apply text-primary bg-white;
+
+        &:hover {
+            @apply bg-primary/[0.04] border-primary;
+        }
+
+        &:active {
+            @apply bg-primary/[0.12] border-primary;
+        }
+    }
+
+    &--additional {
+        @apply text-dim border-silver bg-white;
+
+        &:hover {
+            @apply bg-wild-sand border-silver;
+        }
+
+        &:active {
+            @apply bg-whisper border-silver;
+        }
+    }
+
+    &--outline {
+        @apply text-primary border-primary bg-white #{!important};
+
+        &:hover {
+            @apply bg-primary/[0.04] border-primary #{!important};
+        }
+
+        &:active {
+            @apply bg-primary/[0.12] border-primary #{!important};
+        }
+    }
+
+    &--paginator {
+        @apply border-transparent bg-transparent text-base p-2 h-10 w-10 #{!important};
+
+        &:hover {
+            @apply bg-primary-light #{!important};
+        }
+
+        &.active {
+            @apply border-primary bg-white #{!important};
+        }
+    }
+
+    &--compact {
+        @apply h-[40px];
+    }
+
+    &:disabled {
+        @apply text-dark-silver bg-whisper border-whisper;
+    }
+
+    &--xs {
+        @apply text-xs py-1.5 #{!important};
+    }
+
+    &--sm {
+        @apply text-sm py-2 #{!important};
+
+        // #{$this}__icon {
+        //     @apply -my-0.5;
+        // }
+    }
+
+    &--lg {
+        @apply text-lg py-3 #{!important};
+    }
+
+    &--full {
+        @apply w-full;
+    }
+
+    &--icon {
+        @apply pl-3 pr-4;
+    }
+
+
+    &__icon {
+        @apply w-6 h-6 bg-current mr-1 -my-0.5;
+    }
+}
+
+// Пока что не удалять!
+//
+// .button {
+//     &--secondary {
+//         @apply text-primary;
+
+//         &:hover {
+//             @apply bg-primary/[0.04];
+//         }
+
+//         &:active {
+//             @apply bg-primary/[0.12];
+//         }
+//     }
+
+//     &--additional {
+//         @apply text-dim border-silver;
+
+//         &:hover {
+//             @apply bg-wild-sand;
+//         }
+
+//         &:active {
+//             @apply bg-whisper;
+//         }
+//     }
+// }

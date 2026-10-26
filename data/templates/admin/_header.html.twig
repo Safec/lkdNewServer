@@ -1,0 +1,16 @@
+<a class="menu-profile{{ class|default ? ' ' ~ class : '' }}" href="{{ path('admin.profile') }}">
+    {% if app.user.profile.avatar|default %}
+        <img class="menu-profile__photo" src="{{ asset(parameters.images.path|trim('/') ~ '/' ~ app.user.profile.avatar|trim('/') ~ '?w=120&h=120&fit=crop') }}" alt="">
+    {% else %}
+        <img class="menu-profile__photo" src="{{ asset('build/images/missing-image--small.svg') }}" alt="">
+    {% endif %}
+
+    {% if app.user|default %}
+        <div class="menu-profile__info">
+            <p class="menu-profile__name">{{ app.user.profile.fullName|default(app.user.name|default(app.user.userIdentifier|default)) }}</p>
+            <p class="menu-profile__position">{{ app.user.profile.position|default }}</p>
+        </div>
+    {% else %}
+        <div class="menu-profile__no-data">Нет данных</div>
+    {% endif %}
+</a>
