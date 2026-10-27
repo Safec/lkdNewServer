@@ -9,6 +9,9 @@ services:
   php-fpm:
     environment:
       - APP_ENV=dev
+    volumes:
+      - ../data:/var/www/html
+      - ../fpm/zzz-custom.conf:/usr/local/etc/php-fpm.d/zzz-custom.conf:ro
 
   database:
     ports:
