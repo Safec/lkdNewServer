@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
         sockets \
         pcntl \
         pdo_pgsql \
-    && git clone --depth 1 --branch 6.2.0 https://github.com/phpredis/phpredis.git /tmp/phpredis \
+    && git clone --depth 1 --branch 6.0.2 https://github.com/phpredis/phpredis.git /tmp/phpredis \
     && cd /tmp/phpredis \
     && phpize \
     && ./configure \
@@ -42,8 +42,15 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable redis \
     && cd / \
     && rm -rf /tmp/phpredis \
-    && pecl install memcached \
-    && docker-php-ext-enable memcached
+   && git clone --depth 1 --branch v3.2.0 https://github.com/php-memcached-dev/php-memcached.git /tmp/php-memcached \
+    && cd /tmp/php-memcached \
+    && phpize \
+    && ./configure --disable-memcached-sasl \
+    && make -j"$(nproc)" \
+    && make install \
+    && docker-php-ext-enable memcached \
+    && cd / \
+    && rm -rf /tmp/php-memcached
 
 # Установка Composer (более надёжный способ)
 RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php \

@@ -15,8 +15,8 @@
 /data/.phpunit.result.cache
 
 # Uploads — данные пользователей
-/data/uploads/
-/data/public/uploads/
+/data/uploads
+/data/public/uploads
 
 # Docker
 /docker/.env
