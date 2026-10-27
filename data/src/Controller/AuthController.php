@@ -20,6 +20,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -30,6 +31,7 @@ class AuthController extends AbstractController
         private readonly OneTimeCodeAuthenticator $oneTimeCodeAuthenticator,
         private readonly PasswordAuthenticator $passwordAuthenticator,
         private readonly TranslatorInterface $translator,
+        private readonly LoggerInterface $logger
     ) {
     }
 
@@ -52,6 +54,8 @@ class AuthController extends AbstractController
 
         $ipRateLimit = $sendSmsCodeWithoutCaptchaLimiter->create($request->getClientIp())->consume(0);
         $useCaptcha = !$ipRateLimit->isAccepted();
+
+        $this->logger->info('OPTIONS', ['options' => $this->oneTimeCodeAuthenticator->options]);
 
         return $this->render('auth/login_with_sms_code.html.twig', [
             'last_phone' => $session->get('phone') ?: $authenticationUtils->getLastUsername(),
@@ -89,13 +93,24 @@ class AuthController extends AbstractController
     public function sendCode(
         Request $request,
         Session $session,
-        CsrfTokenManagerInterface $csrfTokenManager,
+        CsrfTokenManagerInterface $csrfTokenManager
     ): Response {
         try {
+            $this->logger->info('SEND_CODE CALLED', [
+                'phone' => $request->request->get('phone'),
+                'all' => $request->request->all(),
+            ]);
+
             $csrfToken = new CsrfToken(
                 (string)$this->oneTimeCodeAuthenticator->options['csrf_token_id'],
                 (string)$request->request->get((string)$this->oneTimeCodeAuthenticator->options['csrf_parameter'])
             );
+
+            $this->logger->info('CSRF CHECK', [
+                'expected_id' => $this->oneTimeCodeAuthenticator->options['csrf_token_id'],
+                'received_token' => $request->request->get('_csrf_token'),
+                'stored_token' => $csrfTokenManager->getToken($this->oneTimeCodeAuthenticator->options['csrf_token_id'])->getValue(),
+            ]);
 
             if (!$csrfTokenManager->isTokenValid($csrfToken)) {
                 throw new InvalidArgumentException('Ошибка проверки CSRF-токена.');
@@ -106,10 +121,18 @@ class AuthController extends AbstractController
             $phone = PhoneParser::normalizeOrExcept($phone);
 
             $this->oneTimeCodeAuthenticator->sendNewCode($request, $phone);
+
+            $this->logger->info('SEND_CODE DONE');
             $this->addFlash('success', "Код отправлен в SMS на номер $phone.");
 
             return $this->redirectToRoute('auth.auth');
         } catch (Exception $e) {
+
+            $this->logger->error('SEND_CODE FAILED', [
+                'error' => $e->getMessage(),
+                'phone' => $request->request->get('phone'),
+            ]);
+
             $this->addFlash(
                 'error',
                 $this->translator->trans(

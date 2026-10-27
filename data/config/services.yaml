@@ -81,6 +81,9 @@ services:
         arguments:
             $hCaptchaSecret: '%h_captcha.secret%'
 
+    App\EventListener\SmsFailureListener:
+        tags: [ 'kernel.event_listener' ]
+
     App\Service\Bitrix24DesignerService:
         arguments:
             $webhookUrl: '%bitrix24.webhook_url%'
