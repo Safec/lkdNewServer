@@ -57,11 +57,13 @@ class AuthController extends AbstractController
 
         $this->logger->info('OPTIONS', ['options' => $this->oneTimeCodeAuthenticator->options]);
 
-        return $this->render('auth/login_with_sms_code.html.twig', [
+        $response = $this->render('auth/login_with_sms_code.html.twig', [
             'last_phone' => $session->get('phone') ?: $authenticationUtils->getLastUsername(),
             'options' => $this->oneTimeCodeAuthenticator->options,
             'use_captcha' => $useCaptcha,
         ]);
+
+        return $response;
     }
 
     #[Route('/auth/manager', name: 'auth.login_with_password')]
