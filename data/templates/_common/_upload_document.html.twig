@@ -1,4 +1,4 @@
-{% macro single_document_uploader(form, upload_title='Загрузить документ', title='Загрузить документ') %}
+{% macro single_document_uploader(form, upload_title='Загрузить документ', title='Загрузить документ', is_public=false) %}
     <div class="ui-document-uploader {% if form.vars.required|default %}required{% endif %}">
         {% set files_index = form.files|length > 0 ? max(form.files|keys) + 1 : 0 %}
         {% set prototype_form = form.files.vars.prototype %}
@@ -35,7 +35,9 @@
                                 {{ tag|replace({
                                     '__name__': file_form.path.vars.value|split('/')|last,
                                     '__id__': file_form.path.vars.id,
-                                    '__href__': path('private_file', {'path': file_form.path.vars.value})
+                                    '__href__': is_public|default(false)
+                                    ? '/uploads/' ~ file_form.path.vars.value
+                                    : path('private_file', {'path': file_form.path.vars.value})
                                 })|raw }}
                             {% endif %}
                         {% endfor %}
