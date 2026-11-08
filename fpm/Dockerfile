@@ -33,6 +33,7 @@ RUN apt-get update && apt-get install -y \
         sockets \
         pcntl \
         pdo_pgsql \
+        exif \
     && git clone --depth 1 --branch 6.0.2 https://github.com/phpredis/phpredis.git /tmp/phpredis \
     && cd /tmp/phpredis \
     && phpize \
