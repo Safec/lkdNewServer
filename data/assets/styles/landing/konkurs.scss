@@ -169,16 +169,16 @@
 
 .konkurs-intro {
   @apply relative text-white bg-left bg-cover bg-no-repeat h-[1070px];
-  background-image: url("~@images/landing/konkurs/intro-desktop.png");
+  background-image: url("~@images/landing/konkurs/intro-desktop.jpg");
 
   @media (max-width: 1023px) {
     @apply bg-center h-[505px];
-    background-image: url("~@images/landing/konkurs/intro-desktop.png");
+    background-image: url("~@images/landing/konkurs/intro-desktop.jpg");
   }
 
   @media (max-width: 360px) {
     @apply bg-center h-[505px];
-    background-image: url("~@images/landing/konkurs/intro-mobile.png");
+    background-image: url("~@images/landing/konkurs/intro-desktop.jpg");
   }
 
   &::after {
@@ -187,6 +187,27 @@
 
     @media (max-width: 1023px) {
       @apply rounded-t-[20px];
+    }
+  }
+
+  /* Прозрачная кликабельная зона поверх кнопки «Подробнее» на фоновой картинке */
+  &__bg-button {
+    @apply absolute block z-[5] cursor-pointer;
+    left: 320px;
+    transform: translateX(-50%);
+    bottom: 135px;    /* ← подогнать под положение кнопки на картинке */
+    width: 420px;    /* ← ширина нарисованной кнопки */
+    height: 120px;    /* ← высота нарисованной кнопки */
+    border-radius: 30px;
+
+    /* Для отладки — раскомментируйте, чтобы увидеть зону клика */
+     /*background: rgba(255, 0, 0, 0.35);*/
+
+    @media (max-width: 1023px) {
+      width: 220px;
+      height: 60px;
+      left: 17%;
+      bottom: 55px;
     }
   }
 
@@ -450,7 +471,7 @@
 
 .konkurs-juri {
 
-  @apply grid grid-cols-3 gap-8 mt-8;
+  @apply grid grid-cols-4 gap-8 mt-8;
 
   @media (max-width: 1279px) {
     @apply grid-cols-2;
