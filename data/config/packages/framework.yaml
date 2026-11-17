@@ -10,6 +10,7 @@ framework:
     session:
         handler_id: 'session.handler.native_file'  # <-- ИЗМЕНИТЬ с null на это
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'  # <-- ДОБАВИТЬ
+        name: 'LKDSESSID'
         cookie_secure: auto
         cookie_samesite: lax
         storage_factory_id: session.storage.factory.native
